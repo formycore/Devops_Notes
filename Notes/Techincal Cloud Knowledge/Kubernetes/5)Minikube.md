@@ -4,4 +4,14 @@
 - how to configure minikube cluster setup
 - we need to check whether the hardware supports virtualization supports or not 
 - should be virtualization enabled
-- 
+- it should have any one of the vm
+- or with out vm also we can use minikube
+- just with docker
+  - **minkube start** -- when with vm
+  - **minikube start --driver=none** - when with docker no vm
+  - we can use linux and mac but not windows kernals without vm's
+<!--
+- disable selinux
+-->
+- setenforce 0
+- sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
