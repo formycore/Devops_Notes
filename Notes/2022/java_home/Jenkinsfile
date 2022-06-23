@@ -1,0 +1,12 @@
+node {
+    stage('SCM Checkout'){
+        git branch: 'feature', url: 'https://github.com/sandeepmchary/java_home.git'
+        echo "pulling from feature branch"
+    }
+    stage('Mvn Package'){
+        sh "mvn clean package"
+    }
+    stage('Copy the war from target to the '){
+        sh "scp -i /home/maanya/.ssh/id_rsa -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/docker-app/target/myweb-0.0.7-SNAPSHOT.war maanya@10.138.0.6:/home/maanya/jenkins"
+    }
+}

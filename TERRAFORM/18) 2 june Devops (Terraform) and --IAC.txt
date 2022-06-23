@@ -1,0 +1,66 @@
+
+- mostly packer not used for virtual box
+- Devloper with git
+- create a package format (war,dll,zip,tar)
+- Create a cloud image (packer)
+- use this image created in various environments (terraform)
+- packer and terraform are infra provision tools
+- ansible and chef can be used in both
+---------------------------------
+for another example
+- Devloper with git
+- create a package format (war,dll,zip,tar)
+- Create environments using infra provisioning
+- ONLY TERRAFORM
+- one approach with multi cloud
+- WANT TO PRESERVE EVERY DAYS IMAGES USE PACKER
+- IF WE DONT WANT WE CAN GO WITH TERRAFORM,ARM,CLOUD FORMATION
+- WHERE TERRAFORM IS USED
+	- EX: WE HAVE A JAVA BASED WEB APPLICATION DEPLOY THIS TO TEST ENVIRONMENT
+		1) IF THE ENVIRONMENT IS ALREADY PRESENT OR NOT
+		2) DO YOU WANT PRESERVE IMAGES
+		- IF THE ANSWER IS YES
+		- IT IS PACKER+TERRAFORM 
+		- IF NO 
+		- ONLY TERRAFORM,ARM,CLOUD FORMATION
+	- EX: STARTUP COMPANY  NGINX => NODEJS => MONGODB
+			- CUSTOMER DEMO
+				- 1) SAMPLE DB
+				- 2) DEPLOYING APP IN NODEJS
+				- 3) CONFIGURE NGINX
+					- SOLUTION: PACKER (MYOPTION)
+						- WHY DO WE NEED PACKER 
+							- DEMO DONT HAPPEN DAILY
+							- DEMO HAPPEN ON STABLE ENVIRONMENT
+							- WHENEVER WE HAVE STABLE ENVIRONMENT WE PRESERVE THEM WITH PACKER
+							- FOR EVERY SPRINT DEMOS WE USE PACKER
+    - creating an environments
+		- ex: 2 teams
+		- 1) works on application logic for payment solutions
+		- 2) ecommerce features
+		- here we create ST(system testing) environment so that all the features are tested
+		- if we use image daily we dont use packer 
+		- if we give beta release(image) once in three months so we can use packer here
+===========================================================================================
+TERRAFORM
+- build environments
+	- url/ipaddress
+	- terraform has five basic blocks
+		- provider 
+		- resource
+		- output
+		
+		- data source
+		- variable
+- run tf  => Environmental is created
+- it maintain something called as "state"
+- state file contains all the information like ec2 machine is created, ip address of the machine and all of the details that we have created is in the state file 
+- when ever we try to do again it will check for the state file 
+- where will be the state file  is in the same directory
+- what if there are 3 persons in different regions then what about the state file 
+- put state file in common place like backend like amazon backend or azure backend or shared directory or s3 backend
+- DONT MESS WITH STATE FILE
+- state file is used for idempotency 
+- github is for text files and state is binary file
+- in git we put terraform files
+- 

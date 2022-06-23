@@ -1,0 +1,25 @@
+{
+    "builders":[
+        {
+        "type":"amazon-ebs",
+        "access_key": "",
+        "secret_key": "",
+        "region": "us-east-2",
+        "source_ami": "ami-01e36b7901e884a10",
+        "instance_type": "t2.micro",
+        "ssh_username": "centos",
+        "ami_name":"packer-quick-start {{timestamp}}"
+        }
+            ],
+        "provisioners":[
+            {
+                "type":"shell",
+                "inline": [
+                    "sudo yum install epel-release -y",
+                    "sudo yum update -y",
+                    "sudo yum install nginx -y"
+    
+                ]
+            }
+        ]
+    }
