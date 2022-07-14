@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -24,4 +25,32 @@
       "Resource": ["arn:aws:s3:::chef-config-repo/*"]
     }
   ]
+=======
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:ListAllMyBuckets"
+      ],
+      "Resource": "arn:aws:s3:::*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::chef-config-repo"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": ["arn:aws:s3:::chef-config-repo/*"]
+    }
+  ]
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node {
     stage('SCM Checkout'){
         git 'https://github.com/javahometech/my-app.git'
@@ -5,4 +6,13 @@ node {
     stage('Mvn Package'){
         sh "mvn clean package"
     }
+=======
+node {
+    stage('SCM Checkout'){
+        git 'https://github.com/javahometech/my-app.git'
+    }
+    stage('Mvn Package'){
+        sh "mvn clean package"
+    }
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 }

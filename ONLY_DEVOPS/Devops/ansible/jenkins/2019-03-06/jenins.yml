@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: all
   become: yes
@@ -7,4 +8,15 @@
 
    - include: redhat_jenkins.yml
      when: ansible_os_family == "RedHat"
+=======
+---
+- hosts: all
+  become: yes
+  tasks:
+   - include: ubuntu_jenkins.yml
+     when: ansible_os_family == "Debian"
+
+   - include: redhat_jenkins.yml
+     when: ansible_os_family == "RedHat"
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     

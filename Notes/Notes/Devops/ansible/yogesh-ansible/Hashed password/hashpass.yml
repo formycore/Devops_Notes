@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: all
   user: ansible
@@ -14,4 +15,22 @@
     - name: root password change
       user:
         name=root  update_password=always password="{{root_pass}}"
+=======
+---
+- hosts: all
+  user: ansible
+  become: yes
+  tasks:
+    - name: Create new user
+      user:
+        name: package
+        uid: 1113
+        comment: Yogesh Mehta
+        password: "{{ user_pass }}"
+        shell: /bin/bash
+      tags: Create_User
+    - name: root password change
+      user:
+        name=root  update_password=always password="{{root_pass}}"
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
       tags: Update_root_pass

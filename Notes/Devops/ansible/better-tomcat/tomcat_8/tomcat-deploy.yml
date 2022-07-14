@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - name: copy war
   copy:
     src: /home/ansible/tom/gameoflife.war
@@ -5,4 +6,13 @@
     owner: tomcat
     group: tomcat
     mode: 0744
+=======
+- name: copy war
+  copy:
+    src: /home/ansible/tom/gameoflife.war
+    dest: /opt/tomcat/apache-tomcat-8.5.39/webapps/gameoflife.war
+    owner: tomcat
+    group: tomcat
+    mode: 0744
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
   

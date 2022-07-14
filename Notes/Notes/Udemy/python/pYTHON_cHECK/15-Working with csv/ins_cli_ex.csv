@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 SNO,Instance_ID,Instance_Type,Architecture,Launch_Time,Private_IP,Volume_Id
+=======
+SNO,Instance_ID,Instance_Type,Architecture,Launch_Time,Private_IP,Volume_Id
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

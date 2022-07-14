@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts : all
   become : yes
@@ -11,3 +12,18 @@
         name: libsemanage-python
         state: present
         
+=======
+---
+- hosts : all
+  become : yes
+  tasks:
+    - name : libselinux-python
+      yum:
+        name : libselinux-python
+        state: present
+    - name : libsemanage-python
+      yum:
+        name: libsemanage-python
+        state: present
+        
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

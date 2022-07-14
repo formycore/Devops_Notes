@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # The indexing of the array starts from ZERO (0). Hence the output in the above example will be soda
 ---
 - hosts: centos
@@ -9,4 +10,17 @@
   tasks:
     - name: Ansible array example
       debug:
+=======
+# The indexing of the array starts from ZERO (0). Hence the output in the above example will be soda
+---
+- hosts: centos
+  become: yes
+  vars:
+    name: 
+      - kinley
+      - soda  
+  tasks:
+    - name: Ansible array example
+      debug:
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         msg: "{{ name[1] }}"

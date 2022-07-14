@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: docker
   become: yes
@@ -34,4 +35,42 @@
     - name: Restarted docker service
       service:
         name: docker
+=======
+---
+- hosts: docker
+  become: yes
+  tasks:
+    - name: Create a docker directory
+      file: 
+        path: /etc/systemd/system/docker.service.d 
+        state: directory
+    - name: put the docker conf file in the above location
+      copy: 
+        src: docker.conf 
+        dest: /etc/systemd/system/docker.service.d
+    - name: Restart Docker Deamon
+      service:
+        state: restarted
+        name: docker
+        tags: 
+          - docker
+
+
+
+
+
+
+
+
+
+
+
+
+
+    - name: restart docker deamon
+      command: systemctl deamon-reload
+    - name: Restarted docker service
+      service:
+        name: docker
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         state: restarted

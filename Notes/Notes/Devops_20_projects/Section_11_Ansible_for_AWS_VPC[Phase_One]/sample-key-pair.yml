@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - hosts: localhost
   connection: local
   gather_facts: false
@@ -15,4 +16,23 @@
         dest: ./sample-key.pem
       when: keyout.changed
       
+=======
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: sample ec2 key
+      ec2_key:
+        name: samantha
+        region: us-east-1
+      register: keyout
+    - debug:
+        var: keyout
+    - name: store the login details
+      copy:
+        content: "{{keyout.key.private_key}}"
+        dest: ./sample-key.pem
+      when: keyout.changed
+      
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     

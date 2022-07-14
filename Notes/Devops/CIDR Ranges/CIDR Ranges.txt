@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Hi
 
 suppose if we have cidr blocks as
@@ -9,4 +10,17 @@ starting Ip : 10.0.0.0
 
 so the ending ip will be
 
+=======
+Hi
+
+suppose if we have cidr blocks as
+10.0.0.0/26 then it means
+the ip address starts from
+starting Ip : 10.0.0.0
+
+2^(32-26) =6= 2^6 =64
+
+so the ending ip will be
+
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 Ending IP : 10.0.0.63

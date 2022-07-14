@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: docker
   become: yes
@@ -12,4 +13,20 @@
     - name: Restarted docker service
       service:
         name: docker
+=======
+---
+- hosts: docker
+  become: yes
+  tasks:
+    - name: create and copy the files
+      copy:
+        src: /home/ansible/docker/docker.conf/
+        dest: etc/systemd/system/docker.service.d/docker.conf
+        remote_src: yes
+    - name: restart docker deamon
+      command: systemctl deamon-reload
+    - name: Restarted docker service
+      service:
+        name: docker
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         state: restarted

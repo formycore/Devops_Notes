@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: all
   become: yes
@@ -18,4 +19,26 @@
     service:
       name: tomcat
       state: started
+=======
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install openjdk
+    yum:
+      name: java-1.8.0-openjdk.x86_64
+      state: present
+  - name: install tomcat7
+    yum:
+      name: tomcat
+      state: present
+  - name: download jenkins to webapps folder
+    get_url:
+      url:
+      dest: /usr/share/tomcat/webapps/jenkins.war
+  - name: Enable and start tomcat
+    service:
+      name: tomcat
+      state: started
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
       enabled: yes

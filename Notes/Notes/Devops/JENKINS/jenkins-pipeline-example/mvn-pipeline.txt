@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 pipeline{
 	agent any
 	environment{
@@ -16,3 +17,23 @@ pipeline{
 		}
 	}
 }
+=======
+pipeline{
+	agent any
+	environment{
+		PATH = "$PATH:/opt/apache-maven/bin"
+	}
+	stages{
+		stage("Git Checkout"){
+			steps{
+				git credentialsId: 'javahome', url: 'https://github.com/javahometech/myweb.git'
+			}
+		}
+		stage("Maven Builds"){
+			steps{
+				sh "mvn clean package"
+			}
+		}
+	}
+}
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 - we need to 2 servers here
 - in one server install jenkins,git and docker (jenkins need to run some docker commands so we need both jenkins and docker also)
@@ -8,3 +9,15 @@
    -- systemctl restart jenkins
    -- docker info
    
+=======
+
+- we need to 2 servers here
+- in one server install jenkins,git and docker (jenkins need to run some docker commands so we need both jenkins and docker also)
+- in one server install only docker
+- in the jenkins 
+   -- after installing docker 
+   -- usermod -aG docker jenkins
+   -- systemctl restart jenkins
+   -- docker info
+   
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

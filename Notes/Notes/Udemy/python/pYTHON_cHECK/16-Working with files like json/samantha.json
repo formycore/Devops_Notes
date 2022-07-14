@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "Name": "samantha",
     "skill": [
@@ -5,4 +6,13 @@
         "shell",
         "linux_admin"
     ]
+=======
+{
+    "Name": "samantha",
+    "skill": [
+        "python",
+        "shell",
+        "linux_admin"
+    ]
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 }

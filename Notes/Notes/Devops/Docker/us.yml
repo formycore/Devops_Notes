@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: docker
   become: yes
@@ -8,4 +9,16 @@
       groups: docker
       append: yes
   - name: reset ssh connection 
+=======
+---
+- hosts: docker
+  become: yes
+  tasks:
+  - name: user add 
+    user: 
+      name: ansible
+      groups: docker
+      append: yes
+  - name: reset ssh connection 
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     meta: reset_connection

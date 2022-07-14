@@ -1,0 +1,7 @@
+{
+		"aws_access_key":"" ,
+		"aws_secret_key": "",
+		"aws_region": "us-east-2",
+		"aws_ami-id": "ami-01e36b7901e884a10",
+		"aws_instance_type": "t2.micro"
+}

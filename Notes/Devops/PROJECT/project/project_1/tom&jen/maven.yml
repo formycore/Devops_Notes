@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: localhost
   become: yes
@@ -20,4 +21,28 @@
       shell: . /etc/profile
     - name: Check Maven Version
       command:
+=======
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: install apache maven
+      unarchive:
+        src: https://www-eu.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
+        dest: /opt
+        remote_src: yes
+    - name: link files 
+      file:
+        src: /opt/apache-maven-3.6.0
+        dest: /opt/apache-maven
+        state: link
+    - name: environment variable
+      lineinfile:
+        dest: /etc/profile
+        line: export PATH=$PATH:/opt/apache-maven/bin
+    - name:  load the environment variables
+      shell: . /etc/profile
+    - name: Check Maven Version
+      command:
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         mvn -version

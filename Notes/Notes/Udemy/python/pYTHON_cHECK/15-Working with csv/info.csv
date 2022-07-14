@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 
 s_no,Name,Salary,Skill
 1,John,2000$,Python
+=======
+
+s_no,Name,Salary,Skill
+1,John,2000$,Python
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 2,Queen,3000$,Devops

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - changing the from staging area to workspace
 - vi sample-test1.txt
   -- this is about the git commits and total city
@@ -8,4 +9,16 @@
   - git reset HEAD sample-test1.txt(staging area to workspace)
   - git checkout develop
   - git status
+=======
+- changing the from staging area to workspace
+- vi sample-test1.txt
+  -- this is about the git commits and total city
+  :wq!
+  --- git status
+  - git diff
+  - git add .(moved from the workspace to staging area)
+  - git reset HEAD sample-test1.txt(staging area to workspace)
+  - git checkout develop
+  - git status
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
   - git reset HEAD~(last commit is reverted)

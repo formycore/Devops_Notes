@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 S_no,Instance_ID,Instance_type,Architecture,launch_time,public_ip_address,private_ip,Volume_id
 1,i-08c45218b24fc34d9,t2.micro,x86_64,2020-10-19 17:39:28+00:00,,172.31.16.101,vol-01a0444bda9e824db
 2,i-09cadc9593f35e6b5,t2.micro,x86_64,2020-10-19 17:15:53+00:00,,172.31.2.137,vol-0c33421fe81a6f760
+=======
+S_no,Instance_ID,Instance_type,Architecture,launch_time,public_ip_address,private_ip,Volume_id
+1,i-08c45218b24fc34d9,t2.micro,x86_64,2020-10-19 17:39:28+00:00,,172.31.16.101,vol-01a0444bda9e824db
+2,i-09cadc9593f35e6b5,t2.micro,x86_64,2020-10-19 17:15:53+00:00,,172.31.2.137,vol-0c33421fe81a6f760
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

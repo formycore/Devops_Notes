@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: centos
   become: yes
@@ -8,4 +9,16 @@
         dest: /home/ansible/lenovo.txt
 
 
+=======
+---
+- hosts: centos
+  become: yes
+  tasks:
+    - name: Copy the content to file
+      copy:
+        content: "Hello this is lenovo"
+        dest: /home/ansible/lenovo.txt
+
+
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
          

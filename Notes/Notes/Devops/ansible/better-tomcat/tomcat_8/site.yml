@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 ---
 - hosts: tom
   become: yes
   tasks:
   - include: tomcat8.yml
     name: tomcat_deploy
+=======
+---
+- hosts: tom
+  become: yes
+  tasks:
+  - include: tomcat8.yml
+    name: tomcat_deploy
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
   - include: tomcat-deploy.yml

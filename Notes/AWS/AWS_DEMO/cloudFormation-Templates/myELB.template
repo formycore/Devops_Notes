@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "myELB": {
         "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
@@ -22,4 +23,30 @@
             ]
         }
     }
+=======
+{
+    "myELB": {
+        "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+        "Properties": {
+            "AvailabilityZones": {
+                "Fn::GetAZs": ""
+            },
+            "HealthCheck": {
+                "HealthyThreshold": "10",
+                "Interval": "15",
+                "Target": "HTTP:80/monitor/healthcheck",
+                "Timeout": "2",
+                "UnhealthyThreshold": "2"
+            },
+            "Listeners": [
+                {
+                    "InstancePort": "80",
+                    "LoadBalancerPort": "80",
+                    "Protocol": "HTTP",
+                    "PolicyNames": []
+                }
+            ]
+        }
+    }
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 }

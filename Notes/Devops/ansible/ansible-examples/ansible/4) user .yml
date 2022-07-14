@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: centos
   become: yes
@@ -7,4 +8,15 @@
         name: lenovo
         password: lenovo
         groups: ansible
+=======
+---
+- hosts: centos
+  become: yes
+  tasks:
+    - name: Create user
+      user:
+        name: lenovo
+        password: lenovo
+        groups: ansible
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         shell: /bin/bash

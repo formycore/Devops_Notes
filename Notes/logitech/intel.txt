@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 hi this is sandeep and with in half an hour it's my birthday
+=======
+hi this is sandeep and with in half an hour it's my birthday
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

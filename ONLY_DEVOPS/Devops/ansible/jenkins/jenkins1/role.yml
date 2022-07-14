@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: ubu
   become: yes
@@ -6,4 +7,14 @@
     yum:
       name: tree
       state: present
+=======
+---
+- hosts: ubu
+  become: yes
+  tasks:
+  - name : install tree
+    yum:
+      name: tree
+      state: present
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
       

@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 - name: install git
   package:
     name: git
+=======
+- name: install git
+  package:
+    name: git
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     state: present
