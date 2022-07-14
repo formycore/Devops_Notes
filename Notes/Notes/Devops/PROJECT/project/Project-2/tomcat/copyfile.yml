@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # copywarfile.yml
 ---
     - hosts: tom 
@@ -7,4 +8,15 @@
           copy:
             src: /home/ansible/opt/playbooks/webapp/target/webapp.war
             dest: /var/lib/tomcat/webapps
+=======
+# copywarfile.yml
+---
+    - hosts: tom 
+      become: true
+      tasks: 
+        - name: copy jar/war onto tomcat servers
+          copy:
+            src: /home/ansible/opt/playbooks/webapp/target/webapp.war
+            dest: /var/lib/tomcat/webapps
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
             remote_src: yes

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: jenkins
   tasks:
@@ -5,4 +6,13 @@
   become: yes
   yum:
     name: maven
+=======
+---
+- hosts: jenkins
+  tasks:
+    - name: install maven
+  become: yes
+  yum:
+    name: maven
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     state: latest

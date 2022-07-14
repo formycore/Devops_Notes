@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Trigger jenkins for every push in GitHub 
 >> Login to jenkins 
 >> New item 
@@ -29,4 +30,37 @@ Under GitHub service
 >> which events would you like to Trigger this webhook 
 >> depending upon your choice 
 >> check for activate 
+=======
+Trigger jenkins for every push in GitHub 
+>> Login to jenkins 
+>> New item 
+>>  general 
+>> github project <project url> 
+>> source code management -> git 
+>> repository Browser (githubweb) 
+>> < give the project URL > 
+>> build triggers 
+>> check for GitHub hook trigger for GITScm pooling 
+-------------------------------------------------------------------------------- 
+Under Jenkins dashboard 
+>> Manage jenkins 
+>> configure system 
+>> gitHub 
+>>  gitHub server 
+>> click on the question mark (?) 
+>> copy the URL 
+-------------------------------------------------------------------------------- 
+Under GitHub service 
+>> Login to GitHub server 
+>> repositary 
+>>  settings 
+>>  webhooks 
+>> add webhooks 
+>> under payload URL 
+>>  paste the GitHub (GitHub service) URL here 
+>>  content type < application / JSON > 
+>> which events would you like to Trigger this webhook 
+>> depending upon your choice 
+>> check for activate 
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 >> add webhook

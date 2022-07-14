@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 [redhat]
 localhost
 [ubuntu]
 ip-172-31-42-97.us-east-2.compute.internal
+=======
+[redhat]
+localhost
+[ubuntu]
+ip-172-31-42-97.us-east-2.compute.internal
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

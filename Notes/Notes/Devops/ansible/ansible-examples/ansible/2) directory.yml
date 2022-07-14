@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: centos
   become: yes
@@ -9,4 +10,17 @@
         mode: 775
         owner: ansible
         group: ansible
+=======
+---
+- hosts: centos
+  become: yes
+  tasks:
+    - name: Create Directory
+      file:
+        path: /home/ansible/lenovo
+        state: directory
+        mode: 775
+        owner: ansible
+        group: ansible
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         

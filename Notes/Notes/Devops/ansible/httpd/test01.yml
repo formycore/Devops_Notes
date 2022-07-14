@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: all
   become: yes
@@ -8,3 +9,15 @@
     - name: Print Variable 'name'
       debug:
         msg:'{{ name }}'
+=======
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name : Set Variable 'name'
+      set_fact:
+        name: Test Machine
+    - name: Print Variable 'name'
+      debug:
+        msg:'{{ name }}'
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

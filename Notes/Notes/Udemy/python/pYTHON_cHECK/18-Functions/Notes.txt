@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 os.system
 subprocess
 are the best for running the command
 for caputering the output go with subprocess
+=======
+os.system
+subprocess
+are the best for running the command
+for caputering the output go with subprocess
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

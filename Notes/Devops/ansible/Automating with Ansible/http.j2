@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Listen {{ ansible_all_ipv4_addresses}}:80
 NameVirtualHost {{ ansible_fdqn}}
 
@@ -5,4 +6,13 @@ NameVirtualHost {{ ansible_fdqn}}
   ServerName {{ ansible_fdqn}}
   ServerAdmin {{ system_owner}}
   DocumentRoot /var/www/html
+=======
+Listen {{ ansible_all_ipv4_addresses}}:80
+NameVirtualHost {{ ansible_fdqn}}
+
+<VirtualHost {{ ansible_fdqn}}:80>
+  ServerName {{ ansible_fdqn}}
+  ServerAdmin {{ system_owner}}
+  DocumentRoot /var/www/html
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 </VirtualHost>

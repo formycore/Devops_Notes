@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: centos
   become: yes
@@ -6,4 +7,14 @@
   tasks:
     - name: Ansible basic variable example
       debug:
+=======
+---
+- hosts: centos
+  become: yes
+  vars: 
+    name: niranjan
+  tasks:
+    - name: Ansible basic variable example
+      debug:
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         msg: "{{ name }}"

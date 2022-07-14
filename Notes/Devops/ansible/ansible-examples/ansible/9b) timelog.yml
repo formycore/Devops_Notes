@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 ---
 - hosts: centos
   become: yes
   tasks:
     - name: ansible timestamp filename example
       command: touch lenovo2{{ansible_date_time}}.log
+=======
+---
+- hosts: centos
+  become: yes
+  tasks:
+    - name: ansible timestamp filename example
+      command: touch lenovo2{{ansible_date_time}}.log
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
       

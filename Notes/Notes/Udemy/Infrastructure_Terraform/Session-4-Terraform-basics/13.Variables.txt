@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 providers.tf
 
 provider "aws"{
@@ -5,3 +6,12 @@ provider "aws"{
     secret_key =
     region =
 }
+=======
+providers.tf
+
+provider "aws"{
+    access_key = 
+    secret_key =
+    region =
+}
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: all
   become: yes
@@ -10,4 +11,18 @@
         password: "{{ pass_word }}"
   vars:
     user_name: san
+=======
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name : user creation 
+      user:
+        name: "{{ user_name }}"
+        shell: /bin/bash
+        state: present
+        password: "{{ pass_word }}"
+  vars:
+    user_name: san
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     pass_word: san

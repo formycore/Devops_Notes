@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //install tomcat,chown -R user:user tomcat
 pipeline{
     agent any
@@ -21,4 +22,29 @@ pipeline{
                 sshagent(['webapp']) {
 					sh """
 					scp -o StrictHostKeyChecking=no webapp/target/myweb.war centos@<Public ip or private ip>:/opt/tomcat/webapps
+=======
+//install tomcat,chown -R user:user tomcat
+pipeline{
+    agent any
+    environment{
+        PATH = "$PATH:/opt/apache-maven/bin"
+    }
+    stages{
+        stage("Git Checkout"){
+            steps{
+                git credentialsId: 'javahome1', url: 'https://github.com/sandeepmchary/project-1.git'
+            }
+        }
+        stage("Maven Builds"){
+            steps{
+                sh "mvn clean package"
+                sh "mv webapp/target/*.war webapp/target/myweb.war"
+            }
+        }
+        stage("Deploy_dev"){
+            steps{
+                sshagent(['webapp']) {
+					sh """
+					scp -o StrictHostKeyChecking=no webapp/target/myweb.war centos@<Public ip or private ip>:/opt/tomcat/webapps
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 					ssh centos@<P

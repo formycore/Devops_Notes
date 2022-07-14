@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 required_java: java-1.8.0-openjdk
 set_java: jre-1.8.0-openjdk
+=======
+required_java: java-1.8.0-openjdk
+set_java: jre-1.8.0-openjdk
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

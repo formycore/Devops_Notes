@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## In the above playbook, remove=yes will remove the home directory and force=yes will remove the files in the directory.
 
 ---
@@ -10,3 +11,17 @@
         state: absent
         remove: yes
         force: yes
+=======
+## In the above playbook, remove=yes will remove the home directory and force=yes will remove the files in the directory.
+
+---
+- hosts: centos
+  become: yes
+  tasks:
+    - name: Remove user
+      user:
+        name: lenovo
+        state: absent
+        remove: yes
+        force: yes
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

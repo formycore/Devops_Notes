@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: all
   become: yes
@@ -17,3 +18,24 @@
         name: ntpd
         state: restarted
         enabled: yes
+=======
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Remove any chrony Packages
+      yum:
+        name: chrony
+        state: absent
+      tags: remove_chrony,start_ntp
+    - name: Install Ntp
+      yum:
+        name: ntp
+        state: present
+      tags: install_ntp,start_ntp
+    - name: start ntp client
+      service:
+        name: ntpd
+        state: restarted
+        enabled: yes
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

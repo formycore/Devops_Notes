@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 - name: Install Java
   hosts: jen
   become: yes
   roles:
     - jav
+=======
+- name: Install Java
+  hosts: jen
+  become: yes
+  roles:
+    - jav
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

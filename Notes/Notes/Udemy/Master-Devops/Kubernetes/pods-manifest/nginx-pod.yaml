@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 apiversion: v1
 kind: pod
 metadata:
@@ -11,4 +12,19 @@ metadata:
     containers:
       name: nginx-containers
       Image: nginx
+=======
+apiversion: v1
+kind: pod
+metadata:
+  name: nginx-pod
+  label:
+    name: nginx-pod
+    labels:
+      apps: nginx
+      tier: dev
+  spec:
+    containers:
+      name: nginx-containers
+      Image: nginx
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
           

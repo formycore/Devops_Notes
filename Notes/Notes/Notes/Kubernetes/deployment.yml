@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,3 +22,28 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 3000
+=======
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-tutorial-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kubernetes-tutorial-deployment
+  template:
+    metadata:
+      labels:
+        app: kubernetes-tutorial-deployment
+    spec:
+      containers:
+      - name: kubernetes-tutorial-application
+        image: auth0blog/kubernetes-tutorial
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

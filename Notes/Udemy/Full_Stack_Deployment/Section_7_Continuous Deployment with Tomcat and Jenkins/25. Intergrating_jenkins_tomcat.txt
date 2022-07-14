@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  
  manage jenkins
  -> manage plugins
@@ -6,4 +7,14 @@
   -> Invoke top level maven targets (if we use this in free style project)
 - Post-build Actions
   -> Deploy War/Ear to a container
+=======
+ 
+ manage jenkins
+ -> manage plugins
+	-> deploy to container
+- Build
+  -> Invoke top level maven targets (if we use this in free style project)
+- Post-build Actions
+  -> Deploy War/Ear to a container
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
   -> WAR/EAR files:   

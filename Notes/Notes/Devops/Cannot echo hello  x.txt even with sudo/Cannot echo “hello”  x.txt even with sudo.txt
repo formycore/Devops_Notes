@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ?? user@debVirtual:/var/www$ sudo echo “hello” > f.txt
 -bash: f.txt: Permission denied ??
 
@@ -7,4 +8,15 @@ sudo bash -c ‘echo “hello” > f.txt’
 
 or use tee
 
+=======
+?? user@debVirtual:/var/www$ sudo echo “hello” > f.txt
+-bash: f.txt: Permission denied ??
+
+The redirection is done by the shell before sudo is even started. So either make sure the redirection happens in a shell with the right permissions
+
+sudo bash -c ‘echo “hello” > f.txt’
+
+or use tee
+
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 echo “hello” | sudo tee f.txt # add -a for append (>>)

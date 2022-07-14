@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: centos
   become: yes
@@ -6,4 +7,14 @@
       file:
         path: /tmp/lenovo
         state: touch
+=======
+---
+- hosts: centos
+  become: yes
+  tasks:
+    - name: Create a file
+      file:
+        path: /tmp/lenovo
+        state: touch
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         

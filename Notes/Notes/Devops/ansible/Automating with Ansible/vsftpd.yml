@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: localhost
   become: yes
@@ -14,4 +15,22 @@
     copy:
       content: "welcome home"
       dest: /var/ftp/pub/README
+=======
+---
+- hosts: localhost
+  become: yes
+  tasks:
+  - name : Install vsftpd
+    package:
+      name: vsftpd
+      state: present
+  - name: Enable vsftpd
+    service:
+      name: vsftpd
+      enabled: true
+  - name: create a readme file
+    copy:
+      content: "welcome home"
+      dest: /var/ftp/pub/README
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
       mode: 044

@@ -1,0 +1,115 @@
+- 1 june packer
+- from below json file for creating nginx  
+	- removing access_key & secret key
+=========================================
+{
+"builders":[
+	{
+	"type":"amazon-ebs",
+	"access_key": "",
+	"secret_key": "",
+	"region": "us-east-2",
+	"source_ami": "ami-01e36b7901e884a10",
+	"instance_type": "t2.micro",
+	"ssh_username": "centos",
+	"ami_name":"packer-quick-start {{timestamp}}"
+	}
+		],
+	"provisioners":[
+		{
+			"type":"shell",
+			"inline": [
+				"sudo yum install epel-release -y",
+				"sudo yum update -y",
+				"sudo yum install nginx -y"
+
+			]
+		}
+	]
+}
+=======================================
+- here we use variables
+ex: "variables":{
+    "key1": ,
+    "key2: 
+    }
+- for example for 
+{
+	"variables":{
+		"my-secret":"{{env `JAVA_HOME`}} (here the value java home is replaced by the path that provided in the environment variables)
+	}
+}
+- nginx.json or nginx.packer both are same
+- create var.json file in the same directory only
+- for creating variables over there 
+- run time variables have more priority
+- if we use .packer, we may not get the help from the editor
+- packer folder directory is 
+	- packer
+		- provisioners
+			-shell
+			-ansible
+		- Templates
+			- aws
+			- gcloud
+			- azure
+		- variables
+			- var.json
+			- 
+===========================================================================================
+packer_varaiables.json
+{
+	"variables":{
+		"aws_access_key":"" ,
+		"aws_secret_key": "",
+		"aws_region": "",
+		"aws_ami-id": "ami-01e36b7901e884a10",
+		"aws_instance_type": "t2.micro",
+		"scriptpath": "installnginx.sh"
+
+	},
+
+	"builders":[{
+		"type": "amazon-ebs",
+		"access_key":"{{ user `aws_access_key`}}" ,
+		"secret_key": "{{ user `aws_secret_key`}}",
+		"source_ami": "{{ user `aws_ami-id`}}",
+		"instance_type": "{{ user `aws_instance_type`}}",
+		"region": "{{user `aws_region`}}",
+		"ssh_username": "centos",
+		"ami_name": "samantha-apache {{timestamp}}"
+	}],
+	"provisioners":[{
+		"type": "shell",
+		"script": "{{ user `scriptpath`}}"
+			}
+		]
+	
+}
+===========================================================================================
+install apache
+echo "Installing apache"
+sudo yum install httpd -y
+sudo systemctl enable httpd 
+sudo systemctl start httpd
+sudo systemctl status httpd
+sudo httpd -v
+
+===========================================================================================
+installnginx.sh
+echo "updating packages"
+sudo yum update -y
+sudo  yum install epel-release -y
+sudo yum install nginx -y
+===========================================================================================
+var.json
+{
+		"aws_access_key":"" ,
+		"aws_secret_key": "",
+		"aws_region": "us-east-2",
+		"aws_ami-id": "ami-01e36b7901e884a10",
+		"aws_instance_type": "t2.micro"
+}
+===========================================================================================
+
+packer build -var-file var.json -var "aws_access_key=" -var "aws_secret_key=" -var "scriptpath=installapache.sh" -var "ami_name=packer-apache1" packer_varaiables.json

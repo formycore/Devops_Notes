@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 - hosts: localhost
   tasks:
@@ -5,3 +6,12 @@
       copy:
         src: /home/ansible/copy-exercise/sample.txt
         dest: /tmp
+=======
+---
+- hosts: localhost
+  tasks:
+    - name: cp files
+      copy:
+        src: /home/ansible/copy-exercise/sample.txt
+        dest: /tmp
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

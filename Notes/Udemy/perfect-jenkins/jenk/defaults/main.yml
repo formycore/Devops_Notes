@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 ---
 # defaults file for jenk
 req_java: java-1.8.0-openjdk
+=======
+---
+# defaults file for jenk
+req_java: java-1.8.0-openjdk
+>>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
