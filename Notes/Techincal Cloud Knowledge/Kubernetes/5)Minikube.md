@@ -1,0 +1,7 @@
+- just for testing purpose only
+- testing env
+- if any new feature from kubernetes,we can test it in the minikube
+- how to configure minikube cluster setup
+- we need to check whether the hardware supports virtualization supports or not 
+- should be virtualization enabled
+- 
