@@ -1,0 +1,22 @@
+# copy files from local to remote with ansible
+---
+- hosts: check
+  become: yes
+  tasks:
+    - name: change directory
+      shell: cd /home/maanya
+    - name: List all files
+      shell: ls -la
+      register: result
+    - debug: var=result
+    - name: Copy files
+      fetch:
+        src: "/home/maanya/check.txt"
+        dest: /tmp/check.txt
+        flat: yes
+      register: check_file
+    - debug: var=check_file
+    - name: Check files
+      shell: diff /tmp/check.txt /home/maanya/check.txt
+      register: check_diff
+    - debug: var=check_diff

@@ -1,0 +1,12 @@
+first in the master create ssh-keygen
+after copy the id_rsa.pub 
+paste the copied id_rsa.pub in the node server in ~/.ssh/authorized_keys
+esc+i
+end
+paste the copied the id_rsa.pub here
+!wq
+save it
+
+-- 
+then use ssh -oStrictHostKeyChecking=no user@remote_host 
+- this will not ask for hostkeyverfication
