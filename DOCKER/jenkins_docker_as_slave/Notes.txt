@@ -1,0 +1,7 @@
+jenkins in yellow text
+docker in blue text
+- edit 
+    vi /lib/systemd/system/docker.service
+    - ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+    - change to 
+        - ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H unix:// -H tcp://<jenkins master server private ip >:2375
