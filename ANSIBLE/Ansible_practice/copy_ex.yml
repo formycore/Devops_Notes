@@ -1,0 +1,8 @@
+---
+- hosts: docker
+  tasks:
+    - name: Transfer files from app to jen
+      synchronize:
+        src: /home/maanya/intel
+        dest: /home/maanya
+      delegate_to: jenkins

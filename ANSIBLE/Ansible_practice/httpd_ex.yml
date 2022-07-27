@@ -1,0 +1,8 @@
+# install httpd and set it to start on boot with ansible
+---
+- host: localhost
+  tasks:
+  - name: Install httpd
+    yum:
+      name: httpd
+      state: latest
