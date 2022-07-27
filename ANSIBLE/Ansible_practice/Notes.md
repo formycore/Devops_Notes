@@ -29,6 +29,8 @@ configure on master server
   - ssh-keyscan -H SLAVE-NODE-IP-OR-HOSTNAME >>/var/lib/jenkins/.ssh/known_hosts
 -------------------------------------------------------------------------------
 **_how to keep inventory_hostname_**
+
+
 [pen]
 docker ansible_host=10.138.x.x ansible_user=xxxxx ansible_ssh_private_key_file=/home/xxxxx/id_rsa ansible_connection=ssh
 jenkins ansible_host=10.128.0.2 ansible_user=xxxxx ansible_ssh_private_key_file=/home/xxxxx/id_rsa ansible_connection=ssh
