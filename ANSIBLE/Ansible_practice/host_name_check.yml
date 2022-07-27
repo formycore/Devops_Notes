@@ -1,0 +1,12 @@
+---
+- name: hostnames demo
+  hosts: pen
+  gather_facts: true
+  tasks:
+    - name: print inventory_hostname
+      ansible.builtin.debug:
+        var: inventory_hostname
+    - name: print hostvars['pen']['ansible_host']
+      ansible.builtin.debug:
+        var: hostvars['pen']['ansible_host']
+        
