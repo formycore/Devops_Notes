@@ -1,5 +1,6 @@
 # haproxy for kubernetes 
-<pre> 3 machines master \
+<pre> 
+3 machines master \
 2 nodes \
 1 load balancer
 ---------------
