@@ -1,5 +1,5 @@
 for example
-     kubectl run nginx-pod --image=nginx --port=80
+    * kubectl run nginx-pod --image=nginx --port=80
     * here run = kind of object <here it is pod>
          * if it is deployment we use deployment or deploy
     * nginx-pod is name of pod <object name>
