@@ -73,10 +73,11 @@ sudo sysctl --system
 
 sed -ie "s/cgroupDriver: systemd/cgroupDriver: cgroupfs/g" /var/lib/kubelet/config.yaml
 
-vi /etc/docker/daemon.json
+cat <<EOF | sudo tee /etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"]
 }
+EOF
 
 sudo systemctl daemon-reload
 sudo systemctl restart docker
@@ -105,10 +106,13 @@ kubectl apply -f calico.yaml
 								ON NODE
 
 sudo su -
-vi /etc/docker/daemon.json
+
+
+cat <<EOF | sudo tee /etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"]
 }
+EOF
 
 sudo systemctl daemon-reload
 sudo systemctl restart docker
