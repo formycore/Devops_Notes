@@ -1,5 +1,5 @@
 # haproxy for kubernetes 
-3 machines master \
+<pre> 3 machines master \
 2 nodes \
 1 load balancer
 ---------------
@@ -116,7 +116,7 @@ sudo systemctl restart kubelet
 systemctl enable kubelet.service
 kubeadm join <here>
 check for the kubectl get nodes on the master
-
+</pre>
 
         
 
