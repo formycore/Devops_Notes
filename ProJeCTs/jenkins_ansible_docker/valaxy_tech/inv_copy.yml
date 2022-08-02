@@ -1,0 +1,9 @@
+---
+- hosts: jenkins
+  tasks:
+    - name: Transfer files from docker to jenkins
+      synchronize:
+        src: /var/lib/jenkins/workspace/practice-c/webapp/target/webapp.war
+        dest: /tmp/test
+        mode: pull
+      delegate_to: docker

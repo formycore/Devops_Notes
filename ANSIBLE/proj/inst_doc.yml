@@ -1,0 +1,36 @@
+---
+- hosts: docker
+  become: yes
+  tasks:
+    - name: Install the yum-utils
+      package:
+        name: yum-utils
+        state: present
+    - name: Set up the repository
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+    - name: install the package
+      package:
+        name: "{{item}}"
+        state: present
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-compose
+        - docker-compose-plugin
+    - name: Start the docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: Add the local user to docker group
+      user:
+        name: "{{item}}"
+        state: present
+        groups:
+          - docker
+      loop:
+        - centos
+    

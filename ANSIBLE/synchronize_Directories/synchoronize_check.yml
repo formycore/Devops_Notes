@@ -1,0 +1,11 @@
+---
+- name: copy the contents of "{{groups['check'][0]}}" to "{{groups['check'][1]}}"
+  hosts: "{{groups['check'][0]}}"
+  user: centos
+  tasks:
+    - name: copy the directories
+      ansible.posix.synchronize:
+        src: "/home/centos/test"
+        dest: "/home/centos/test"
+        mode: pull
+      delegate_to: "{{groups['check'][1]}}"
