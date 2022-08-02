@@ -1,0 +1,14 @@
+---
+- hosts: dell
+  become: yes
+  tasks:
+    - name: Install rsync
+      package:
+        name: rsync
+        state: present
+    - name: Rysnc up and running
+      service:
+        name: rsyncd
+        state: started
+        enabled: yes
+        

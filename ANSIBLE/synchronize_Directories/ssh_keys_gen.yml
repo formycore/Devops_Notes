@@ -1,0 +1,12 @@
+# ssh-key pair generation
+- hosts: "{{groups['check'][0]}}"
+  tasks:
+    - name: ssh key pair generation
+      shell: ssh-keygen -t rsa -b 4096 -f /home/centos/.ssh/id_rsa -N ''
+      register: ssh_key_pair_gen
+    - name: output of the ssh keys
+      debug:
+        var: ssh_key_pair_gen
+      changed_when: ssh_key_pair_gen.rc == 0
+
+

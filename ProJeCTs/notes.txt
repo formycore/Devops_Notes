@@ -1,0 +1,80 @@
+jenkins master slave with docker and ansible
+- copy war file from jenkins to docker with ansible
+- create docker image with ansible
+- run the container with ansible
+
+---------------------
+- https://github.com/formycore/valaxy
+- create playbook file to copy the war file to docker host
+- create playbook to create the image with the copied war file
+- create a playbook to run the container
+
+
+
+-- if not use ansible adhoc command to local and then local to remote
+- or else send the war file to nexus artifactory and from artifactory to docker ansible playbook
+-- try the same in the aws
+
+
+
+
+docker ansible_host=10.138.0.4
+
+---
+- name: Sync Pull task - Executed on  the Destination host "{{groups['app'][1]}}"
+  hosts: "{{groups['dell'][1]}}"
+  become: yes
+  user: maanya
+  tasks:
+    - name: Check the contents 
+	  command: ls -ltr /var/lib/jenkins/workspace/practice-c/webapp/target/
+    - name: Copy the file from jenkins to docker using Method Pull
+      tags: sync-pull
+      synchronize:
+        src: "{{ item }}"
+        dest: ~/intel
+        mode: pull
+      delegate_to: "{{groups['dell'][0]}}"
+      register: syncfile
+      run_once: true
+      with_items:
+       - /var/lib/jenkins/workspace/practice-c/webapp/target/
+
+
+pipeline
+{
+    agent none
+    stages
+    {
+        stage('Check docker connection')
+        {
+            agent {label 'jendocker'}
+            steps
+            {
+                sh 'hostname'
+               // sh 'ifconfig -a'
+            }
+        }
+        stage('Check ansible connection')
+        {
+            agent {label 'jenansible'}
+            steps
+            {
+                sh 'hostname'
+               // sh 'ifconfig -a'
+            }
+        }
+    }
+}
+
+
+
+        stage('Docker build')
+        {
+            agent {label 'jendocker'}
+            steps
+            {
+                unstash 'war-stach'
+                sh 'pwd'
+            }
+        }

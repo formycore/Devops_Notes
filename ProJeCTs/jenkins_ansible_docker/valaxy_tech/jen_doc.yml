@@ -1,0 +1,16 @@
+---
+- name: Sync Pull task - Executed on  the Destination host "{{groups['dell'][1]}}"
+  hosts: "{{groups['dell'][0]}}"
+  become: yes
+  tasks:   
+    - name: Copy the file from mwiapp01 to mwiapp02 using Method Pull
+      tags: sync-pull
+      synchronize:
+        src: "{{ item }}"
+        dest: "{{ item }}"
+        mode: pull
+      delegate_to: "{{groups['dell'][1]}}"
+      register: syncfile
+      run_once: true
+      with_items:
+       - "/home/maanya/intel"
