@@ -5,6 +5,7 @@
     * in the previous rc we need to change the image of the container 
     * in the kubernetes version older than 1.14 rolling update is removed
 ***************************************************************************************************************
+```
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -23,12 +24,14 @@ spec:
         image: nginx:1.7.1
         ports:
         - containerPort: 80
+```
 ***************************************************************************************************************
 * above the Replication Controller is done
 * now we need to change the image of the container along with the names of the other specs also
 * like in metadata name,selector name,template label name, image name that we need to change
 * as these are already taken by the kubernetes
 ***************************************************************************************************************
+```
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -47,6 +50,7 @@ spec:
         image: nginx:1.9.0
         ports:
         - containerPort: 80
+```        
 ***************************************************************************************************************
 * ```kubectl rolling-update <old rc name> --update-period=10s -f rc.yaml```
 * ```kubectl rolling-update devteamrc --update-period=10s -f rc.yaml```
