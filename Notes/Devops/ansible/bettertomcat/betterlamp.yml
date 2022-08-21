@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 - hosts: all
   vars:
@@ -28,35 +27,4 @@
       name: "{{ pack_name }}"
       enabled: yes
       state: restarted
-=======
----
-- hosts: all
-  vars:
-    pack_name: tomcat
-    additional_packages:
-      - tomcat7-docs
-      - tomcat7-admin
-      - tomcat7-examples
-  become: yes
-  tasks:
-  - name: install tomcat server
-    package:
-      name: "{{ pack_name }}"
-      state: present
-    notify:
-    - restart tomcat
-  - name: install additional packages
-    package:
-     name: "{{ item }}"
-     state: present
-    with_items: "{{ additional_packages }}"
-    notify:
-    - restart tomcat
-  handlers:
-  - name: restart tomcat
-    service:
-      name: "{{ pack_name }}"
-      enabled: yes
-      state: restarted
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
       

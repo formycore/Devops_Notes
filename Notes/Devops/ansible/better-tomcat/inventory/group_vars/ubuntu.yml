@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 pack_name: tomcat7
 destination: /var/lib/tomcat7/webapps/gameoflife.war
@@ -8,14 +7,3 @@ additional_packages:
 - tomcat7-admin 
 - tomcat7-examples
 
-=======
----
-pack_name: tomcat7
-destination: /var/lib/tomcat7/webapps/gameoflife.war
-management: /etc/tomcat7/tomcat-users.xml
-additional_packages:
-- tomcat7-docs 
-- tomcat7-admin 
-- tomcat7-examples
-
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

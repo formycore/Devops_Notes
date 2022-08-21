@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Option-1 : Createting docker container using command module 
 ---
 - hosts: all
@@ -18,24 +17,3 @@
 #      recreate: yes
 #      ports:
 #        - "8080:8080"
-=======
-# Option-1 : Createting docker container using command module 
----
-- hosts: all
-  become: ture
-
-  tasks:
-  - name: creating docker image using docker command
-    command: docker run -d --name simple-devops-container -p 8080:8080 simple-devops-image
-	
-# option-2 : creating docker container using docker_container module 	
-#  tasks:
-#  - name: create simple-devops-container
-#    docker_container:
-#      name: simple-devops-container
-#      image: simple-devops-image
-#      state: present
-#      recreate: yes
-#      ports:
-#        - "8080:8080"
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

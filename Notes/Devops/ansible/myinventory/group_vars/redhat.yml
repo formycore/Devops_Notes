@@ -1,12 +1,5 @@
-<<<<<<< HEAD
 ---
 pack_name: httpd
 php_packages:
   - php
-=======
----
-pack_name: httpd
-php_packages:
-  - php
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
   - php-mysql

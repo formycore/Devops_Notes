@@ -1,12 +1,5 @@
-<<<<<<< HEAD
 ---
 - hosts: localhost
   remote_user: root
   roles:
-=======
----
-- hosts: localhost
-  remote_user: root
-  roles:
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     - tomcat
