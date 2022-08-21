@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <html>
 <body>
 <h1> Hello World </h1>
@@ -7,14 +6,4 @@
 <p>eth0.address {{ ansible_eth0.ipv4.address }} </p>
 {%endif%}
 </body>
-=======
-<html>
-<body>
-<h1> Hello World </h1>
-<p> This page is created on  {{ ansible_date_time.date}} </p>
-{% if ansible_eth0.active== True %}
-<p>eth0.address {{ ansible_eth0.ipv4.address }} </p>
-{%endif%}
-</body>
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 </html>

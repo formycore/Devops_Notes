@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 - hosts: all
   become: yes
@@ -7,14 +6,4 @@
       yum:
         name: "*"
         state: latest
-=======
----
-- hosts: all
-  become: yes
-  tasks:
-    - name : update yum packages
-      yum:
-        name: "*"
-        state: latest
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         

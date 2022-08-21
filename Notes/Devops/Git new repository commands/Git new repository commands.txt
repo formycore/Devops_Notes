@@ -1,20 +1,9 @@
-<<<<<<< HEAD
 git config --global user.name
 git config --global user.email
 
-echo “# gmail” >> README.md
+echo ï¿½# gmailï¿½ >> README.md
 git init
 git add README.md
-git commit -m “first commit”
+git commit -m ï¿½first commitï¿½
 git remote add origin https://github.com/sandeepmchary/gmail.git
-=======
-git config --global user.name
-git config --global user.email
-
-echo “# gmail” >> README.md
-git init
-git add README.md
-git commit -m “first commit”
-git remote add origin https://github.com/sandeepmchary/gmail.git
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 git push -u origin master

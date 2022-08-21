@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 pipeline {
     agent any 
         stages {
@@ -17,24 +16,4 @@ pipeline {
 
         }
     
-=======
-pipeline {
-    agent any 
-        stages {
-            stage("code checkout"){
-                agent any
-                steps {
-                    git 'https://github.com/devopstrainingblr/Maven-Web-Profiles.git'
-                }
-            }
-            stage("Maven-Build"){
-               agent any
-                steps {
-                    sh 'mvn clean package'
-                }
-            }
-
-        }
-    
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 }
