@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 ---
 - hosts: ubu
   become: yes
   tasks:
   - name: Install add-apt-repostory
     apt: name=software-properties-common state=latest
-=======
----
-- hosts: ubu
-  become: yes
-  tasks:
-  - name: Install add-apt-repostory
-    apt: name=software-properties-common state=latest
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
   
