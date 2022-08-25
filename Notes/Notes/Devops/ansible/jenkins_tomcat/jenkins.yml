@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 - name: update packages
   package:
     name: "*"
@@ -45,51 +44,3 @@
     var: result.stdout
   tags:
     - jen
-=======
-- name: update packages
-  package:
-    name: "*"
-    state: latest
-  tags:
-    - update
-- name: Install java and wget
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - java
-    - wget
-- name: Envronmental Variables
-  lineinfile: 
-    path: /etc/profile
-    backup: yes
-    line: JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")\n
-- name: download jenkin repo
-  get_url:
-    url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
-    dest: /etc/yum.repos.d/jenkins.repo
-- name: Import jenkins key
-  rpm_key:
-    state: present
-    key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-- name: Install jenkins
-  package:
-    name: jenkins
-    state: present
-- name: start jenkins service
-  service:
-    name: jenkins
-    enabled: yes
-    state: started
-- name: init password jenkin
-  shell: cat /var/lib/jenkins/secrets/initialAdminPassword
-  changed_when: false
-  register: result
-  tags:
-    - password
-- name: print init password jenkins
-  debug:
-    var: result.stdout
-  tags:
-    - jen
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

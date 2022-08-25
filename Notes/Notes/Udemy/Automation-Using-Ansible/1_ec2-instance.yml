@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 - name: aws instance
   hosts: localhost
@@ -12,18 +11,3 @@
         region: us-east-2
         wait: yes
         
-=======
----
-- name: aws instance
-  hosts: localhost
-  connection: local
-  tasks:
-    - name: launch instance
-      ec2:
-        instance_type: t2.micro
-        image: ami-0f2b4fc905b0bd1f1
-        key_name: samdevops
-        region: us-east-2
-        wait: yes
-        
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

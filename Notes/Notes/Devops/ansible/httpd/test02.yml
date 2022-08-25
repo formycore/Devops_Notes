@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 ---
 - hosts : all
   become: yes
   tasks:
     - name: Print OS and Version
       debug:
-=======
----
-- hosts : all
-  become: yes
-  tasks:
-    - name: Print OS and Version
-      debug:
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         msg: "{{ ansible_ distribution }} {{ ansible_distribution_version }}"

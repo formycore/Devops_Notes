@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 # vars file for test
 package: tomcat7
@@ -11,18 +10,4 @@ additional_packages:
   - tomcat7-examples
 tomcat_username: "admin"
 tomcat_password: "password"
-=======
----
-# vars file for test
-package: tomcat7
-st_to_be_set: absent
-max_mem: 512
-perm_size: 256
-additional_packages:
-  - tomcat7-docs
-  - tomcat7-admin
-  - tomcat7-examples
-tomcat_username: "admin"
-tomcat_password: "password"
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 tomcat_roles:  "manager-gui,admin-gui"

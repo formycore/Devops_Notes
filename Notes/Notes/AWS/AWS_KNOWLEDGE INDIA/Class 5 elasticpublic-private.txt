@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Difference b/w elastic,public,private
 -- the private ip's gets allocated with in range of VPC's & subnets
 -- Every subnet has range of ip's address allocated to it
@@ -15,21 +14,3 @@ Difference b/w elastic,public,private
 - right click
 - associate address
 - select instances
-=======
-Difference b/w elastic,public,private
--- the private ip's gets allocated with in range of VPC's & subnets
--- Every subnet has range of ip's address allocated to it
--- Anything which is out VPC cannot reach the private ip
--- no/.. public ip are limited
-
---- Elastic IP
-- n/w & security
-- elastic ip's
-- allocate new ip address
-- yes allocate
-- close
-- select the ip
-- right click
-- associate address
-- select instances
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

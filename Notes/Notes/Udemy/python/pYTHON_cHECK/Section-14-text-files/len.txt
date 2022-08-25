@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 This is data-1
-=======
-This is data-1
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 This is data-2this is data-2

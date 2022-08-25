@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 ---
 pack_name: apache2
 php_packages:
 - php
 - libapache2-mod-php
 - php-mcrypt
-=======
----
-pack_name: apache2
-php_packages:
-- php
-- libapache2-mod-php
-- php-mcrypt
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 - php-mysql

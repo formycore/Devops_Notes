@@ -6,7 +6,7 @@ sudo yum install -y java-1.8.0-openjdk-devel
 
 Step 2: Finally, setup the JAVA_HOME environment variable.
 
-echo ï¿½JAVA_HOME=$(readlink -f /usr/bin/java | sed ï¿½s:bin/java::ï¿½)ï¿½ | sudo tee -a /etc/profile
+echo “JAVA_HOME=$(readlink -f /usr/bin/java | sed “s:bin/java::”)” | sudo tee -a /etc/profile
 source /etc/profile
 
 Step 3: Download and configure SonarQube
@@ -67,7 +67,7 @@ To check if the service is running, run:
 sudo systemctl status sonar
 
 ====================================================================================
-ï¿½ Sonarqube script ï¿½
+— Sonarqube script —
 ====================================================================================
 
 # Step 1: Perform a system update #
@@ -78,7 +78,7 @@ sudo yum install -y java-1.8.0-openjdk-devel
 
 # Step 3: To Set JAVA_HOME / PATH for all user, You need to setup global config in /etc/profile OR /etc/bash.bashrc file for all users I am using /etc/profile here #
 
-echo ï¿½JAVA_HOME=$(readlink -f /usr/bin/java | sed ï¿½s:bin/java::ï¿½)ï¿½ | sudo tee -a /etc/profile
+echo “JAVA_HOME=$(readlink -f /usr/bin/java | sed “s:bin/java::”)” | sudo tee -a /etc/profile
 source /etc/profile
 
 # Step 4 : To install wget #
@@ -102,7 +102,7 @@ sudo mv /opt/sonarqube-6.4 /opt/sonarqube
 # Populate the file with sudo nano /etc/systemd/system/sonar.service #
 # echoing the /etc/systemd/system/sonar.service #
 
-echo ï¿½[Unit]
+echo “[Unit]
 Description=SonarQube service
 After=syslog.target network.target
 
@@ -117,7 +117,7 @@ Group=root
 Restart=always
 
 [Install]
-WantedBy=multi-user.targetï¿½ | sudo tee /etc/systemd/system/sonar.service
+WantedBy=multi-user.target” | sudo tee /etc/systemd/system/sonar.service
 
 # Step 10 : Start the application by running #
 sudo systemctl start sonar

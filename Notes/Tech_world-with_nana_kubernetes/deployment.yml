@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,29 +22,3 @@ spec:
             value:  $SOME_ENV
         ports:
         - containerPort: 8080
-=======
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-app
-  labels:
-    app: my-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: my-app
-  template:
-    metadata:
-      labels:
-        app: my-app
-    spec:
-      containers:
-      - name: my-app1
-        image: my-image
-        env:
-          - name: SOME_ENV
-            value:  $SOME_ENV
-        ports:
-        - containerPort: 8080
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

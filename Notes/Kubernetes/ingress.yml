@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -14,20 +13,3 @@ spec:
             name: kubernetes-tutorial-cluster-ip
             port: 
               number: 80
-=======
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: kubernetes-tutorial-ingress
-spec:
-  rules:
-  - host:
-    http:
-      paths:
-        path: "/"
-        backend:
-          service:
-            name: kubernetes-tutorial-cluster-ip
-            port: 
-              number: 80
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

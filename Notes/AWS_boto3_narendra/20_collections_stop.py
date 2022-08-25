@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import boto3
 ec2_re=boto3.resource('ec2')
 ec2_cli=boto3.client('ec2')
@@ -9,16 +8,4 @@ for each in ec2_re.instances.all():
 waiter=ec2_cli.get_waiter('instance_stopped')
 ec2_re.instances.stop()
 waiter.wait(InstanceIds=all_ins_id)
-=======
-import boto3
-ec2_re=boto3.resource('ec2')
-ec2_cli=boto3.client('ec2')
-all_ins_id=[]
-for each in ec2_re.instances.all():
-    all_ins_id.append(each.id)
-#print(all_ins_id)
-waiter=ec2_cli.get_waiter('instance_stopped')
-ec2_re.instances.stop()
-waiter.wait(InstanceIds=all_ins_id)
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 print("Your instances all stopped")

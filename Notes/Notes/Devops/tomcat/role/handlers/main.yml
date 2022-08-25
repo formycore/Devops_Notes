@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 ---
 # handlers file for role
 - name: restart tomcat
   service: 
     name: "{{ package }}"
     state: restarted
-=======
----
-# handlers file for role
-- name: restart tomcat
-  service: 
-    name: "{{ package }}"
-    state: restarted
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
   when: st_to_be_set == "present"
