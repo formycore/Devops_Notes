@@ -1,0 +1,47 @@
+# patch linux
+- name: Upgrade all packages, excluding kernel & foo related packages
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
+    exclude: kernel*,foo*
+
+- name: Install a list of packages with a list variable
+  ansible.builtin.yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - httpd
+    - httpd-tools
+---
+- name: upgrade all packages
+  ansible.builtin.yum:
+    name:"*"
+	state: latest
+	exclude: "{{ exclude_packages }}"
+  when: ansible_pkg_mgr == "yum"
+  register: patchingresult
+
+- name: check to see if we need a restart
+  ansible.builtin.command: needs-restart -r
+  register: result
+  changed_when: result.rc == 1
+  failed_when: result.rc > 1
+  check_mode: no
+  
+- name: Reboot server if neccessary
+  ansible.builtin.reboot:
+  when: result.rc == 1
+  
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+---
+- include_tasks: patching_linux.yml
+  when: os is match("rhel.*")
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dellvalaxy
+  labels:
+    name: valaxy
+spec:
+  containers:
+  - name: dellvalaxy
+    image: formycore/dellvalaxy:v1
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080

@@ -1,0 +1,4 @@
+ FROM debian:10.0
+ RUN apt-get -y install bash
+ ADD ./myfile.tar /tmp
+ EXPOSE 22
