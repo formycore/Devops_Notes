@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: blue
+  template:
+    metadata:
+      labels:
+        app: blue
+    spec:
+      containers:
+      - name: blue-image
+        image: gcr.io/google-samples/hello-app:1.0
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: green
+  template:
+    metadata:
+      labels:
+        app: green
+    spec:
+      containers:
+      - name: green-image
+        image: gcr.io/google-samples/hello-app:2.0
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blue-green-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: blue
+  ports:
+  - port: 80
+    targetPort: 8080

@@ -1,0 +1,304 @@
+# demo for two applications
+    * mongo*db
+    * mongo*express
+* setup web application and db
+* pre requistes
+    * 2 Deployments/pods
+    * 2 Services
+    * 1 configmap
+    * 1 secret
+
+* we need a mongo-db pod 
+* to talk to mongo*db pod we need internal Service (no external requests) only components inside the cluster
+can talk to each other
+
+* we need a mongo-express deployment
+    * we need 1 db*url to connect to db
+    * credentials to authenticate to db
+
+* the above two can we pass above info to mongo*express deployment with environmental variables
+* A configmap which contains db*url
+* A secret which contains credentials
+
+* A above two configmap and secret are refered in deployment.yaml
+* Mongo*express accessable to browser with external Service
+* this external Service will allow to talk to the pod
+
+*** setup ***
+* The request flows as 
+  * browser
+  * mongo*express(external Service)
+  * mongo*express pod
+  * internal Service of the mongo*db (contains configmap and secret)
+  * mongo*db pod (here authenticate the db user and pass)
+
+**** first we need to 
+* create a mongo-db deployment
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb*deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      * name: mongodb*cont
+        image: mongo
+        ports:
+        * containerPort: 27017
+        env:
+        * name: MONGO_INITDB_ROOT_USERNAME
+          value:
+        * name: MONGO_INITDB_ROOT_PASSWORD
+          value:
+** now the values of the env variables are changed to below
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb-cont
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+```
+* here we dont give the credentials to the pod
+* we need to create a secret
+   * secret configuration file
+     kind: secret
+     metadata/name: a random name with in the namespace
+     type: opaque - default for arbitrary key value pairs
+     data: the actual components in key value pairs
+   * the value of data should be in base64 format
+   * FIRST WE NEED SECRET THEN ONLY DEPLOYMENT FILE
+
+
+* now we create a internal Service
+* so that other components in this cluster can talk to each other
+* we can keep deployment and service in file as they both are dependent of each other
+* now the deployment file changes to below
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb-cont
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+```
+* as the above file contains deployment and service
+* now check the service
+    $ kubectl get service
+* to check whether the service is attached to pod
+    $ kubectl describe service <service-name>
+    $ kubectl describe service mongodb-service
+    * from the above command we can get the ip address of the pod
+* now the check the pod ipaddress
+    $ kubectl get pod -o wide
+* kubectl filter for the one application
+    $ kubectl get all | grep <application_name>
+    $ kubectl get all | grep mongodb
+
+* now we create mongo-express deployment and service and also external configmap
+* configmap contains the db-url
+* configmap is external configuration FILE
+* configmap is centralized
+* other components can use it 
+* now in the mongo-express we need three env variables
+    * which database it wants to connect ?
+      * mongodb address /internal service
+    * which credentials to authenticate ?
+      * Adminuser and password
+* in configmap database_url server name is the name of the service the service is mongodb-service
+* The configmap is
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-configmap
+data:
+  database_url: mongodb-service
+```
+* The mongo-express deployment file
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongoexpress-deployment
+  labels:
+    app: mongoexpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongoexpress
+  template:
+    metadata:
+      labels:
+        app: mongoexpress
+    spec:
+      containers:
+      - name: mongo-express-cont
+        image: mongo-express
+        ports:
+        - containerPort: 8081
+        env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD 
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+        - name: ME_CONFIG_MONGODB_SERVER
+          # the value is refered from the config map
+          valueFrom:
+            configMapKeyRef:
+              name: mongodb-configmap
+              key: database_url
+```
+* AS THE DEPLOYMENT FILE HAS A DEPENDENT FROM THE CONFIGMAP 
+* THE CONFIGMAP IS CREATED FIRST
+* THEN THE DEPLOYMENT FILE IS CREATED
+  $ kubectl apply -f mongo-config-map.yaml
+  $ kubectl apply -f mongoexpress-deploy.yaml
+  $ kubectl get pods
+  $ kubectl logs <mongoexpress_pod_name>
+  $  kubectl logs mongoexpress-deployment-754f8599b8-nkx
+* $ kubectl get service
+* open with any server with in the cluster
+* http://<ip-address>:30000 as the nodePort is 30000
+* now the mongoexpress deployment file changes to below along with service
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongoexpress-deployment
+  labels:
+    app: mongoexpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongoexpress
+  template:
+    metadata:
+      labels:
+        app: mongoexpress
+    spec:
+      containers:
+      - name: mongo-express-cont
+        image: mongo-express
+        ports:
+        - containerPort: 8081
+        env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD 
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+        - name: ME_CONFIG_MONGODB_SERVER
+          # the value is refered from the config map
+          valueFrom:
+            configMapKeyRef:
+              name: mongodb-configmap
+              key: database_url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-service
+spec:
+  selector:
+    app: mongoexpress
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30000
+```
+* now the request flow is below
+  * browser
+  * mongoexpress external service
+  * mongo express pod
+  * mongo db internal service
+  * mongo db pod

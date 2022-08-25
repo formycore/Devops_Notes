@@ -1,0 +1,22 @@
+pipeline 
+{
+    agent any
+tools {
+  maven 'maven'
+}
+
+    stages
+    {
+        stage('Scm Checkout')
+        {
+            steps
+            {
+                git 'https://github.com/formycore/valaxy.git'
+                sh 'mvn clean install'
+                sh '''
+                ifconfig -a
+                '''
+            }
+        }
+    }
+}
