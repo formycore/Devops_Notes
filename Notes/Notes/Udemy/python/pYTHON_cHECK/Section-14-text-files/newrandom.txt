@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 sfile=input("Enter the path: ")
 
 dfile=input("Enter the path: ")
@@ -15,21 +14,3 @@ dfo.close()
 
 dfo=open('newrandom.txt','r')
 print(dfo.read())
-=======
-sfile=input("Enter the path: ")
-
-dfile=input("Enter the path: ")
-
-sfo=open(sfile,'r')
-content=sfo.read()
-sfo.close()
-
-#print(content)
-dfo=open('newrandom.txt','w')
-dfo.write(content)
-dfo.close()
-#print(dfo.readlines())
-
-dfo=open('newrandom.txt','r')
-print(dfo.read())
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

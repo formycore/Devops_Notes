@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 - hosts: centos
   become: yes
@@ -11,18 +10,4 @@
       - '/home/ansible/md1'
       - '/home/ansible/md2'
       - '/home/ansible/md3'
-=======
----
-- hosts: centos
-  become: yes
-  tasks:
-    - name: Create multiple directories
-      file:
-        path: "{{ item }}"
-        state: directory
-      with_items:
-      - '/home/ansible/md1'
-      - '/home/ansible/md2'
-      - '/home/ansible/md3'
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         

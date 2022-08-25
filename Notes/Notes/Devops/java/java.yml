@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 - hosts: tocmat
   become: yes
@@ -6,13 +5,4 @@
   - name : template test
     src: my.j2
     dest: /etc/tomcat7/server.xml
-=======
----
-- hosts: tocmat
-  become: yes
-  tasks:
-  - name : template test
-    src: my.j2
-    dest: /etc/tomcat7/server.xml
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     

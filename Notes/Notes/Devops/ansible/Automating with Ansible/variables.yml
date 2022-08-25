@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 - hosts: httpd
   vars:
@@ -31,38 +30,4 @@
   - name: test the webserver is available
     uri:
       url: http://13.58.160.82
-=======
----
-- hosts: httpd
-  vars:
-    apache_package: httpd
-    web_services: httpd
-  become: yes
-  tasks:
-  - name : install and update latest packages
-    package:
-      name: "{{ apache_package }}"
-      state: latest
-  - template:
-      src: http.j2
-      dest: /etc/httpd/conf.d
-      owner: root
-      group: root
-      mode: 0644
-  - name: create web content
-    copy:
-      content: "welcome to httpd"
-      dest: /var/www/html/index.html
-  - name: start and enable 
-    service:
-      name: "{{ web_services }}"
-      enabled: true
-      state: started
-- name: verify the webserver
-  hosts: localhost
-  tasks:
-  - name: test the webserver is available
-    uri:
-      url: http://13.58.160.82
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
       staus_code: 200

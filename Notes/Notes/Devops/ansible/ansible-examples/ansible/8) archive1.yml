@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 - hosts: centos
   become: yes
@@ -8,15 +7,4 @@
         path: /home/ansible/lenovo.txt
         dest: /home/ansible/lenovo.zip
         format: zip
-=======
----
-- hosts: centos
-  become: yes
-  tasks:
-    - name: Archive zip file 
-      archive:
-        path: /home/ansible/lenovo.txt
-        dest: /home/ansible/lenovo.zip
-        format: zip
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         

@@ -1,2 +1,0 @@
-- pod is logical boundary on the container/collection of container
-- advantages and disadvantages of pods on k8s cluster

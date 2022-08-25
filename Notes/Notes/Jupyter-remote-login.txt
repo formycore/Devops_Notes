@@ -1,8 +1,3 @@
-<<<<<<< HEAD
 jupyter notebook --no-browser --port=8889
 ssh -N -f -L localhost:8080:localhost:8889 user@server
-=======
-jupyter notebook --no-browser --port=8889
-ssh -N -f -L localhost:8080:localhost:8889 user@server
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 (mostly in ubuntu)

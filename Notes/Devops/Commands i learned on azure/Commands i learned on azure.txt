@@ -1,31 +1,31 @@
 # To Create a resource group
-az group create ï¿½location ï¿½name
+az group create –location –name
 
 # To delete the resource group
-az group delete -n ï¿½no-wait ï¿½yes -y
+az group delete -n –no-wait –yes -y
 
 # To Create a network vnet
-az network vnet create -g -n ï¿½address-prefix 10.0.0.0/16 ï¿½subnet-name webtier ï¿½subnet-prefix 10.0.0.0/24
-az network vnet create -g refcli -n jiovnet ï¿½address-prefix 10.0.0.0/16 ï¿½subnet-name webtier ï¿½subnet-prefix 10.0.0.0/24 ï¿½subnet-name activedirectorytier ï¿½subnet-prefix 10.0.1.0/24
+az network vnet create -g -n –address-prefix 10.0.0.0/16 –subnet-name webtier –subnet-prefix 10.0.0.0/24
+az network vnet create -g refcli -n jiovnet –address-prefix 10.0.0.0/16 –subnet-name webtier –subnet-prefix 10.0.0.0/24 –subnet-name activedirectorytier –subnet-prefix 10.0.1.0/24
 
 # To Create network security group
-az network nsg create -name ï¿½resource-group
-az network nsg create -n nsg1 ï¿½resource-group cli
+az network nsg create -name –resource-group
+az network nsg create -n nsg1 –resource-group cli
 
 # To Create network security rule
-az network nsg rule create -g ï¿½nsg-name -n ï¿½priority 100
-az network nsg rule create -g cli ï¿½nsg-name nsg1 -n mynsgrule ï¿½priority 100
+az network nsg rule create -g –nsg-name -n –priority 100
+az network nsg rule create -g cli –nsg-name nsg1 -n mynsgrule –priority 100
 
 # To create rule for ports
-az create nsg rule create -g cli ï¿½nsg-name nsg1 -n mynsgrule2 ï¿½priority 120 ï¿½destination-port-ranges 22
+az create nsg rule create -g cli –nsg-name nsg1 -n mynsgrule2 –priority 120 –destination-port-ranges 22
 
 # To create rule for specific ip address and ports
-az network nsg rule create -g cli ï¿½nsg-name nsg1 -n mynsgrule3 ï¿½priority 4096 ï¿½source-address-prefixes 208.130.28.0/24 ï¿½source-port-ranges 80 ï¿½destination
--address-prefixes ï¿½*ï¿½ ï¿½destination-port-ranges 80 8080 22 ï¿½access Deny ï¿½protocol TCP ï¿½description ï¿½Deny from specific Ip address ranges on 80 and 8080ï¿½
+az network nsg rule create -g cli –nsg-name nsg1 -n mynsgrule3 –priority 4096 –source-address-prefixes 208.130.28.0/24 –source-port-ranges 80 –destination
+-address-prefixes ‘*’ –destination-port-ranges 80 8080 22 –access Deny –protocol TCP –description “Deny from specific Ip address ranges on 80 and 8080”
 
 # To Create a virtual machine and attach the n/w security group to the vm
-az vm create ï¿½name -g ï¿½image ï¿½vnet-name ï¿½nsg ï¿½admin-username ï¿½admin-password ï¿½size B1s
-az vm create ï¿½name forimage -g cli ï¿½image UbuntuLTS ï¿½vnet qtvnet ï¿½nsg nsg1 ï¿½admin-username qtsan ï¿½admin-password motherindia@123 ï¿½size B1s
+az vm create –name -g –image –vnet-name –nsg –admin-username –admin-password –size B1s
+az vm create –name forimage -g cli –image UbuntuLTS –vnet qtvnet –nsg nsg1 –admin-username qtsan –admin-password motherindia@123 –size B1s
 
 CREATING CUSTOM IMAGE
 
@@ -36,31 +36,31 @@ vm create
 
 # To Deallocate the machine
 az vm deallocate \
-ï¿½resource-group myResourceGroup \
-ï¿½name myVM
+–resource-group myResourceGroup \
+–name myVM
 
-az vm deallocate ï¿½resource-group cli ï¿½name forimage
+az vm deallocate –resource-group cli –name forimage
 
 # To Generalize
 az vm generalize \
-ï¿½resource-group myResourceGroup \
-ï¿½name myVM
+–resource-group myResourceGroup \
+–name myVM
 
-az vm generalize ï¿½resource-group cli ï¿½name forimage
+az vm generalize –resource-group cli –name forimage
 
 # To image create
 az image create \
-ï¿½resource-group myResourceGroup \
-ï¿½name myImage ï¿½source myVM
+–resource-group myResourceGroup \
+–name myImage –source myVM
 
-az image create -g cli -n forimage1 ï¿½source forimage
+az image create -g cli -n forimage1 –source forimage
 
 # To vm create
 az vm create \
-ï¿½resource-group myResourceGroup \
-ï¿½name myVMDeployed \
-ï¿½image myImage\
-ï¿½admin-username azureuser \
-ï¿½admin-password password@1234
+–resource-group myResourceGroup \
+–name myVMDeployed \
+–image myImage\
+–admin-username azureuser \
+–admin-password password@1234
 
-az vm create ï¿½resource-group cli ï¿½name myvmdeployed ï¿½image UbuntuLTS ï¿½admin-username qtsandeep ï¿½admin-password motherindia@123
+az vm create –resource-group cli –name myvmdeployed –image UbuntuLTS –admin-username qtsandeep –admin-password motherindia@123

@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 ---
 # handlers file for test
 - name: restart tomcat
   service:
     name: "{{ package }}"
-=======
----
-# handlers file for test
-- name: restart tomcat
-  service:
-    name: "{{ package }}"
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     state: restarted

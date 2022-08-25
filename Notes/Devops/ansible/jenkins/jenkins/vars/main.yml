@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 ---
 # vars file for jenkins
 __jenkins_repo_url: https://pkg.jenkins.io/redhat/jenkins.repo
 __jenkins_repo_key_url: https://pkg.jenkins.io/redhat/jenkins.io.key
-=======
----
-# vars file for jenkins
-__jenkins_repo_url: https://pkg.jenkins.io/redhat/jenkins.repo
-__jenkins_repo_key_url: https://pkg.jenkins.io/redhat/jenkins.io.key
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

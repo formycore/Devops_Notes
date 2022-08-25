@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Scenario
     - Multitier application stack
     - Running on VM's
@@ -15,21 +14,3 @@ Source:
 
 for this we take https://github.com/devopshydclub/vprofile-project
 branch : docker
-=======
-Scenario
-    - Multitier application stack
-    - Running on VM's
-    - Regular deployment
-    - Continuous changes
-
-Solution:
-    - Containers
-    - Consumes low resources
-    - deployment are done via images
-    - 
----------------------------------------
-Source:
-
-for this we take https://github.com/devopshydclub/vprofile-project
-branch : docker
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

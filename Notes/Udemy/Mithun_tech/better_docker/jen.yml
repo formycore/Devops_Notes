@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 ---
 - hosts: jenk
   become: yes
   tasks:
     - name: Update repo
       package:
-=======
----
-- hosts: jenk
-  become: yes
-  tasks:
-    - name: Update repo
-      package:
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         name: 

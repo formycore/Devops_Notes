@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 ---
 - name: Installing sonarqube
   hosts: sonarqube
   become: yes
   tasks:
-=======
----
-- name: Installing sonarqube
-  hosts: sonarqube
-  become: yes
-  tasks:
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
   

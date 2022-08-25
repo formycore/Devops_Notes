@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 - hosts: tom
   become: yes
@@ -17,24 +16,4 @@
     - name: Configuring the tomcat users
       copy:
         src: tomcat_users.xml
-=======
----
-- hosts: tom
-  become: yes
-  tasks:
-    - name: Install tomcat
-      package:
-        name: tomcat
-        state: present
-    - name: Install Admin Packages
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - tomcat-webapps
-        - tomcat-admin-webapps
-    - name: Configuring the tomcat users
-      copy:
-        src: tomcat_users.xml
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         dest: /usr/share/tomcat/conf/tomcat-users.xml

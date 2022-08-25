@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [Unit]
 Description=SonarQube service
 After=syslog.targetnetwork.target
@@ -11,17 +10,3 @@ Group=root
 Restart=always
 [Install]
 WantedBy=multi-user.target
-=======
-[Unit]
-Description=SonarQube service
-After=syslog.targetnetwork.target
-[Service]
-Type=forking
-ExecStart=/opt/sonarqube/bin/linux-x86-64/sonar.sh start
-ExecStop=/opt/sonarqube/bin/linux-x86-64/sonar.sh stop
-User=root
-Group=root
-Restart=always
-[Install]
-WantedBy=multi-user.target
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5

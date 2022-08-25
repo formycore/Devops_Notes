@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 - hosts: tom
   become: yes
@@ -7,14 +6,4 @@
       copy:
         src: /opt/playbooks/webapp/target/webapp.war
         dest: /var/lib/tomcat/webapps
-=======
----
-- hosts: tom
-  become: yes
-  tasks:
-    - name: copy war files to tomcat
-      copy:
-        src: /opt/playbooks/webapp/target/webapp.war
-        dest: /var/lib/tomcat/webapps
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         

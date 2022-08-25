@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 vpc_name: "Vprofile-vpc"
 
 # vpc range
@@ -6,13 +5,4 @@ vpcCidr: '172.20.0.0/16'
 
 # Subnets Range
 PubSub1Cidr: 172.20.1.0/24
-=======
-vpc_name: "Vprofile-vpc"
-
-# vpc range
-vpcCidr: '172.20.0.0/16'
-
-# Subnets Range
-PubSub1Cidr: 172.20.1.0/24
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
 PubSub2Cidr: 172.

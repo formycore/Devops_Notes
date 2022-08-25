@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Email Notification
     - manage jenkins
     - configure system
@@ -11,18 +10,4 @@ Email Notification
         - password: 
         - use ssl
         - test configuration by sending test email
-=======
-Email Notification
-    - manage jenkins
-    - configure system
-    - email Notification
-    - google gmail smtp settings
-    - smtp server: [check google]
-    - click advanced
-        - use smtp authentication
-        - username: formycore@gmail.com
-        - password: 
-        - use ssl
-        - test configuration by sending test email
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
         

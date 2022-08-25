@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
     - hosts: localhost
       connection: local
@@ -10,17 +9,4 @@
             region: us-east-2
             state: stopped
             wait: yes
-=======
----
-    - hosts: localhost
-      connection: local
-      gather_facts: false
-      tasks:
-        - name: starting ec2 instances
-          ec2:
-            instance_ids: i-09cd119067c24683f
-            region: us-east-2
-            state: stopped
-            wait: yes
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
     

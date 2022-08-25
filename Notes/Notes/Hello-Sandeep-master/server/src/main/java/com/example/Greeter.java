@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.example;
 
 /**
@@ -18,24 +17,3 @@ public class Greeter {
     return String.format("Hello, %s!", someone);
   }
 }
-=======
-package com.example;
-
-/**
- * This is a class.
- */
-public class Greeter {
-
-  /**
-   * This is a constructor.
-   */
-  public Greeter() {
-
-  }
-
-  //TODO: Add javadoc comment
-  public String greet(String someone) {
-    return String.format("Hello, %s!", someone);
-  }
-}
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
