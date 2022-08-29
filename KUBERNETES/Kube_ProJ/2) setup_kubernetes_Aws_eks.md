@@ -1,7 +1,7 @@
 # (4) Create EKS cluster and nodes from EC2 Management Host
 ## install aws-cli
 python3 -m pip install aws-cli
-aws configure
+* aws configure
 
 ## Installing aws-iam-authenticator
 ```
