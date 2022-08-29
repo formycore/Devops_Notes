@@ -24,8 +24,8 @@ eksctl version
 3) Create an IAM Role and attache it to EC2 instance Management Host
     `Note: create IAM user with programmatic access if your bootstrap system is outside of AWS`
     IAM user should have access to
-    IAM
-    EC2
-    VPC
-    CloudFormation
+    * IAM full access
+    * EC2 full access
+    * VPC full access
+    * CloudFormation full access
 * attach the role to kubernetes managed hosts
