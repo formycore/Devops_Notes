@@ -1,0 +1,11 @@
+# example for source ~/bashrc with ansible
+---
+- hosts: localhost
+  tasks:
+    - name: source bashrc
+      shell: source ~/.bashrc
+      args:
+        executable: /bin/bash
+      register: bashrc
+    - debug: var=bashrc
+    
