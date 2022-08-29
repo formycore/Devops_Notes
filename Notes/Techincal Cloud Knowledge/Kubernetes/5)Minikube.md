@@ -4,9 +4,7 @@
 - how to configure minikube cluster setup
 - we need to check whether the hardware supports virtualization supports or not 
 - should be virtualization enabled
-<<<<<<< HEAD
-- 
-=======
+
 - it should have any one of the vm
 - or with out vm also we can use minikube
 - just with docker
@@ -41,4 +39,3 @@ EOF
 -- kubectl get cs
 -- kubectl get nodes
 -- kubectl get nodes -o wide
->>>>>>> 9fe199743c6df19ba1530059bc0dd794606c74e5
