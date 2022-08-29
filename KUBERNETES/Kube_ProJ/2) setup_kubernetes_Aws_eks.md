@@ -32,9 +32,10 @@ eksctl create cluster --name samantha-cluster \
 eksctl delete cluster --name samantha-cluster --region ap-south-1
 ```
 **now create a new cluster with different name and with zones**
-* eksctl create cluster \
+```
+ eksctl create cluster \
 --name deepika-cluster \
 --region ap-south-1 \
 --node-type t2.medium \
 --zones ap-south-1a,ap-south-1b
-
+```
