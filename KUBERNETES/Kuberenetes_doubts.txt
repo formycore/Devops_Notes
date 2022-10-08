@@ -1,0 +1,10 @@
+canary 
+session affinity
+configmap with ssl certificate
+ingress
+statefulless
+statefullset
+JBoss, WebLogic, WebSphere.
+initContainers
+reclaimPolicy
+pod affinity -- https://www.youtube.com/watch?v=S0ICBR_l9Es
