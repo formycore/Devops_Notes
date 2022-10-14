@@ -17,7 +17,9 @@ ansible_connection=ssh
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ```
 4) with ansible vault we can change the hard coded password here
-4a) ```ansible-vault encrypt_string <password_HERE> --ask-vault-pass```
+
+4a)
+ ```ansible-vault encrypt_string <password_HERE> --ask-vault-pass```
 5) for some reason the ini format of inventory file does not support ansible vault
 6) we need to convert the ini format inventory to yml format as inventory.yml
 ```
