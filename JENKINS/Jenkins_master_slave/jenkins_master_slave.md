@@ -41,7 +41,7 @@
 5) chmod 600 authorized_keys
 6) install ssh-agent plugin in master server
 7) go to credentials -> system -> global credentials -> add credentials -> ssh username with private key
-8) copy the slave server public key to the master server here at the credentials part
+8) copy the slave server private key to the master server here at the credentials part
 9) go to manage jenkins -> manage nodes and clouds -> new node
 10) enter the node name
 11) select permanent agent
