@@ -1,0 +1,22 @@
+Install kubectl binary with curl on Linux
+$ curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+Note:
+To download a specific version, replace the $(curl -L -s https://dl.k8s.io/release/stable.txt) portion of the command with the specific version.
+
+For example, to download version v1.24.0 on Linux, type:
+
+curl -LO https://dl.k8s.io/release/v1.23.6/bin/linux/amd64/kubectl
+
+-- so our command is 
+    - curl -LO "https://dl.k8s.io/$(curl -LO https://dl.k8s.io/release/v1.23.6/bin/linux/amd64/kubectl)/bin/linux/amd64/kubectl.sha256"
+    -  echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+    - sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    - kubectl version --client
+---------------------------------------------------
+copy the admin.conf on the local machine
+- rename the file to config <mv admin.conf config>
+- mkdir -p $HOME/.kube
+- cp config $HOME/.kube/config
+- export KUBECONFIG=$HOME/.kube/config
+- kubectl get nodes
+---------------------------------------------------

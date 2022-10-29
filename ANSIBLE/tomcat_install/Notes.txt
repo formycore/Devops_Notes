@@ -1,0 +1,19 @@
+https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.tar.gz
+req_tomcat_version: 9.0.68
+https://dlcdn.apache.org/tomcat/tomcat-{{req_tomcat_version.split(".")[0]}}/v{{req_tomcat_version}}/bin/apache-tomcat-{{req_tomcat_version}}.tar.gz
+
+
+----------------------------------
+when ever we run the ansible-playbook
+- it will run in a shell 
+- after completion of the task the shell closes so that the work on the shell also closes
+- if we want to run and continue the task(service) always prefer to run in the background
+- using nohup & sysbols
+-------------------------------------------------
+- now the playbook run fine 
+- i want to change the port number of the tomcat
+- for that we need to copy the server.xml under /usr/local/latest/conf
+- server.xml is under the root access 
+- change the root access to the user access
+- then copy that to the ansible server
+

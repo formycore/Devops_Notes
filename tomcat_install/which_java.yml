@@ -1,0 +1,10 @@
+---
+- hosts: tomcat
+  become: yes
+  tasks:
+    - name: Check the java version
+      shell: which java
+      register: java_version
+    - name: Print the java version
+      debug:
+        msg: "{{ java_version.stdout }}"

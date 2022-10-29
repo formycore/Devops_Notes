@@ -1,0 +1,22 @@
+# install jenkins with ansible on centos 7
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: Install java
+      yum:
+        name: java-1.8.0-openjdk
+        state: present
+    - name: setup java environment
+      shell: echo "export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk" >> ~/.bashrc
+      args:
+        executable: /bin/bash
+      register: bashrc
+    - name: source bashrc
+      shell: source ~/.bashrc
+      args:
+        executable: /bin/bash
+      register: bashrc
+    

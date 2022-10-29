@@ -1,0 +1,11 @@
+---
+- hosts: tomcat
+  become: true
+  vars:
+    require_java: java-1.8.0-openjdk
+    set_java: jre-1.8.0-openjdk
+    tomcat_url: https://dlcdn.apache.org/tomcat/tomcat-{{req_tomcat_version.split(".")[0]}}/v{{req_tomcat_version}}/bin/apache-tomcat-{{req_tomcat_version}}.tar.gz
+  tasks:
+   - name: Start the tomcat
+     shell:
+       cmd: nohup /usr/local/latest/bin/startup.sh &

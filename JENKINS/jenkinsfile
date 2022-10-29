@@ -1,0 +1,8 @@
+// to connect to ansible server and run the playbook
+node {
+    stage('Ansible') {
+        sshagent(['ansible']) {
+            sh 'ansible-playbook -i hosts playbook.yml'
+        }
+    }
+}

@@ -1,0 +1,22 @@
+# checking the file premissions
+- name: Checking the path access
+  hosts: tomcat
+  become: yes
+  tasks:
+    - name: Checking the server_xml access
+      shell:
+        cmd: ls -ltr /usr/local/latest
+      register: result
+    - name: Checking the server_xml access
+      debug:
+        msg: "{{ result.stdout_lines }}"
+    - name: owning the file
+      shell:
+        cmd: chown -R maanya:maanya /usr/local/latest
+    - name: Check the premissions
+      shell:
+        cmd: ls -ltr /usr/local/latest
+      register: result_per
+    - name: debug the result
+      debug:
+        msg: "{{ result_per.stdout_lines }}"

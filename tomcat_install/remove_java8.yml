@@ -1,0 +1,17 @@
+# Uninstall java 1.8 from centos
+# after trying to remove with name: java-1.8.0-openjdk state: absent it failed
+---
+- hosts: tomcat
+  become: yes
+  tasks:
+    - name: Check the java with rpm 
+      shell:
+        cmd: rpm -qa | grep -i java | sed -n '3p'
+      register: java_version
+    - name: Checking if the java is removing or not
+      debug:
+        msg: "{{ java_version.stdout }}"
+    - name: Remove java
+      yum:
+        name: "{{ java_version.stdout }}"
+        state: absent

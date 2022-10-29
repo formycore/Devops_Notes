@@ -1,0 +1,15 @@
+// get ip address of the node agent on jenkins
+pipeline {
+    agent {label 'maria_slave'}
+    stages {
+        stage('Build') {
+            steps {
+                sh 'echo "Hello World"'
+                sh 'echo "My IP address is: $(hostname -I)"'
+                sh '''
+                ifconfig
+                '''
+            }
+        }
+    }
+}

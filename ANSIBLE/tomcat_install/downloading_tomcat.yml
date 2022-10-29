@@ -1,0 +1,13 @@
+---
+- hosts: tomcat
+  become: yes
+  vars:
+    req_tomcat_version: 9.0.68
+    tomcat_url: https://dlcdn.apache.org/tomcat/tomcat-{{req_tomcat_version.split(".")[0]}}/v{{req_tomcat_version}}/bin/apache-tomcat-{{req_tomcat_version}}.tar.gz
+  tasks:
+    - name: Download tomcat
+      unarchive:
+        src: "{{ tomcat_url }}"
+        dest: /usr/local
+        remote_src: yes
+        

@@ -1,0 +1,14 @@
+# ssh-keyscan -H SLAVE-NODE-IP-OR-HOSTNAME >>/var/lib/jenkins/.ssh/known_hosts
+---
+- hosts: ansible
+  become: yes
+  tasks:
+    - name: Copy the slave node's public key[id_rsa.pub] to Master Node's known_hosts file
+      shell: ssh-keyscan -H docker >> /home/ansible/.ssh/known_hosts
+      register: copy_id_rsapub_to_authorized
+      changed_when: copy_id_rsapub_to_authorized.rc == 0
+      register: copy_id_rsapub_to_authorized
+    - name: check the content
+      debug:
+        msg: "{{ copy_id_rsapub_to_authorized.stdout }}"
+    

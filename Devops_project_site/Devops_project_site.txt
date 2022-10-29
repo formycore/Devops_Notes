@@ -1,0 +1,12 @@
+dev.to
+rtfm.co.ua
+itnext.io
+medium.com
+devops.com
+blog.risingstack.com -- good devops project
+devopsish.com
+computingforgeeks.com
+dzone.com
+-------------
+for cloud 
+- cloudonaut.io

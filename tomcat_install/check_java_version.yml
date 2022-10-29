@@ -1,0 +1,12 @@
+---
+- hosts: tomcat
+  become: yes
+  tasks:
+    - name: Checking java version
+      shell: java -version
+      register: java_version_output
+    - name: printing the java version
+      debug:
+        msg: "{{ java_version_output }}"
+      
+    

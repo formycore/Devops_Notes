@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Here we are checking ansible_hostname
+      debug:
+        msg: "hostname is {{ ansible_hostname }}"
+    - name: Here we are checking inventory_hostname
+      debug:
+        msg: "hostname is {{ inventory_hostname }}"

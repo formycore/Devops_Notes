@@ -1,0 +1,43 @@
+export my_zone=us*central1*c
+export my_cluster=standardcluster
+
+gcloud container clusters get*credentials $my_cluster **zone $my_zone
+* under clusters
+    * under workloads
+    * select the deployment
+    * actions (under three dots)
+    * scale
+    * edit replicas
+    * change the replicas value
+* here we can do scale up and scale down
+* here we can do scale up and scale down from the console also
+$ kubectl scale --replicas=1  deployment nginx-deployment
+* how to change the image name in deployment
+    $ kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record
+* check the status of the rollout of the image
+    $ kubectl rollout status deployment nginx-deployment
+* kubectl get deployments -- to check the deployments
+* kubectl rollout history
+  $ kubectl rollout history deployment nginx-deployment
+* kubectl rollout undo
+    $ kubectl rollout undo deployment nginx-deployment
+* check for the particular rollout
+    $ kubectl rollout history deployment nginx-deployment --revision=<no of the rollout>
+* from the console under the same workloads
+    ** check for the revision history
+----------------------------------------------------------------------------------------------------
+* CANARY MODE
+    * used to test a new version of the deployment
+    * when we have a new release of the application, we can test it in the canary mode
+    * we can deploy the new version to but we dont want to expose this to the public
+    * we can deploy specific region or customers or users to some users only to test and check
+    if it works fine we will switch all our traffic to newer(canary) version or else we can undo/rollback this
+    older version
+    * to use this canary fully we need to have service mesh 
+    * we will check that in further videos
+    * the service will do 50 50 load balancing
+* try to down scale the deployments to zero
+    $ kubectl scale --replicas=0 deployment nginx-deployment
+* try to down scale the canary also
+    $ kubectl scale --replicas=0 deployment nginx-deployment-canary
+    
