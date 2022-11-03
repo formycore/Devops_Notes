@@ -32,3 +32,4 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ```
 - ansible-playbook -i inventory.yml <playbook_name>.yml
 - ssh <remote_server>
+## on the remote server the user with ansible is running like ansadmin or ansible or ubuntu or ec2-user must be present on the remote server also 
