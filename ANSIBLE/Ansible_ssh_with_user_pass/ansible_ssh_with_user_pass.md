@@ -43,3 +43,15 @@ all:
 7) now try to ping the servers
 
 8) ansible -m ping all -i inventory.yml --ask-vault-pass
+
+## ssh connection for ansible private key
+```
+[master]
+dock ansible_host=xx.xx.xx.xx
+
+[master:vars]
+ansible_user=<remote_user>
+ansible_private_key_file=<private_key_file>
+ansible_connection=ssh 
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+```

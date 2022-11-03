@@ -1,0 +1,10 @@
+---
+- name: Install keys on the Nodes
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install keys on the Nodes
+      authorized_key:
+        user: xxxx
+        key: "{{ lookup('file', '/home/xxxxx/.ssh/id_rsa.pub') }}"
+        state: present
