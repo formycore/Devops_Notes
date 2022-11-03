@@ -30,3 +30,5 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no'
         key: "{{ lookup('file', '/home/xxxxx/.ssh/id_rsa.pub') }}"
         state: present
 ```
+- ansible-playbook -i inventory.yml <playbook_name>.yml
+- ssh <remote_server>
