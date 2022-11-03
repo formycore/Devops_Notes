@@ -2,10 +2,10 @@
 ---
 - hosts: localhost
   tasks:
-    - name: source bashrc
+    - name: Source bashrc
       shell: source ~/.bashrc
       args:
         executable: /bin/bash
       register: bashrc
-    - debug: var=bashrc
-    
+    - debug: 
+        msg: "{bashrc.stdout_lines}"
