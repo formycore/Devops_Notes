@@ -1,0 +1,76 @@
+1) Az-104 Microsoft ceritified : Azure administrator Associate course
+2) Azure subcription and resources
+    - Create and manage Azure subcription
+    - Access control on the subcription
+    - Overview of Azure resources manager
+    - Create and manage resources group
+    - move resources accross resources group
+3) Azure virtual Machines
+    - Deploy virtual Machines from Azure portal
+    - ways to Create vm in azure portal
+    - Deploy vm's using ARM templates
+    - virtual machine configurations
+    - Choosing right virtual configurations
+4) Azure calculator
+5) Azure storage
+    - Types of azure storage
+    - types of storage accounts
+    - Storage replication in azure
+    - Managed vs unmanaged disks
+    - Different types of disks and benefits
+    - Choosing the right storage for Different workloads
+6) Azure Networking
+    - Overview of virtual Network
+    - Creating virtual Networks and subnets
+    - Setup connectivity to azure resources
+    - Global vnet peering
+    - configuration point to site VPN
+    - Creating site to site VPN
+    - Azure load balancers
+    - Creating backend pools and NAT rules in Load balancer
+7) N/w Security groups
+    - Creating N/w  Security groups
+    - Associate NSG's
+    - configuration inbound and outbound
+    - Restricting traffic to subnets vm using NSG
+8) General administrator tasks in azure
+    - Add & remove data disk on the vm
+    - Extending existing disks
+    - scale up & scale down the vm
+    - Add and modify the n/w interface card
+    - Converting dynaminc to static ip
+    - using custom DNS for azure vm
+    - Taking snapshot of the data backup 
+    - Restoring snapshot
+    - create vm using snapshot
+    - Create vm image
+9) High availability Services
+    - Azure availability sets,Zones
+    - Azure scale sets
+10) Azure Paas - App Services
+    - Overview of Paas Services
+    - Azure app Services,administration
+11) Azure Paas - SQL DB
+    - creating of azure SQL DB
+    - accessing
+    - accessing through SSMS
+12) Azure Active directory (AAD)
+    - Overview of Azure directory
+    - Create and manage users & groups
+    - providing permissions to Azure resources
+    - Overview of Azure Ad premium
+    - configure custom domains in Azure
+    - configure multi factor authentication
+    - Intergrate onprem AD with azure AD
+13) Azure recovery  Series
+    - Overview azure recovery services vault
+    - configure backup for azure vm's
+    - configure backup for on prem VM's
+    - Backup Schedules and retention policies
+    - Restore VM from Azure
+    - Disable backup and remove backup data
+14) Azure Monitoring
+    - Monitoring server health status
+    - Creating and configuring alerts using azure Monitor
+15) Troubleshooting steps
+    - 
