@@ -1,0 +1,1 @@
+echo "export PATH=\"/home/mark/.local/bin:\$PATH\"" >> ~/.bashrc && source ~/.bashrc
