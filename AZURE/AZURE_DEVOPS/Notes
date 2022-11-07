@@ -1,0 +1,17 @@
+https://www.youtube.com/watch?v=7YMWthE6RTY
+
+- open dev.azure.com
+- create a new project
+- Create a project to get started
+- Project name
+- Visibility
+- Advanced
+- Version control: Git
+- Work item process : Agile
+
+---------------------------------------------------------
+- go to the project
+- Click on Boards
+- create work item
+- + New work item
+- EPIC
