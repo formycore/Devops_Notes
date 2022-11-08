@@ -1,0 +1,18 @@
+- az login
+- az group create --name azure_resource_group --location eastus
+## creating the virtual machine
+az vm create --resource-group azure_resource_group \
+  --name azurevm \
+  --image UbuntuLTS \
+  --generate-ssh-keys \
+  --output json \
+  --verbose
+## Get VM information with queries
+  az vm show --name azurevm --resource-group azure_resource_group
+  az vm show --name azurevmubuntu --resource-group azure_resource_group
+
+  NIC_ID=$(az vm show -n azurevmubuntu -g azure_resource_group \
+  --query 'networkProfile.networkInterfaces[].id' \
+  -o tsv)
+## Cleanup
+az group delete --name azure_resource_group --no-wait
