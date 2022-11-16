@@ -1,0 +1,24 @@
+- Verb-Noun
+# To get the informations
+- Get-AzResource
+# To create a new work
+- New-AzResourceGroup
+# To edit or add 
+- Add-Az
+# modify the existing
+- Set-Az
+# Delete the existing
+- Remove-Az
+---------------------------------------------------------
+# To create azure resource group
+New-AzResourceGroup --Name "testRg" --location EastUS
+#Create a resource group with tags
+New-AzResourceGroup --Name "TestRG" --location EastUS -Tag @{Empty=$null; Department="Marketing"}
+# Gethelp
+Get-help <command name>
+# To modify the resource group name
+Set-AzResourceGroup -Name "TestRG" -Tag @{Group="New"}
+# To get all the commands
+Get-commands
+# the Pipe symbols (|)
+Get-AzResourceGroup | ft
