@@ -1,5 +1,0 @@
-- we followed the azure cloud shell intergration process
-- azure command shell is like verb-noun
-- like Get-AzVM for virtual machine example
-- Get-AzVirtualNetwork
-- 
