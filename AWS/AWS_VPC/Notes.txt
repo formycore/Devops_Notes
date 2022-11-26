@@ -82,4 +82,6 @@
       --destinatin-cidr-block
 
       ## https://dev.to/mariehposa/how-to-create-vpc-subnets-route-tables-security-groups-and-instances-using-aws-cli-14a4#vpc
+
+      ## https://www.youtube.com/watch?v=n0Y_rNhCwtw
     
