@@ -1,0 +1,85 @@
+# Create a new VPC 
+- first we need to know about the CIDR for networking
+    - SUBNET: n/w inside the n/w
+        - n/w traffic travel through shorter distance without passing many routers
+    - SUBNETTING: Dividing larger n/w to smaller n/w
+    - IP ADDRESS: 192.168.100.1 
+    - here we need to convert the 192 as octate(it has 8 values)
+        so 198 convert to binary means LCM by 2
+            - so 192 becomes - 11000000
+            - so 168 becomes - 10101000
+            - so 100 becomes - 01100100
+            - so 1 becomes   - 00000001
+    - Subnet Masking: 
+       Example: A building full of employees, i need to send the letter to samantha from DBA team, 
+       so i will start from DBA team not whole building
+       Example2: A Network 192.168.0.1, so i need to search for 192.168.0 then after the 15 which is
+       host portion 
+    - CIDR:  IPV4 has 32 +bit in length (192.168.0.1=8+8+8+8=32)
+    - Example: 192.168.0.1/24 
+    - here 192.168.0 is 8+8+8 = 24
+    - and 192.168.0 is called Network portion
+    - the remaining 0 is called host portion
+    - if VPC_CIDR = 192.168.0.1/24 means
+     - (here total is 32,so remove 32 from the cidr value which is 24(32-24)=8=2(powerof8)=256)
+     - here we get for 24 cidr value we get 256 ipaddress for the subnet 255.255.255.0
+    - if VPC_CIDR = 192.168.0.1/25
+    - so 32-25 =7 
+    - 2 power 7 is 128
+    - we get total of 127 ipaddress here
+
+    - if we Create VPC by default
+        - Route Table
+        - Network ACl
+        - Security Group is created
+    - Creating VPC
+        - go to VPC
+        - create VPC
+        - VPC only
+    # Creating VPC with AWS
+      =================================================
+      Step 1 — Create a VPC
+      aws ec2 create-vpc --cidr-block 10.0.0.0/16
+      aws ec2 create-tags --resources <vpc-id> --tags Key=<tag-key>,Value=<tag-value>
+      =================================================
+      Step 2 - Create public and private subnets
+      aws ec2 create-subnet \
+      -- vpc-id <vpc_id> \
+      --cidr-block 10.0.1.0/24
+
+      aws ec2 create-tags \
+      --resources <subnet-id> \
+      --tags Key=Name,Value=<value>
+      =================================================
+      Step 3 - Create internet gateway for the VPC
+      aws ec2 create-internet-gateway
+      
+      aws ec2 create-tags \
+      --resources <internet gateway>
+      --tags Key=Name,Value=<value>
+     # Then attach the internet gateway to the VPC.
+       aws ec2 attach-internet-gateway \
+       --internet-gateway-id <internet-gateway-id> 
+       --vpc-id <vpc-id>
+    =================================================
+      Step 4 - Create a route table for each subnet one for public and another for private
+
+      aws ec2 create-route-table --vpc-id <vpc_id> <for public and private>
+
+      aws ec2 create-tags \ 
+      --resources <route table id >
+      --tags Key=Name,Value=<value>
+    =================================================
+      Step 5 - Create routes
+
+      aws ec2 create-route \
+      --route-table <public_route_table_id> \
+      --destinatin-cidr-block 0.0.0.0/0 \
+      --gateway-id <internet-gateway-id>
+
+      aws ec2 create-route \
+      --route-table <private_route_table_id> \
+      --destinatin-cidr-block
+
+      ## https://dev.to/mariehposa/how-to-create-vpc-subnets-route-tables-security-groups-and-instances-using-aws-cli-14a4#vpc
+    
