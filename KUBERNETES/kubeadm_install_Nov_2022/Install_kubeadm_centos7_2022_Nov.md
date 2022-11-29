@@ -32,8 +32,9 @@ exclude=kubelet kubeadm kubectl
 EOF
 ```
 ## 11) Set SELinux in permissive mode (effectively disabling it)
-sudo setenforce 0
+
 ```
+sudo setenforce 0
 sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 sudo systemctl enable --now kubelet
@@ -49,28 +50,32 @@ modprobe br_netfilter
 ```
 
 # ONLY ON MASTER
-1) kubeadm init
+```kubeadm init```
 
         here we get the join command for the nodes
         copy that to the nodes 
 #### If you have lost the kubeadm join command with the token id then you can generate a new one using
-kubeadm token create --print-join-command
+```kubeadm token create --print-join-command```
 #### if you are root user then execute this 
    export KUBECONFIG=/etc/kubernetes/admin.conf
 #### if you are normal user then execute this
+```
              1a) mkdir -p $HOME/.kube 
 
              1b) sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 
              1c) sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-2) kubectl get nodes
-3) kubectl get pods -n kube-system
+```
+```kubectl get nodes
+kubectl get pods -n kube-system
+```
 4) we can see that the pods are in pending state because we have not installed the network plugin yet
 
 # install calico CNI
+```
 curl https://docs.projectcalico.org/manifests/calico.yaml -O
 
 kubectl apply -f calico.yaml
 
 kubectl get pods -n kube-system
+```
