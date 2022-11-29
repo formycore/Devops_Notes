@@ -1,3 +1,6 @@
+# Followed https://docs.google.com/document/d/1_SlIpFvrLbHFe2XL6-OEFDKbbp2p0nFKW1hFSDHOFDw/edit
+# YouTube Link https://www.youtube.com/watch?v=nbp9zxkmi74&t=2261s
+
 # MASTER & NODES
 
 1) sudo yum update -y
@@ -29,12 +32,12 @@ exclude=kubelet kubeadm kubectl
 EOF
 ```
 ## 11) Set SELinux in permissive mode (effectively disabling it)
-```
 sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 ```
-12) sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-13) sudo systemctl enable --now kubelet
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo systemctl enable --now kubelet
+```
 #### here we will get some errors for that we need to run this command first
 Solution
 ```
