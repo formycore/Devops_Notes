@@ -50,8 +50,8 @@ modprobe br_netfilter
 #### If you have lost the kubeadm join command with the token id then you can generate a new one using
 kubeadm token create --print-join-command
 #### if you are root user then execute this 
-export KUBECONFIG=/etc/kubernetes/admin.conf
-if as normal users then use the list of commands which are provided by the example
+   export KUBECONFIG=/etc/kubernetes/admin.conf
+#### if you are normal user then execute this
 1a) mkdir -p $HOME/.kube
 1b) sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 1c) sudo chown $(id -u):$(id -g) $HOME/.kube/config
