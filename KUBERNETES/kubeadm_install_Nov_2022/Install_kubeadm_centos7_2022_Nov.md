@@ -52,8 +52,10 @@ kubeadm token create --print-join-command
 #### if you are root user then execute this 
    export KUBECONFIG=/etc/kubernetes/admin.conf
 #### if you are normal user then execute this
-1a) mkdir -p $HOME/.kube
+1a) mkdir -p $HOME/.kube 
+
 1b) sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+
 1c) sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 2) kubectl get nodes
