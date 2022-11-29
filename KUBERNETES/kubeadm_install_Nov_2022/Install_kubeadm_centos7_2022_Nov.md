@@ -47,6 +47,9 @@ modprobe br_netfilter
 
 # ONLY ON MASTER
 1) kubeadm init
+
+        here we get the join command for the nodes
+        copy that to the nodes 
 #### If you have lost the kubeadm join command with the token id then you can generate a new one using
 kubeadm token create --print-join-command
 #### if you are root user then execute this 
