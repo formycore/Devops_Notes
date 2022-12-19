@@ -1,0 +1,35 @@
+# check for the ansible play ping
+---
+- name: ping
+  hosts: jenkins
+  become: yes
+  tasks:
+    - name: ping the servers
+      ping:
+# install the java8 
+    - name: Install java 8
+      package:
+         name: java-1.8.0-openjdk-devel
+         state: present
+# Install Jenkins repository
+    - name: Install jenkins repository
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.io.key 
+        dest: /etc/yum.repos.d/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+# Import jenkins key
+    - name: Import jenkins key from url
+      ansible.builtin.rpm_key:
+        state: present
+        key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+# Install jenkins
+    - name: Install jenkins
+      package:
+        name: jenkins
+        state: present
+# Start and enable jenkins
+    - name: Start and enable jenkins
+      ansible.builtin.systemd:
+        name: jenkins
+        state: started
+        enabled: yes

@@ -1,0 +1,38 @@
+                                    Flow of Execution
+CI
+
+Login to aws account
+create login key
+create sg 
+    - jenkins
+    - Nexus
+    - Sonar
+Create instances with userdata
+    - jenkins
+    - Nexus
+    - Sonar
+jenkins post installation
+Nexus repo setup
+    - 3 repo
+Sonar post installation
+jenkins steps
+    - Build Job
+    - setup slack notification
+    - Checkstyle code analysis Job
+    - Sonar integration
+    - Artifact upload Job
+Connect all jobs with Build pipeline
+Setup automatic build trigger
+Test  with GIT
+Create SG
+    - windows server
+    - Tomcat &  backend server
+setup Tomcat & backend with userdata
+Create jenkins job to Deploy Artifact to staging
+Add windows node as slave to jenkins
+create job to run software test(selinium) from windows server
+Deploy Artifact to production tomcat server
+Connect all jobs with buildpipeline
+test it by commiting to github
+
+

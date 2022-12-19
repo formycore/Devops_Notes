@@ -1,0 +1,51 @@
+---
+- name: ping the localhost
+  hosts: localhost
+  connection: local
+  become: yes
+  vars_prompt:
+    - name: username
+      prompt: "Enter Username"
+      private: no
+    - name: user_password
+      prompt: "Enter Password"
+      private: yes
+  tasks:
+    - name: Install Prerequisites.
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - epel-release
+        - unzip
+        - vim
+        - wget
+    - name: Install openJDK.
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - java-11-openjdk
+        - java-11-openjdk-devel
+    - name: Install dependencies for postgres
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - postgresql
+        - postgresql-contrib
+        - postgresql-libs
+        - python3-psycopg2
+    - name: Ensure postgres up and running
+      service:
+        name: postgresql
+        state: started
+        enabled: yes
+    - name: Creating user {{ username }}
+      user:
+        name: "{{ username }}"
+        password: "{{ user_password }}"
+        state: present
+        shell: /bin/bash
+        createhome: yes
+        home: /home/{{ username }}
