@@ -1,0 +1,19 @@
+sudo yum update -y
+sudo yum install -y wget vim curl unzip
+# increase the vm max map count file descripter and ulimit permanently
+sudo vim /etc/security/limits.conf
+sonarqube  -  nofile 65536
+sonarqube  -  nproc 4096
+# Add user sonar
+sudo adduser sonar
+sudo passwd sonar
+# Install java
+sudo yum install -y java-11-openjdk-devel
+java -version
+
+# Install postgresql
+sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+sudo yum -y install postgresql14-server postgresql14
+# After installation, initialize the database and enable automatic start
+sudo /usr/pgsql-14/bin/postgresql-14-setup initdb
+sudo systemctl enable --now postgresql-14

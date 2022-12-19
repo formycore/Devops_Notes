@@ -1,0 +1,7 @@
+[jenkins]
+jenkins_centos ansible_host=3.108.236.xxx
+[jenkins:vars]
+ansible_user=ubuntu
+ansible_private_key_file=~/mumbai_nov.pem
+ansible_connection=ssh
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

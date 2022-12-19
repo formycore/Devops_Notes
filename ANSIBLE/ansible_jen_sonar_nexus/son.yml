@@ -1,0 +1,12 @@
+---
+- name: sonar install
+  hosts: localhost
+  connection: local
+  become: yes
+  vars:
+    postgresql_version: "14"
+    postgresql_bin_path: "/usr/lib/postgresql/{{ postgresql_version }}/bin"
+    postgresql_dir_path: "/var/lib/postgresql/{{ postgresql_version }}/main"
+  tasks:
+    - name: Install and configure PostgreSQL
+      

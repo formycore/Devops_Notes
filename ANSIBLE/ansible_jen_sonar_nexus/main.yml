@@ -1,0 +1,9 @@
+---
+- name: Install jenkins
+  hosts: jenkins
+  become: yes
+  tasks:
+    name: install dependencies
+    package:
+      - wget
+      - java-1.8.0-openjdk-devel
