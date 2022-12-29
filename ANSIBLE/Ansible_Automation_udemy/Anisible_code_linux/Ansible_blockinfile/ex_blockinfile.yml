@@ -1,0 +1,14 @@
+# we are adding the few line in the file with blockinfile module
+# here we are adding the line in the /etc/hosts file
+---
+- name: blockinfile module demo
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  tasks:
+    - name: Add block to /etc/hosts
+      ansible.builtin.blockinfile:
+        state: present
+        path: /etc/hosts
+        block: |
+          127.0.0.1 demo demo.example.com
