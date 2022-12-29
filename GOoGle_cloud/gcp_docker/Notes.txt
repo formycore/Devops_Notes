@@ -1,0 +1,5 @@
+# first we need to authorize the user in gcp cloud shell
+gcloud config set project $PROJECT_ID
+
+gcloud builds submit --tag gcr.io/$PROJECT_ID/$IMAGE_NAME
+gcloud run deploy --image gcr.io/$PROJECT_ID/$IMAGE_NAME

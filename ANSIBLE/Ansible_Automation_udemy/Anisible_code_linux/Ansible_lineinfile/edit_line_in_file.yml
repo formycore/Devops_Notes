@@ -1,0 +1,16 @@
+# here we are editing the /etc/ssh/sshd_config 
+# here we have PasswordAuthentiction no
+# changing that to yes
+---
+- name: lineinfile module demo
+  hosts: ans
+  become: yes
+  tasks:
+    - name: Allow Password Authentiction
+      ansible.builtin.lineinfile:
+        state: present
+        dest: /etc/ssh/sshd_config
+        regexp: "^PasswordAuthentication"
+        line: "PasswordAuthentication yes"
+        validate: 'sshd -t -f %s'
+        backup: yes

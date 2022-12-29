@@ -1,0 +1,76 @@
+microservices
+	create API
+	hosted API gateway
+	backend
+	lambda
+	db dynamo
+		- CURD the dynamo
+
+
+event driven architecture
+	event bridge
+	sqs
+	SNS
+	lambda
+
+creating webapplication using wordpress
+	- elastic bean stack
+	- cloudformation to create the wordpress
+	- UNDERSTAND THE ARCHITECTURE
+
+- DEVOPS PROJECT
+	- IAC DEPLOYED FROM JENKINS
+	- TERRAFORM 
+	- FARGATE
+	- LAMBDA
+
+- GITOPS
+	- KUBERNETES
+
+- CREATING YOUR RESUME FROM A STATIC WEBSITE
+	- HOST RESUME ON S3 BUCKET
+	- INTEGRATE CLOUDFRONT TO S3 BUCKET
+	- IMPLEMENT THE ROUTE 53
+
+
+------------------------------------
+4 TIPS 
+	- scale the solution higher degree/high availablity
+	- cost optimize
+	- secure the solution 
+
+
+
+types of project
+	- serverless ecommerce 
+
+-----------------------------------------------------
+url
+- https://github.com/saha-rajdeep/serverless-lab
+- https://catalog.us-east-1.prod.workshops.aws/workshops/63320e83-6abc-493d-83d8-f822584fb3cb/en-US/eventbridge -- Event-driven with EventBridge
+- https://aws.amazon.com/getting-started/hands-on/build-wordpress-website/ -- Build a WordPress Website
+- https://s3.eu-west-1.amazonaws.com/cloudformation-templates-eu-west-1/WordPress_Multi_AZ.template -- static website on s3
+- https://www.youtube.com/watch?v=o4QG_kqYvHk --- How to Deploy To Kubernetes with Jenkins GitOps GitHub Pipeline - Tutorial + Real World Demo
+- https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html --- Tutorial: Configuring a static website on Amazon S3
+- https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-cloudfront-walkthrough.html --- Speeding up your website with Amazon CloudFront
+- https://www.youtube.com/watch?v=b6z6i3Lrp04 --- Install Jenkins on EC2 in ONE Click | Run CloudFormation from Github using Jenkins | Part 1
+- https://www.youtube.com/watch?v=XnRqGMSCQyY ---- Run CloudFormation from Github using Jenkins PipeLine | JenkinsFile | AWS SSM | Part 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

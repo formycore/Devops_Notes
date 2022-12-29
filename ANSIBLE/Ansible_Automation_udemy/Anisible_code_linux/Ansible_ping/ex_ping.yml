@@ -1,0 +1,9 @@
+---
+- name: ping module demo
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  tasks:
+    - name: test connection
+      ping:
+      

@@ -1,0 +1,14 @@
+pipeline {
+    stages {
+        stage('git checkout') {
+            steps {
+                git 'https://github.com/sandeepmchary/java_home.git'
+            }
+        }
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+    }
+}
