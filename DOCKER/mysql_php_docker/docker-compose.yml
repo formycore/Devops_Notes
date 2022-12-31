@@ -1,0 +1,24 @@
+version: '3' # docker version
+services:
+  www:
+    image: php:7.2-apache # php version
+    volumes:
+      - "./:/var/www/html" # sync with proj dir with container web dir
+    ports:
+      - 80:80
+      - 443:443 # furture ssl traffic
+  db:
+    image: mysql:5.7 # mysql version
+    environment:
+      - MYSQL_DATABASE=php_docker # database name
+      - MYSQL_USER=php_docker # user name
+      - MYSQL_PASSWORD=password # user password
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes # allow empty password
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin # phpmyadmin version
+    ports:
+      - 8001:80 # phpmyadmin port
+    environment:
+      - PMA_HOST=db # database host
+      - PMA_PORT=3306
+  
