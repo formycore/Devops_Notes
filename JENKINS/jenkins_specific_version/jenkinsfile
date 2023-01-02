@@ -1,0 +1,15 @@
+pipeline {
+     agent { label 'docker' }
+    stages {
+        stage('Example') {
+            steps { 
+                sh '''
+                docker version
+                docker info
+                docker ps
+                java -version
+                '''
+            }
+        }
+    }
+}
