@@ -51,7 +51,7 @@ resource "azurerm_subnet" "mtc_subnet" {
 }
 #-----------------------------------------------------------------------------------------------#
 # Now we are looking for security group
-# azurerm _network_security_group
+# azurerm_network_security_group
 # we need security group to create the security group rule
 resource "azurerm_network_security_group" "mtc_security_group" {
     name = "mtc_security_group"
@@ -147,5 +147,65 @@ resource "azurerm_network_interface" "mtc_nic" {
 # after that we terraform state show azurerm_public_ip.mtc_public_ip
 # still no sign of the public ip address
 #-----------------------------------------------------------------------------------------------#
+# here we are creating the instance
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine
+resource "azurerm_linux_virtual_machine" "mtc-vm" {
+  name                = "mtc-vm"
+  resource_group_name = azurerm_resource_group.mtc_rg.name
+  location            = azurerm_resource_group.mtc_rg.location
+  size                = "Standard_B1s"
+  admin_username      = "adminuser"
+  network_interface_ids = [azurerm_network_interface.mtc_nic.id]
+  # here are creating the customdata
+  # we can use the filebase64 function
+  custom_data = filebase64("customdata.tpl") # if this file is in the same directory or else we can give the path
+  # create a ssh-keygen on the localmachine where the terraform is running
+  # ssh-keygen -t rsa
+  # by default the id will be like id_rsa, change that
+  # at the point of enter file in which to save the key
+  # Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa): /home/ubuntu/.ssh/mtcazurekey
+  # here mtcazurekey and mtcazurekey.pub files are created
+  admin_ssh_key {
+    username = "adminuser"
+    public_key = file("~/.ssh/mtcazurekey.pub")
+    # here we are using a file function, file reads the file content and subsitute it here
+    # here we can use the filebase64 function as well to read the file content and encode it in base64
+  }
 
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
+  }
+  tags = {
+    environment = "dev"
+  }
+}
+# terraform state list
+# terraform state show azurerm_linux_virtual_machine.mtc-vm
+# we can see the public ip address here
+# first create a new instance 
+# then add the custom data
+# as the custom data reqires the instance to be re-created
+# terraform plan
+# Plan: 1 to add, 0 to change, 1 to destroy.
+#  + custom_data=(sensitive value) # forces replacement
+# as we used the filebase64 function the custom data is sensitive
+# terraform apply --auto-approve
+# it will destroy that and crate a new instance with the custom data
+#-----------------------------------------------------------------------------------------------#
+data "azurerm_public_ip" "mtc_ip-date" {
+    # here we are calling this as mtc_ip-data
+    name = azurerm_public_ip.mtc_public_ip.name
+    # here we are quering mtc_public_ip for the azurerm_public_ip
+    resource_group_name = azurerm_resource_group.mtc_rg.name
+    # this is going to find the public ip address that matches above conditions
+}
+# we dont need to apply it again, as it is not a resource we need to refresh
+# terraform apply --refresh-only
 
