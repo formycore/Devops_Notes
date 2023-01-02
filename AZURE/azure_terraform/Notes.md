@@ -20,5 +20,5 @@ terraform destroy -target=<resource name>
 
 - so we have tfstate and tfsate backup files,if we edit or delete the tfstate file then we can't get the resources back,so we have to take the backup of the tfstate file for that reason we have tfstate.backup file
 
-- next part starts from https://www.youtube.com/watch?v=V53AHWun17s&list=PLB97yPrFwo5jXUZ5ZaBDVqZDnJQVwYsDL&index=4
+- next part starts from https://www.youtube.com/watch?v=V53AHWun17s&t=4744s
 
