@@ -1,0 +1,17 @@
+---
+- name: Trigger jenkins with ansible playbook
+  hosts: 127.0.0.1
+  connection: local
+  vars:
+    Uname: "admin"
+    Pass: "san"
+    Hostname: "localhost:8080"
+    TokenName: "1145c8adb61352902d0fd262d31e99071e"
+    JobName: test
+  tasks:
+    - name: Queue build
+      uri:
+        url: "http://{{ Hostname }}/buildByToken/build?job={{ JobName }}&token={{ TokenName }}"
+        method: POST
+        force_basic_auth: yes
+        status_code: 201
