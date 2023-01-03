@@ -1,0 +1,32 @@
+# update jenkins with war ansible playbook
+---
+- name: jenkins update
+  connection: local
+  hosts: 127.0.0.1
+  vars:
+    destpath: /usr/share/java/jenkins.old
+    filename: /usr/share/java/jenkins.war
+    version: 2.361.4
+  become: yes
+  tasks:
+    - name: Check the file exists
+      stat:
+        path: "{{ filename  }}"
+      register: check_file_name
+    - debug:
+        msg: "{{ check_file_name }}"
+    - name: Rename file
+      command: mv {{ filename }} {{ destpath }}
+      when: check_file_name.stat.exists
+    - name: Stop the service
+      service:
+        name: jenkins
+        state: stopped
+    - name: Download the file
+      get_url:
+        url: https://get.jenkins.io/war-stable/{{ version }}/jenkins.war
+        dest: "{{ filename }}"
+    - name: Start the service
+      service:
+        name: jenkins
+        state: started
