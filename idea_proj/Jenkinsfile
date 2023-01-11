@@ -1,0 +1,27 @@
+// git 'https://github.com/ravdy/hello-world.git'
+// if maven not found
+// go to the maven server and check mvn -v, it will show the path of the maven installed,copy the path
+// under the agent any 
+// environment {
+//     PATH = "${PATH}:/usr/local/maven/bin:$PATH"
+//     PATH = "${PATH}:/usr/local/src/apache-maven/bin:$PATH"
+//}
+pipeline {
+    agent {label 'docker'}
+    environment {
+        PATH = "${PATH}:/usr/local/maven/bin:$PATH"
+    }
+    stages {
+        stage("git"){
+            steps{
+                git 'https://github.com/ravdy/hello-world.git'
+            }
+        }
+        stage("Maven"){
+            steps{
+                sh 'mvn clean install'
+            }
+        }
+        
+    }
+}

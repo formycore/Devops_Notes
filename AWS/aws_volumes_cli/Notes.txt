@@ -1,0 +1,4 @@
+# AWS CLI list all volumes
+
+# aws cli delete volumes with volume id
+aws ec2 delete-volume --volume-id vol-xxxxsfds
