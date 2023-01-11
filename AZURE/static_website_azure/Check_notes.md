@@ -1,3 +1,7 @@
+https://techdirectarchive.com/2022/06/22/how-to-upload-batch-files-to-azure-storage-account-using-azure-cli/
+
+https://www.youtube.com/watch?v=tMvNUdT2IPM
+
 # How to Upload Batch Files to Azure Storage Account Using Azure CLI
 ## Uploading Bulk Files to Azure Storage Account
 - Active Azure Subscription. If you don’t one, you can sign up here
