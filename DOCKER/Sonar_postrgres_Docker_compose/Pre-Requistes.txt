@@ -1,0 +1,8 @@
+vm.max_map_count is greater than or equal to 524288
+fs.file-max is greater than or equal to 131072
+
+add these in the /etc/sysctl.conf
+vm.max_map_count=262144
+fs.file-max=65536
+
+sudo sysctl --system
