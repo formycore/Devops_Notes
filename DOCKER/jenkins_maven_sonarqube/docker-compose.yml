@@ -1,5 +1,18 @@
 version: "3.3"
 services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - /home/maanya/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+  maven:
+    image: maven:3.8.1-jdk-11
   db:
     image: postgres:12-alpine
     environment:
@@ -16,7 +29,7 @@ services:
       - db
     environment:
       - sonar.jdbc.username=sonar
-      - sonar.jdbc.password=sonar
+      - sonar.jdbc.password=sonar 
       - sonar.jdbc.url=jdbc:postgresql://db/sonar
     ports:
       - 9000:9000
@@ -35,5 +48,3 @@ volumes:
   sonar_extensions:
   sonar_plugins:
   postgres_data:
-
-

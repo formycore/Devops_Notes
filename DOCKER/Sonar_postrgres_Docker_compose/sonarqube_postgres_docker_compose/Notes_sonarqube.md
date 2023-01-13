@@ -1,0 +1,48 @@
+# first set the values of vm.max_map_count and fs.file-max
+ - sudo tee -a /etc/sysctl.conf <<EOF
+vm.max_map_count=262144
+fs.file-max=65536
+EOF
+ - sudo sysctl --system
+# Now sonarqube compose file
+```
+version: "3.3"
+services:
+  db:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+      - POSTGRES_DB=sonar
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - sonarqube-net
+  sonarqube:
+    image: sonarqube:community
+    depends_on:
+      - db
+    environment:
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar 
+      - sonar.jdbc.url=jdbc:postgresql://db/sonar
+    ports:
+      - 9000:9000
+    volumes:
+      - sonar_conf:/opt/sonarqube/conf
+      - sonar_data:/opt/sonarqube/data
+      - sonar_extensions:/opt/sonarqube/extensions
+      - sonar_plugins:/opt/sonarqube/lib/bundled-plugins
+    networks:
+      - sonarqube-net
+networks:
+  sonarqube-net:
+volumes:
+  sonar_conf:
+  sonar_data:
+  sonar_extensions:
+  sonar_plugins:
+  postgres_data:
+```
+# Now run the compose file
+ - docker-compose up -d
