@@ -11,16 +11,20 @@
 10.138.0.5 node1 
 ```
 3) Check for the swap entry in /etc/fstab and comment it out
-4) sudo swapoff -a
-5) sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-6) sudo yum-config-manager \
+```
+sudo swapoff -a
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
-7) sudo yum install containerd.io -y
-8) sudo systemctl start containerd
-9) sudo systemctl enable containerd
+sudo yum install containerd.io -y
+sudo systemctl start containerd
+sudo systemctl enable containerd
+
+```
 10) install kubeadm kubelet kubectl
 ```
+
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
