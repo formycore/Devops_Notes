@@ -11,8 +11,9 @@
 10.138.0.5 node1 
 ```
 3) Check for the swap entry in /etc/fstab and comment it out
+```sudo swapoff -a```
+4) Install docker/containerd
 ```
-sudo swapoff -a
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 sudo yum-config-manager \
     --add-repo \
