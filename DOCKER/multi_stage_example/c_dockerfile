@@ -1,0 +1,7 @@
+FROM ubuntu
+WORINGDIR /opt/facebooc
+COPY . .
+RUN apt-get update && \
+    apt-get install -yq build-essential make libsqlite3-dev sqlite3 && \
+    make all
+CMD bin/facebooc

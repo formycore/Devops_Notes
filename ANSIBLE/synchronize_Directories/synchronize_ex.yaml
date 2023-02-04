@@ -1,0 +1,11 @@
+---
+- name: copy the contents of "jenkins" to "terra"
+  hosts: jenkins
+  user: ubuntu
+  tasks:
+    - name: copy the directories
+      ansible.posix.synchronize:
+        src: "/home/ubuntu/lenovo"
+        dest: "/home/ubuntu/"
+        mode: pull
+      delegate_to: terra

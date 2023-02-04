@@ -8,7 +8,7 @@
         state: present
     - name: Rysnc up and running
       service:
-        name: rsyncd
+        name: rsync
         state: started
         enabled: yes
         

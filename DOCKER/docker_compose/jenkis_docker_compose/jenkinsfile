@@ -1,0 +1,20 @@
+// Building war: /var/jenkins_home/workspace/check/webapp/target/webapp.war
+pipeline{
+    agent any
+    environment {
+        PATH = "$PATH://usr/local/src/apache-maven/bin"
+    }
+    stages{
+       stage('GetCode'){
+            steps{
+                git 'https://github.com/ravdy/hello-world.git'
+            }
+         }        
+       stage('Build'){
+            steps{
+                sh 'mvn clean package'
+            }
+         }
+       
+    }
+}
