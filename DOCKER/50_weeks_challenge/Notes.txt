@@ -1,0 +1,9 @@
+# Docker file for petclinic
+FROM schoolofdevops/maven:spring
+WORKDIR /app
+COPY . .
+RUN mvn spring-javaformat:apply && \
+    mvn clean package -DskipTests && \
+    mv target/*.jar /run/petclinic.jar
+EXPOSE 8080
+CMD ["java", "-jar", "/run/petclinic.jar"]

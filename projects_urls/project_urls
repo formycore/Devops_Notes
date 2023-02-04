@@ -1,0 +1,139 @@
+## https://digitalavenue.dev/
+Create Persistent Volume
+Create a PersistentVolumeClaim
+RollingUpdate
+docker nfs(Create a service which creates an NFS volume)
+
+https://cloudkul.com/blog/mounting-s3-bucket-linux-ec2-instance/
+
+
+Building Java Applications Sample with gradle
+
+
+WebServer using Docker
+https://github.com/phusion/passenger-docker
+
+ Jenkins Remoting Project
+ https://github.com/jenkinsci/remoting
+ 
+ CD Pipeline using AWS
+ 
+ https://aws.amazon.com/getting-started/hands-on/create-continuous-delivery-pipeline/
+
+Deploying a Containerized Web Application -- https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app
+
+Building Version Control System -- https://github.com/gitless-vcs/gitless
+
+Deploying Application Using Kubernetes -- https://github.com/MagalixCorp/sample-api/
+
+Structuring a Terraform Project -- https://www.digitalocean.com/community/tutorials/how-to-structure-a-terraform-project 
+ 
+
+ 
+ 
+ 
+ 
+___________________________________________________________________________________________________
+
+AWS Sagemaker LSTM Project Template Outcomes
+
+How to set up AWS Sagemaker?
+How to fetch data from MySQL Database using pymysql?
+Brief introduction to Autocorrelation and Partial Correlation
+How to build lightgbm model?
+Brief introduction to LSTM
+How to build LSTM model?
+What is Rescaling, and why is it important?
+Rescaling data using QuantileTransformer
+Forecasting next days sales using the LSTM model
+How to load models on AWS S3 using boto3?
+How to create an endpoint and serve it using AWS Sagemaker?
+How to deploy a model using Sagemaker?
+Predictions using endpoint
+
+Getting Started with Pyspark on AWS EMR and Athena
+
+Understanding the Project Overview
+Creating an AWS EC2 instance
+Connecting to an AWS EC2 instance via SSH
+Introduction and Installation of Docker
+Visualizing the complete Data Pipeline
+Programmatically access S3 bucket
+Processing currency data from API
+Creating a cluster on AWS EMR
+Conversion of CSV data to Parquet format
+Using Pyspark on EMR for transformations
+Using crontab to schedule the code execution
+Using AWS Glue Crawler on S3 data
+Querying processed data using Athena
+
+
+AWS Data Engineering Project Project Template Outcomes
+Understanding the Finance dataset
+Understanding the Alpha Vantage API
+Understanding the three different data sources
+Understanding the AWS CDK
+Installation of AWS CDK and its various commands
+Advantages of Serverless technologies
+Creating an AWS Cloud9 environment
+Cloning GitHub repository in AWS Cloud9 environment
+Understanding the Lambda stack
+Understanding the Glue pipeline stack
+Understanding the Glue database stack
+Setting up environment variables
+Deployment of AWS CDK
+Performing analysis using Amazon Athena
+Creating visualizations using Amazon QuickSight
+
+
+Python and MongoDB Project for Beginners with Source Code
+
+Understanding the NoSQL Databases
+Understanding the importance of MongoDB Database
+Understanding the CAP theorem
+Difference between SQL and NoSQL databases
+Understanding the MongoDB architecture
+Creating MongoDB Atlas Cluster
+Setting up MongoDB Atlas Cluster
+Understanding the different connectors available in MongoDB Atlas Cluster
+Loading data to MongoDB using MongoDB Compass
+Setting up the PyMongo environment
+Perform queries on data
+Understanding the different CRUD operations
+Implementation of And, Or operators in Mongo query
+Understanding the use of Regex in Mongo query
+Understanding the various update operators in Mongo query
+Implementation of Set, Push, Inc, and Upsert operators in Mongo query
+Understanding how to delete a document
+Understanding the importance of Indexes in MongoDB
+Difference between Single, Compound, and Multi-key Indexes in MongoDB
+ACID transactions in MongoDB
+Aggregation Framework in MongoDB
+Understanding the use of elemMatch and Map Operators in Mongo query.
+Group and Facet operators in Mongo query
+Join two collections in MongoDB
+Understanding the various Geospatial queries in MongoDB
+Understanding the various transaction queries in MongoDB
+
+
+Build CI/CD Pipeline for Machine Learning Projects using Jenkins
+
+Understanding the streamlit application
+Creating an EC2 instance
+Setting up docker on the EC2 instance
+Understanding the different branches of the GitHub repository
+What is personal access token in GitHub?
+Generating new personal access token in GitHub
+Connecting to EC2 instance using SSH
+Deploying the streamlit application on the EC2 instance
+Cloning to the GitHub repository from the EC2 instance
+Setting up the Jenkins server on the EC2 instance
+Configuring Jenkins server
+Understanding the various components of Jenkins Dashboard
+Installing additional plugins in the Jenkins server
+Understanding the different jobs in the Jenkins server
+Creating a Freestyle job in the Jenkins server
+Creating a Pipeline job in the Jenkins server
+Understanding the configurations of the Jenkins job
+Building a Pipeline job in the Jenkins server
+
