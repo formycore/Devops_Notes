@@ -1,0 +1,7 @@
+Terraform workflow
+    - init
+    - validate
+    - plan
+    - apply
+    - destroy
+    
