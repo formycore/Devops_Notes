@@ -1,0 +1,21 @@
+# Terraform settings Block
+terraform {
+    required_providers {
+        aws = {
+            source = "hashicorp/aws"
+            version = "~> 3.0"
+        }
+    }
+}
+# providers Block
+provider "aws" {
+    profile = "default" # while aws configure we need to mention the profile name
+    region = "us-east-1"
+}
+
+# Resource Block
+resource "aws_instance" "ec2_demo" {
+    ami = "ami-xxxxxx" # ami varies from regions to os images
+    instance_type = "" # machine type
+    
+}

@@ -1,0 +1,35 @@
+# ansible syncronization
+    -- parameters
+        - archive
+        - checksum
+        - compress
+        - delete
+        - copy_links
+        - dest
+        - dest_port (ssh or rsync)
+        - dirs -- to transfer directories
+        - existing_only -- only transfer files that already exist
+        - group -- preserve group
+        - links -- to copy symbolic links
+        - mode -- pull/push mode
+        - owner -- preserve owner
+        - partial -- keep partially transferred files
+        - perms -- preserve permissions
+        - recursive -- to copy files within subdirectories
+        - rsync_opts -- additional rsync options
+        - rsync_path -- path to rsync on remote host
+----------------------------------------
+Ex: 
+    - to push a big file
+    - truncate -s 1G /tmp/bigfile
+
+    - name:
+      apt:
+        name: rsync
+        state: present
+      become: yes
+    - name: sync files
+      syncronize:
+        src: somefile
+        dest: /tmp/somefile
+        

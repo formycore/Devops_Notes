@@ -1,0 +1,11 @@
+- Arguments,meta-Arguments,attributes
+resource "aws_instance" "my-ec2-vm" {
+    ami = "" # any ami
+    instance_type = "" # machine type
+    key_name = "" # key name without the extension
+    user_data = file("apache_install.sh")
+
+}
+
+# please check the documents for the creating any resource 
+- in the documents we find which one is required and which is optional

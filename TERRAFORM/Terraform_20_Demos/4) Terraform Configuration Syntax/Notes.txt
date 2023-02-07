@@ -1,0 +1,24 @@
+Understand the Blocks
+                Arguments,Attributes & Meta-Arguments
+                Identifiers
+                Comments
+
+
+# TEMPLATE
+<block type> "<block lables>" "<block lables>" {
+    #BLOCK BODY
+    <Identifier> = <Expressions> # Arguments
+}
+
+# AWS Example
+resource "aws_instance" "ec2_demo" {
+    region = "us-east-1"
+    ami = "ami-xxx"
+    instance_type = "<type of the machine>"
+}
+
+/*
+line 1
+line 2
+line 3
+*/

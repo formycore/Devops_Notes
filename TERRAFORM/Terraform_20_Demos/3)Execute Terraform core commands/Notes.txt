@@ -1,0 +1,5 @@
+# terraform core commands
+terraform init
+terraform validate
+terraform plan
+terrafom apply
