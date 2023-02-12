@@ -1,0 +1,12 @@
+cd /opt
+sudo wget https://downloads.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.tar.gz
+sudo tar xvf apache*
+
+/opt/apache-maven-3.8.7
+
+
+vi /etc/profile.d
+
+export M2_HOME=/opt/apache-maven-3.8.7
+export MAVEN_HOME=/opt/apache-maven-3.8.7
+export PATH=${M2_HOME}/bin:${PATH}
