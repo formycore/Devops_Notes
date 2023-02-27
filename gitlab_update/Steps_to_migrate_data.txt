@@ -1,0 +1,51 @@
+Migrate the data from Server A to Server B
+same on both Server A and Server B
+
+sudo yum update -y
+sudo yum install curl policycoreutils openssh-server openssh-clients -y
+sudo systemctl enable sshd
+sudo systemctl start sshd
+sudo yum install postfix
+sudo systemctl enable postfix
+curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
+sudo yum install gitlab-ce-14.4.4-ce.0.el7.x86_64 -y
+
+gitlab-ctl restart
+gitlab-ctl reconfigure
+gitlab-rake gitlab:env:info
+
+- it will take some time to install
+- gitlab-rake "gitlab:password:reset[root]" - it will ask for new password
+- gitlab-ctl status
+- gitlab-rake gitlab:check SANITIZE=true
+------------------------------------------------------------------------------------------------------
+backup on serverA
+
+sudo gitlab-backup create --/var/opt/gitlab/backups/(check the backup location on /etc/gitlab/gitlab.rb file)
+sudo gitlab-ctl backup-etc -- /etc/gitlab/ (backup the gitlab.rb file and gitlab-secrets.json file)
+
+
+data backup location : /var/opt/gitlab/backups
+Gitlab configuration file location : /etc/gitlab
+take backup of gitlab.rb file and gitlab-secrets.json file 
+------------------------------------------------------------------------------------------------------
+ssh-keygen on the both the server 
+
+ssh-copy-id root@serverA
+ssh-copy-id root@serverB
+
+------------------------------------------------------------------------------------------------------
+sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+service sshd restart
+
+from serverA to serverB
+scp -r /var/opt/gitlab/backups/ root@serverB:/var/opt/gitlab/backups/
+sudo chown git:git /var/opt/gitlab/backups/11493107454_2018_04_25_10.6.4-ce_gitlab_backup.tar
+
+gitlab-ctl stop unicorn
+gitlab-ctl stop sidekiq
+
+
+
+
+
