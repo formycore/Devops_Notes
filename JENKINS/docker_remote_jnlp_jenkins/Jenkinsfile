@@ -1,0 +1,10 @@
+pipeline {
+    agent {label 'docker'}
+    stages {
+        stage('docker version'){
+            steps {
+                sh 'docker version'
+            }
+        }
+    }
+}
