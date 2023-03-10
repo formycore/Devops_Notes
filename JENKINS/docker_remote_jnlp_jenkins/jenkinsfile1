@@ -1,0 +1,11 @@
+// try agent { any { image 'node:12.16.2' args '-p 3000:3000' } }
+pipeline {
+    agent { any { image 'maven:3.9.0-eclipse-temurin-11' } }
+    stages {
+        stage('build') {
+            steps {
+                sh 'mvn --version'
+            }
+        }
+    }
+}
