@@ -1,0 +1,45 @@
+In your company, you have five distinct groups that need to have different levels of access: AWS Administrators, Developers, ITOPs/DevOPs Engineers, Security, and Management (Finance). Instead of assigning individual permissions to each user, you will first create groups for each type of access required. Creating groups is necessary so you can scale permissions.
+
+Click Open AWS console to access the lab environment, then use the provided credentials to log in.
+
+Note:
+
+Once logged in, towards the top-right of the console, ensure the user name is prefixed with pluralsight-, and the region to its right is listed as US West (Oregon) us-west-2. If not, you are not logged in with the provided account and in the proper region. Log out of all instances of your own AWS accounts, then follow the above task 1 instructions again.
+
+Ensure throughout the lab you remain in the US West (Oregon) us-west-2 region. Much will seem to work, but you will run into problems in the final challenge if you do not remain in the Oregon us-west-2 region, and may need to re-do much of the lab to fix things up.
+
+In the top search bar, type in and click on IAM.
+
+In the left-hand menu, click User groups.
+
+Click Create group to enter the Create user group wizard.
+
+Set the User group name to Developer.
+
+In the Attach permissions policies section, type AmazonEC2FullAccess into the search box and then press enter. Check the box next to the AmazonEC2FullAccess policy to attach it.
+
+You will now attach a second policy, so first, click Clear filters. Then type AWSCodeBuildDeveloperAccess, and check the resulting policy.
+
+Click Create group.
+
+Repeat the process above to create these four additional groups:
+
+Group Name: Administrators
+
+Policies: AdministratorAccess
+
+Group Name: DevOpsEngineer
+
+Policies: AmazonEC2FullAccess,  AmazonS3FullAccess
+
+Group Name: Security
+
+Policies: AWSSecurityHubFullAccess,  SecurityAudit
+
+Group Name: ITManagement
+
+Policies: Billing
+
+Once you're done, you'll see all five groups listed at the User groups page. 
+
+With all of the groups created, you now are ready to create users!
