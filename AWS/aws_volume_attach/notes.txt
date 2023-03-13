@@ -1,0 +1,4 @@
+file -s /dev/xvdf
+sudo lsblk -f
+mkdir /data1
+sudo mount -o nouuid /dev/xvdf2 /data1

@@ -1,0 +1,51 @@
+CICD with https://github.com/formycore/valaxy_hello_world
+jenkins 
+    - create a war artifact
+****************************************************************************************
+    // https://www.digitalocean.com/community/tutorials/maven-commands-options-cheat-sheet
+pipeline {
+    agent any
+    tools {
+        maven 'Maven' // here we need to specify the name given for the tool to install
+        // in the installation part we have given the maven name as maven
+    }
+    stages {
+        stage('Git Checkout'){
+            steps {
+                git 'https://github.com/formycore/valaxy_hello_world.git'
+            }
+        }
+
+        stage('Maven Build'){
+            steps {
+                sh 'mvn -X package'
+            }
+        }
+    }
+}
+****************************************************************************************
+    - copy that artifact to docker system
+// https://www.digitalocean.com/community/tutorials/maven-commands-options-cheat-sheet
+pipeline {
+    agent any
+    tools {
+        maven 'Maven' // here we need to specify the name given for the tool to install
+        // in the installation part we have given the maven name as maven
+    }
+    stages {
+        stage('Copying the war'){
+            steps {
+            sshagent(['sshdocker']) {
+                sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war maanya@10.128.0.2:/home/maanya"
+}
+            }
+
+            }
+        }
+    }
+
+    - from docker system create a tomcat
+    - war to tomcat
+    
+
+copyArtifacts filter: 'target/*war', fingerprintArtifacts: true, projectName: 'test', selector: lastSuccessful()
