@@ -76,11 +76,8 @@ kubectl get pods -n kube-system
 ```
 4) we can see that the pods are in pending state because we have not installed the network plugin yet
 
-# install calico CNI
+# Install any CNI plugin. We will use weavenet
 ```
-curl https://docs.projectcalico.org/manifests/calico.yaml -O
-
-kubectl apply -f calico.yaml
-
-kubectl get pods -n kube-system
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
 ```
+- Checking the state of kube-system ```kubectl get pods -n kube-system```
