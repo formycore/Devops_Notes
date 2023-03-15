@@ -1,0 +1,37 @@
+// https://www.digitalocean.com/community/tutorials/maven-commands-options-cheat-sheet
+pipeline {
+    agent any
+    tools {
+        maven 'maven' // here we need to specify the name given for the tool to install
+        // in the installation part we have given the maven name as maven
+    }
+    stages {
+        stage('Git Checkout'){
+            steps {
+                git 'https://github.com/formycore/valaxy_hello_world.git'
+            }
+        }
+        stage('Maven Version'){
+            steps {
+                sh 'mvn --version'
+            }
+        }
+        stage('Maven Clean'){
+            steps {
+                sh 'mvn clean'
+            }
+        }
+        stage('Maven Compile'){
+            steps {
+                sh 'mvn compiler:compile'
+            }
+        }
+        stage('Maven Build'){
+            steps {
+                sh 'mvn -X package'
+            }
+        }
+    }
+
+    
+}
