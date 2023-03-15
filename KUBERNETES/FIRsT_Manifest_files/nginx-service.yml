@@ -1,11 +1,11 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  ports:
-  - port: 8080
-    targetPort: 80
-  selector:
-    app: demo-nginx
-  type: NodePort
+apiVersion: v1 # here we are mentioning the apiversion 
+kind: Service # here we are mentioning the service
+metadata: # this is metadata
+  name: nginx-service # this is name of the service and it is component of metadata so this should be under metadata only
+spec: # specifications
+  ports: # we exposing the ports at network level by using services, one than one port we have to specify
+  - port: 8080 # to which port no we are exposing the application, in container -p for external port number and container port number
+    targetPort: 80 # this is like the container port no through which the n/w is passed
+  selector: # in the pod.yml file label is created, same here for service.yml for 
+    app: demo-nginx # this is same as pod.yml for communicating, this is should not be under metadata the same labels
+  type: NodePort # what type of service we are using
