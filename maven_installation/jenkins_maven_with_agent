@@ -1,0 +1,59 @@
+jenkins installation
+
+sudo yum install java-11-openjdk-devel -y
+curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum install jenkins -y
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+
+
+Install maven,docker on the another server
+
+Maven installation
+-------------------
+
+- wget https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+- sudo tar xf apache-maven-3.8.1-bin.tar.gz -C /opt
+- sudo mv apache-maven-3.6.3/ apache-maven
+- sudo vi /etc/profile.d/maven.sh
+    export M2_HOME=/opt/apache-maven
+
+    export MAVEN_HOME=/opt/apache-maven
+
+    export PATH=${M2_HOME}/bin:${PATH}
+- sudo chmod +x /etc/profile.d/maven.sh
+- source /etc/profile.d/maven.sh
+- mvn --version
+
+Maven installation on the agent 
+
+- Maven installations
+- Add Maven
+- Check Install automatically
+- Add Installer
+- select extract zip/tar
+- Download URL for binary archive
+- paste under this https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+- Subdirectory of extracted archive (apache-maven-3.6.3)
+- Advanced
+- Label (agent)<agent name>
+
+
+
+
+
+pipeline {
+    agent {label 'agent1'}
+    tools {
+        maven 'Maven'
+    }
+    stages {
+        stage ('Maven'){
+            steps {
+                sh 'mvn --version'
+            }
+        }
+    }
+}
+
