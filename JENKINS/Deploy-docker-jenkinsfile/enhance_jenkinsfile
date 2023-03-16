@@ -1,0 +1,5 @@
+- copy the war to docker instance
+- create a docker file with this war file created
+- docker build
+- docker run 
+
