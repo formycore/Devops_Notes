@@ -1,0 +1,14 @@
+1) Take the git repo from https://github.com/formycore/nodejs_vamsi.git
+a) after cloning to local we get a file for sonar-project.properties
+b) we need to install jenkins and sonarqube for this or else go with docker compose file
+2) Under sonar-project.properties
+ change the values
+ sonar.host.url=http://
+ sonar.login
+ 3) Under sonarqube Administrator -> MyAccount -> Security -> Generate Tokens -> Generate it
+ -> Copy the Generated Tokens to -> sonar-project.properties ->  sonar.login
+ 4) Under jenkins -> Manage plugins -> Nodejs,sonarqube
+ 5) Global Tool Configuration -> Nodejs -> NodeJS installations -> Name(nodejs18) -> Install automatically(Version(Nodejs18.0.0)) -> Save -> Apply
+ 6) under Configure System ->  SonarQube servers -> SonarQube installations -> Name(sonar)
+ -> Server URL -> Server authentication token -> Generated Tokens under(3 point) -> Add Jenkins Credentials -> Secret Text -> paste the Generated Tokens
+ 
