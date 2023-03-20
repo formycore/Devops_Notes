@@ -1,0 +1,24 @@
+#Install java with bashrc
+- go to https://www.openlogic.com/openjdk-downloads
+- search for java 11 os,architecture,etc
+- copy the tar.gz
+- install wget on the server
+- wget <url>
+- tar -xvf java*
+- vi ~/.bash_profile 
+- add this below single line
+- export JAVA_HOME=<path of the extracted the java dir>
+- edit this PATH=$PATH:$HOME/.local/bin:$HOME/bin to PATH=$JAVA_HOME/bin:$PATH:$HOME/.local/bin:$HOME/bin
+- source ~/.bash_profile
+- java -version
+- javac
+- create a file Simple.java
+    class Simple{  
+    public static void main(String args[]){  
+     System.out.println("Hello Java");  
+    }  
+    }  
+- javac Simple.java
+- java Simple
+
+
