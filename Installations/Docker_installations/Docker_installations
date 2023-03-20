@@ -1,0 +1,43 @@
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+------------------------------
+sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+
+sudo yum install -y yum-utils
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+# Specific version
+
+yum list docker-ce --showduplicates | sort -r
+
+ docker-ce.x86_64  3:18.09.1-3.el7                     docker-ce-stable
+ docker-ce.x86_64  3:18.09.0-3.el7                     docker-ce-stable
+ docker-ce.x86_64  18.06.1.ce-3.el7                    docker-ce-stable
+ docker-ce.x86_64  18.06.0.ce-3.el7                    docker-ce-stable
+
+# Latest Version
+sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Start Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# non-sudo user
+sudo usermod -aG docker $USER
+
+# Logout and login again
+exit
+
+# Docker compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
