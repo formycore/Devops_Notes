@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                // Build the project and generate the JAR file
+                sh 'mvn clean install'
+                
+                // Archive the JAR file as an artifact
+                archiveArtifacts 'target/*.jar'
+            }
+        }
+        stage('Copy Artifacts to Node') {
+            steps {
+                // Copy the JAR file from the master to the node
+                step([$class: 'CopyArtifact', projectName: 'Build and Test Project', 
+                    filter: 'target/*.jar', selector: [$class: 'SpecificBuildSelector', buildNumber: 'lastSuccessful'], 
+                    flatten: true, optional: false, target: '/path/to/target/directory'])
+            }
+        }
+    }
+}
