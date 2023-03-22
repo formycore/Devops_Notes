@@ -1,0 +1,20 @@
+1) Checking status of SonarQube task 'AYcFPbnQEK-cbN_eClXV' on server 'sonarqube'
+   - go to     
+   Dashboard
+    Manage Jenkins
+    Configure System
+    -  SonarQube servers 
+    - Server URL http://xx.xx.xx.xx:9000/ (if we copy the url from the sonarqube)
+    - it should be http://xx.xx.xx.xx:9000 
+    - save it & run it will be gone
+
+2) Checking status of SonarQube task 'AYcFPbnQEK-cbN_eClXV' on server 'sonarqube'
+   sonarqube task 'xxxxx' is pending
+   - sonarqube
+   - administration
+   - configuration
+   - webhooks
+   - Name: jenkins_webhook
+   - URL: http://<jenkins-url:8080>/sonarqube-webhook/
+   - save it
+   

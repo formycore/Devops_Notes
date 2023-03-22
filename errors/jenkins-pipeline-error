@@ -1,0 +1,6 @@
+1) SonarQube task 'xxxx' completed. Quality gate is 'ERROR'
+- check the pom.xml file changes
+2) Caused: hudson.remoting.ProxyException: java.lang.IllegalStateException: Unable to parse response from
+-  Fetches the environment variables for a given tool in a list of 'FOO=bar' strings suitable for the withEnv step. (self time 28ms) 
+- (error) in the jenkins file check the 'def readPomVersion = readMavenPom file 'pom.xml''
+- def readPomVersion = readMavenPom file: 'pom.xml'
