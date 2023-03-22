@@ -1,0 +1,46 @@
+To install Java and set the JAVA_HOME environment variable using Ansible, you can use the following playbook:
+
+yaml
+
+---
+- name: Install Java and set JAVA_HOME
+  hosts: all
+  become: yes
+  vars:
+    java_package: "openjdk-11-jdk"
+    java_home_path: "/usr/lib/jvm/java-11-openjdk-amd64"
+  tasks:
+    - name: Install Java
+      apt:
+        name: "{{ java_package }}"
+        state: present
+
+    - name: Set JAVA_HOME
+      become: yes
+      lineinfile:
+        dest: /etc/environment
+        regexp: '^JAVA_HOME='
+        line: "JAVA_HOME={{ java_home_path }}"
+        state: present
+        backup: yes
+      notify:
+        - Reload System Environment
+
+  handlers:
+    - name: Reload System Environment
+      become: yes
+      command: "systemctl --system daemon-reload"
+
+Explanation:
+
+    The playbook installs the OpenJDK 11 JDK package using the apt module.
+    The vars section defines the variables java_package and java_home_path. java_package is set to the package name of OpenJDK 11 JDK for Ubuntu, and java_home_path is set to the installation path of Java 11 on Ubuntu.
+    The tasks section consists of two tasks. The first task installs Java using the apt module. The second task sets the JAVA_HOME environment variable by adding it to the /etc/environment file using the lineinfile module. The notify keyword is used to trigger a handler that reloads the system environment to apply the changes.
+    The handlers section defines the Reload System Environment handler, which executes the systemctl --system daemon-reload command to reload the system environment.
+
+You can run this playbook using the ansible-playbook command with the inventory file and the playbook file as arguments:
+
+css
+
+ansible-playbook -i inventory.yml install-java.yml
+
