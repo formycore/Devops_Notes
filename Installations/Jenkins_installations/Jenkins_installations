@@ -4,3 +4,4 @@ sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 sudo yum install jenkins -y
 sudo systemctl start jenkins
 sudo systemctl enable jenkins
+sudo yum install git -y

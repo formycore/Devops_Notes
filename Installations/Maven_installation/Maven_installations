@@ -2,7 +2,8 @@ Maven installation
 -------------------
 
 - wget https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
-- sudo tar xf apache-maven-3.8.1-bin.tar.gz -C /opt
+- sudo tar xf apache-maven-3.6.3-bin.tar.gz -C /opt
+- cd /opt
 - sudo mv apache-maven-3.6.3/ apache-maven
 - sudo vi /etc/profile.d/maven.sh
     export M2_HOME=/opt/apache-maven
@@ -13,6 +14,9 @@ Maven installation
 - sudo chmod +x /etc/profile.d/maven.sh
 - source /etc/profile.d/maven.sh
 - mvn --version
+
+
+- install maven plugin in jenkins
 
 Maven installation on the agent 
 
