@@ -1,0 +1,131 @@
+Here are the steps to install Java with curl on CentOS 7:
+
+    Open a terminal window on your CentOS 7 system.
+    Update your system's package repository by running the following command:
+
+    sql
+
+sudo yum update
+
+Install the curl utility by running the following command:
+
+sudo yum install curl
+
+Download the Java installation package using the curl utility by running the following command:
+
+arduino
+
+curl -LO "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
+
+Note: This command downloads the Java 11 installation package for 64-bit Linux systems. If you need a different version or architecture of Java, you can find the appropriate download link on the official Java download page (https://jdk.java.net/).
+Extract the downloaded package using the tar utility by running the following command:
+
+tar -xvf openjdk-11.0.2_linux-x64_bin.tar.gz
+
+Move the extracted Java directory to the /usr/local directory by running the following command:
+
+bash
+
+sudo mv jdk-11.0.2 /usr/local/
+
+Configure the Java environment variables by creating a new file named java.sh in the /etc/profile.d directory using the following command:
+
+bash
+
+sudo nano /etc/profile.d/java.sh
+
+Add the following lines to the java.sh file:
+
+bash
+
+export JAVA_HOME=/usr/local/jdk-11.0.2
+export PATH=$PATH:$JAVA_HOME/bin
+
+Note: The JAVA_HOME variable should point to the directory where you installed Java. If you installed a different version of Java or installed it in a different directory, you should adjust the path accordingly.
+Save and close the java.sh file by pressing Ctrl+X, then Y, then Enter.
+Make the java.sh file executable by running the following command:
+
+bash
+
+sudo chmod +x /etc/profile.d/java.sh
+
+Reload the environment variables by running the following command:
+
+bash
+
+source /etc/profile.d/java.sh
+
+Verify that Java is installed correctly by running the following command:
+
+java -version
+
+This should display the version of Java that you installed.
+
+To install Amazon Corretto Java 11 on CentOS using curl, follow these steps:
+
+    Open a terminal window on your CentOS system.
+
+    Update the system's package repository by running the following command:
+
+    sql
+
+sudo yum update
+
+Install the curl utility by running the following command:
+
+sudo yum install curl
+
+Download the Amazon Corretto Java 11 installation package for CentOS using the curl utility by running the following command:
+
+arduino
+
+curl -LO "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz"
+
+Note: This command downloads the Amazon Corretto 11 installation package for 64-bit Linux systems. If you need a different version or architecture of Java, you can find the appropriate download link on the official Amazon Corretto website.
+
+Extract the downloaded package using the tar utility by running the following command:
+
+tar -xvf amazon-corretto-11-x64-linux-jdk.tar.gz
+
+Move the extracted Java directory to the /usr/local directory by running the following command:
+
+bash
+
+sudo mv amazon-corretto-11.x.y.z /usr/local/
+
+Note: Replace "x.y.z" with the specific version number of the Java installation package that you downloaded.
+
+Configure the Java environment variables by creating a new file named java11.sh in the /etc/profile.d directory using the following command:
+
+bash
+
+sudo nano /etc/profile.d/java11.sh
+
+Add the following lines to the java11.sh file:
+
+bash
+
+export JAVA_HOME=/usr/local/amazon-corretto-11.x.y.z
+export PATH=$PATH:$JAVA_HOME/bin
+
+Note: Replace "x.y.z" with the specific version number of the Java installation package that you downloaded.
+
+Save and close the java11.sh file by pressing Ctrl+X, then Y, then Enter.
+
+Make the java11.sh file executable by running the following command:
+
+bash
+
+sudo chmod +x /etc/profile.d/java11.sh
+
+Reload the environment variables by running the following command:
+
+bash
+
+source /etc/profile.d/java11.sh
+
+Verify that Java is installed correctly by running the following command:
+
+java -version
+
+This should display the version of Java that you installed.
