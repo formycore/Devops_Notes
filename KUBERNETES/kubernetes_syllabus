@@ -1,0 +1,308 @@
+Pre-requisites
+Learners need to possess an undergraduate degree or a high school diploma. Solid understanding of containers and Docker.
+Course Content
+Section 01: Self Paced Learning Curriculum
+Lesson 01: Introduction01:06:55
+		1.01 Introduction01:17
+		1.02 Learning Objective00:48
+		1.03 Microservices06:47
+		1.04 Need for Microservices05:27
+		1.05 Vertualization05:17
+		1.06 Containers07:12
+		1.07 Docker03:18
+		1.08 Use Cases of Docker09:35
+		1.09 Concept of Containerization05:31
+		1.10 Docker Vs. Virtualization02:16
+		1.11 Docker Architecture09:35
+		1.12 Docker as Prerequisite for Kubernetes02:59
+		1.13 Kubernetes06:16
+		1.14 Summary00:37
+Lesson 02: Docker50:32
+		2.01 Learning Objectives00:34
+		2.02 Container on Docker Host01:55
+		2.03 Docker Installation on Ubuntu02:19
+		2.04 Docker Installation on Ubuntu using Docker Repository03:32
+		2.05 Docker Installation on Ubuntu using Package00:47
+		2.06 Docker Installation on Ubuntu using Automated Scripts01:31
+		2.07 Docker Installation on Ubuntu using Automated Scripts01:30
+		2.08 Working with Docker Container03:22
+		2.09 List Docker Container04:39
+		2.10 Start or Stop or Exit Containers02:48
+		2.11 Naming Containers02:40
+		2.12 Docker Networks10:54
+		2.13 Summary00:49
+		2.14 Demo: Docker13:12
+Lesson 03: Docker Orchestration42:11
+		3.01 Learning Objectives00:40
+		3.02 Orchestration of Containers03:43
+		3.03 Docker Swarm07:04
+		3.04 Docker Swarm Features01:31
+		3.05 Kubernetes Architecture03:59
+		3.06 Kubernetes Vs. Docker Swarm04:49
+		3.07 Docker Compose05:13
+		3.08 Container Logs02:55
+		3.09 Docker Compose Configuration02:31
+		3.10 Web Application Deployment01:45
+		3.11 Summary00:44
+		3.12 Demo: Docker07:17
+Lesson 04: Overview of Kubernetes44:47
+		4.01 Learning objectives00:35
+		4.02 Introduction to Kubernetes05:10
+		4.03 Relationship between Kubernetes and Containers02:04
+		4.04 Kubernetes Architecture05:49
+		4.05 Kubernetes Master Components13:35
+		4.06 Kubernetes Node Components13:16
+		4.07 Deployment using Pod or Container03:35
+		4.08 Summary00:43
+Lesson 05: Kubernetes Deployment47:46
+		5.01 Learning Objectives01:29
+		5.02 VirtualBox07:37
+		5.03 Ubuntu VM on Oracle VirtualBox06:33
+		5.04 Minikube06:12
+		5.05 Kubectl03:28
+		5.06 DashBoard03:13
+		5.07 Summary00:34
+		5.08 Demo: Kubernetes Deployment18:40
+Lesson 06: Kubernetes Pods, Deployments and Replicasets01:03:11
+		6.01 Learning Objectives00:48
+		6.02 YAML06:07
+		6.03 Imperative Management of Kubernetes Objects04:44
+		6.04 Kubernetes Pods08:47
+		6.05 Kubernetes Deployments07:17
+		6.06 Kubernetes ReplicaSets02:46
+		6.07 Kubernetes Services03:05
+		6.08 Summary00:59
+		6.09 Demo: Kubernetes Pods Deployments and Replica Sets28:38
+Lesson 07: Kubernetes Networking and Storage42:35
+		7.01 Learning Objectives01:06
+		7.02 Kubernetes Networking03:07
+		7.03 Kubernetes Networking Architecture: Part One09:52
+		7.04 Kubernetes Networking Architecture: Part Two05:32
+		7.05 Volumes06:39
+		7.06 Persistent Volumes08:08
+		7.07 Persistent Volume Life Cycle06:35
+		7.08 Summary01:36
+Lesson 08: Kubernetes Implementation01:30:30
+		8.01 Learning Objective00:40
+		8.02 Deploying Kubernetes Application09:19
+		8.03 Kubernetes Namespace06:32
+		8.04 Kubernetes Labels and Selectors08:56
+		8.05 Kubernetes DaemonSets03:57
+		8.06 Kubernetes Volumes06:38
+		8.07 Kubernetes Jobs and Cron Jobs07:53
+		8.08 Kubernetes ConfigMaps and Secrets07:23
+		8.09 Summary00:46
+		8.10 Demo: ConfigMap03:38
+		8.11 Demo: CronJob03:47
+		8.12 Demo: DaemonSet05:44
+		8.13 Demo: Job03:36
+		8.14 Demo: Secret04:30
+		8.15 Demo: Deployment05:38
+		8.16 Demo: Labels Sectors06:58
+		8.17 Demo: Namespace PodInNamespace04:35
+Lesson 09: Kubernetes Clusters42:09
+		9.01 Learning Objective00:59
+		9.02 Kubernetes Scaling05:28
+		9.03 Kubernetes Autoscaling05:59
+		9.04 Kubernetes Rolling Updates04:31
+		9.05 Kubernetes RollBack02:47
+		9.06 Kubernetes Pod CPU and Memory Reservations04:51
+		9.07 Summary00:25
+		9.08 Demo Kubernetes Scaling and Kubernetes Cluster17:09
+
+
+		
+Section 02: Live Virtual Class Curriculum
+Lesson 01: Course Introduction
+		Introduction to Kubernetes
+		CKA and its importance
+		Learning Path
+		Program Outline
+		Course Outline
+		Course Components
+		Course Completion Criteria
+Lesson 02: Core Concepts
+		Overview
+		Assisted Practice: Create and Configure Kubernetes Cluster
+		Etcd
+		Controller
+		Scheduler
+		Kubelet
+		Kube Proxy
+		Pods
+		Assisted Practice: Configure Pods
+		Assisted Practice: Create Openshift Pods
+		ReplicaSets
+		Deployments
+		Assisted Practice: Creating and Configuring the Deployment
+		Services, Load Balancing & Networking
+		Containers
+		Assisted Practice: Understanding Basic Commands of Kubernetes
+		Policies
+		Assisted Practice: Creating Jobs
+		Knowledge checks
+		Fetch cluster specific configuration on running cluster
+Lesson 03: Kubernetes Cluster
+		Cluster Architecture overview
+		Configuring a Cluster
+		Managing and Administering Clusters
+		Assisted Practice: Managing and Administrating a Kubernetes Cluster
+		Node
+		Assisted Practice: Understanding the Working of Nodes
+		Assisted Practice: Understanding and Deploying the First Pod
+		Assisted Practice: Deploying Pod and assigning Service to it
+		Control Plane–Node Communication
+		Understanding Controllers
+		Importance of Cloud Controller Manager
+		Working with kubeadm
+		Assisted Practice: Working with Kubeadm
+		Assisted Practice: Kubernetes Dashboard
+		Managing a Cluster Using kubelet
+		Role-Based Access Controller
+		Assisted Practice: Kubernetes Dashboard Role-Based Access Control(RBAC)
+		Assisted Practice: RBAC using Namespace
+		API Server
+		Achieving High Availability
+		Backup, Restoration of etcd Cluster Data
+		Assisted Practice: Backing up and Restoring Etcd Cluster Data
+		Version Upgrade on Kubernetes Cluster
+		Assisted Practice: Upgrading Control Plane's Kubernetes Versions
+		Managing Kubernetes Objects
+		Assisted Practice: Managing the Kubernetes Objects
+		Knowledge Checks
+		Managing multiple namespaces with respective role
+Lesson 04: Workloads
+		Overview of Workloads
+		Deployment
+		Assisted Practice: Deploying Multitier Application Using Kubernetes​
+		Assisted Practice: Deploying Multitier Application Postgres and Gogs​
+		Assisted Practice: Deploying Voting Application​
+		Understanding Pods
+		Pod Lifecycle
+		Assisted Practice: Understanding Pod Lifecycle
+		Working on Pod Allocation
+		Assisted Practice: Nodename and Nodeselector Affinity​
+		Init Containers
+		Assisted Practice: Using Init Containers​
+		Assisted Practice: Using Multi-Init Containers​
+		Managing Container Resources
+		Assisted Practice: Managing Container Resources
+		Health Monitoring
+		Multi Pod Containers
+		Pod Topology Spread Constraints
+		ReplicaSet
+		Assisted Practice: Replicasets and Metrics Server​
+		Static Pods
+		Assisted Practice: Understanding Static Pods
+		Application Configuration
+		ConfigMap and Secrets
+		Assisted Practice: Understanding Config Maps and Secrets
+		Achieving Scalability
+		Assisted Practice: Configuring Liveness Probes​
+		Assisted Practice: Understanding Horizontal Pod Autoscaling​
+		Building Self-Healing Pods with Restart Policies
+		Manifest Management and Common Templating Tools
+		Knowledge Checks
+		MySQL and wordpress installation Kubernetes
+Lesson 05: Scheduling
+		Scheduler Overview
+		Scheduling Frameworks
+		Kube-Scheduler
+		Node Selection in Kube-Scheduler
+		Assisted Practice: Understanding Node Selection in Kube-scheduler
+		Perform Rolling Updates on a DaemonSet
+		Rollbacks
+		Assisted Practice: Deployment of Image Versions via Rollout
+		Scheduler Performance Tuning
+		Scheduling Policies
+		Scheduling Profiles
+		Topology Management Policies
+		DaemonSet
+		Assisted Practice: Understanding DaemonSet
+		Assisted Practice: Understanding the Security Context
+		Pod Overhead
+		Performance Tuning
+		Assisted Practice: Understanding Pod Priority and Preemption
+		Managing Resources
+		Assisted Practice: Deployment of Flask Application with Redis
+		Knowledge Checks
+		HTTP Docker image rollout Kubernetes
+Lesson 06: Services, Load Balancing, and Networking
+		Overview
+		Services
+		Assisted Practice: Multi-Port Services
+		Topology
+		Service Catalog
+		DNS for Services and Pods
+		Assisted Practice: Configuration of DNS for Services and Pods
+		Connecting Applications with Services
+		EndpointSlices
+		Assisted Practice: Configuration of EndpointSlices
+		Ingress
+		Assisted Practice: Understanding Transport Layer Security
+		Ingress Controllers
+		Assisted Practice: Setting up an Ingress
+		Network Policies
+		Adding Entries to Pod /etc/hosts With HostAliases
+		IPv4/IPv6 Dual-Stack
+		Cluster Networking
+		Assisted Practice: DENY all traffic to an application
+		Assisted Practice: LIMIT traffic to an application
+		Assisted Practice: DENY all traffic from other namespaces
+		Knowledge Checks
+		Implement Ingress for multiple containers with AKS
+Lesson 07: Storage
+		Overview of Storage in Kubernetes
+		Volumes
+		Assisted Practice: Using_hostPath
+		Persistent Volumes
+		Assisted Practice: Configuring Pod Using PersistentVolume (PV) And PersistentVolumeClaim (PVC)
+		Volume Snapshots
+		CSI Volume Cloning
+		Storage Classes
+		Volume Snapshot Classes
+		Dynamic Volume Provisioning
+		Assisted Practice: Secret as Volume
+		Assisted Practice: Configmap as Volume by using Deployment
+		Storage Capacity
+		Ephemeral Volumes
+		Node-Specific Volume Limits
+		Knowledge Checks
+		Deploy WordPress and MySQL using persistent volume.
+Lesson 08: Azure Kubernetes Service
+		Kubernetes in Cloud Environment
+		AKS Service Components
+		Assisted Practice: Create a Kubernetes Cluster Using AKS
+		Assisted Practice: Create Workloads in an AKS Cluster
+		Assisted Practice: Connecting AKS cluster from Windows PowerShell
+		Assisted Practice: Expose a Deployment as a Service
+		Assisted Practice: Deploy Application with Load Balancer
+		Assisted Practice: Dynamic Volumes
+		Assisted Practice: Monitoring clusters and Node Logs
+		Assisted Practice: Update Application
+		Assisted Practice: Upgrade AKS Cluster
+		Assisted Practice: Install NGINX Ingress Controller using Helm
+		Knowledge Checks
+		Deploy MySQL using Azure Dynamic Storage class.
+Lesson 09: Troubleshooting and Kubernetes Case Studies
+		Overview of Troubleshooting in Kubernetes
+		Assisted Practice: Troubleshooting Kubernetes Cluster
+		Kubernetes Cluster Logging Architecture
+		Assisted Practice: Understanding Kubernetes Cluster Logging Architecture
+		Cluster and Node Logs
+		Assisted Practice: Understanding Cluster and Node Logs
+		Assisted Practice: Node Not Ready
+		Container Logs
+		Assisted Practice: Understanding Container Logs
+		Assisted Practice: Pod Logs
+		Assisted Practice: Events
+		Application Troubleshooting
+		Assisted Practice: Understanding Application Troubleshooting
+		Monitoring Tools
+		Assisted Practice: Monitoring Metrics API
+		Commands to Debug Networking Issues
+		Assisted Practice: Handling Component Failure Threshold
+		Assisted Practice: Troubleshooting Networking Issues
+		AKS Monitoring and Logging
+		Case Studies
+		Knowledge Checks

@@ -1,0 +1,230 @@
+kubectl create namespace <username>
+	kubectl create namespace agrocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl get all -n argocd
+kubectl create sa <username>
+	kubeclt create sa argocd
+kubectl create clusterrolebinding user_name-binding --clusterrole=cluster_role_name --serviceaccount=namespace:username
+	kubectl create clusterrolebinding argocd-binding --clusterrole=cluster-admin --user=gcpchary9704@gmail.com
+kubectl patch svc argocd-server -n argocd -p '{"spec":{"type":"LoadBalancer"}}'
+kubectl svc -n argocd
+kubectl get svc -n argocd
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+# to change the password 
+kubectl get pods -n argocd
+kubectl exec -it argocd-server-xxxxx -n argocd /bin/bash
+after applying kubectl patch svc argocd-server -n argocd -p '{"spec":{"type":"LoadBalancer"}}' we get an ip
+argocd login <ip from the above line>
+argocd account update-password 
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+Welcome to Cloud Shell! Type "help" to get started.
+To set your Cloud Platform project in this session use “gcloud config set project [PROJECT_ID]”
+gcpchary9704@cloudshell:~$ gcloud container clusters get-credentials firstgke --zone us-central1-c --project kuber-xxxx
+Fetching cluster endpoint and auth data.
+kubeconfig entry generated for firstgke.
+gcpchary9704@cloudshell:~$ kubectl get deployments
+No resources found in default namespace.
+gcpchary9704@cloudshell:~$ kubectl get nodes
+NAME                                      STATUS   ROLES    AGE     VERSION
+gke-firstgke-firstgkepool-2e03ae72-2wxs   Ready    <none>   4m41s   v1.24.9-gke.3200
+gke-firstgke-firstgkepool-2e03ae72-sgnl   Ready    <none>   4m41s   v1.24.9-gke.3200
+gke-firstgke-firstgkepool-2e03ae72-sh0p   Ready    <none>   4m41s   v1.24.9-gke.3200
+gcpchary9704@cloudshell:~$ kubectl create namespace argocd
+namespace/argocd created
+gcpchary9704@cloudshell:~$ kubectl get ns
+NAME              STATUS   AGE
+argocd            Active   45s
+default           Active   7m33s
+kube-node-lease   Active   7m36s
+kube-public       Active   7m36s
+kube-system       Active   7m36s
+gcpchary9704@cloudshell:~$ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+customresourcedefinition.apiextensions.k8s.io/applications.argoproj.io created
+customresourcedefinition.apiextensions.k8s.io/applicationsets.argoproj.io created
+customresourcedefinition.apiextensions.k8s.io/appprojects.argoproj.io created
+serviceaccount/argocd-application-controller created
+serviceaccount/argocd-applicationset-controller created
+serviceaccount/argocd-dex-server created
+serviceaccount/argocd-notifications-controller created
+serviceaccount/argocd-redis created
+serviceaccount/argocd-repo-server created
+serviceaccount/argocd-server created
+role.rbac.authorization.k8s.io/argocd-application-controller created
+role.rbac.authorization.k8s.io/argocd-applicationset-controller created
+role.rbac.authorization.k8s.io/argocd-dex-server created
+role.rbac.authorization.k8s.io/argocd-notifications-controller created
+role.rbac.authorization.k8s.io/argocd-server created
+clusterrole.rbac.authorization.k8s.io/argocd-application-controller created
+clusterrole.rbac.authorization.k8s.io/argocd-server created
+rolebinding.rbac.authorization.k8s.io/argocd-application-controller created
+rolebinding.rbac.authorization.k8s.io/argocd-applicationset-controller created
+rolebinding.rbac.authorization.k8s.io/argocd-dex-server created
+rolebinding.rbac.authorization.k8s.io/argocd-notifications-controller created
+gcpchary9704@cloudshell:~$ kubectl get all -n argocd
+NAME                                                   READY   STATUS    RESTARTS   AGE
+pod/argocd-application-controller-0                    1/1     Running   0          38s
+pod/argocd-applicationset-controller-6ccb885cc-zm92c   1/1     Running   0          42s
+pod/argocd-dex-server-547dfc6dc9-lwrp7                 1/1     Running   0          42s
+pod/argocd-notifications-controller-77bffb68cc-svqj9   1/1     Running   0          41s
+pod/argocd-redis-76dff756d7-6rzls                      1/1     Running   0          40s
+pod/argocd-repo-server-69c577765c-7fx57                1/1     Running   0          40s
+pod/argocd-server-5c67dbfcbb-vdj67                     1/1     Running   0          39s
+
+NAME                                              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
+service/argocd-applicationset-controller          ClusterIP   10.96.11.107   <none>        7000/TCP,8080/TCP            49s
+service/argocd-dex-server                         ClusterIP   10.96.7.131    <none>        5556/TCP,5557/TCP,5558/TCP   48s
+service/argocd-metrics                            ClusterIP   10.96.12.79    <none>        8082/TCP                     48s
+service/argocd-notifications-controller-metrics   ClusterIP   10.96.2.120    <none>        9001/TCP                     47s
+service/argocd-redis                              ClusterIP   10.96.10.142   <none>        6379/TCP                     46s
+service/argocd-repo-server                        ClusterIP   10.96.6.54     <none>        8081/TCP,8084/TCP            46s
+service/argocd-server                             ClusterIP   10.96.11.9     <none>        80/TCP,443/TCP               45s
+service/argocd-server-metrics                     ClusterIP   10.96.13.44    <none>        8083/TCP                     44s
+
+NAME                                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/argocd-applicationset-controller   1/1     1            1           43s
+deployment.apps/argocd-dex-server                  1/1     1            1           43s
+deployment.apps/argocd-notifications-controller    1/1     1            1           42s
+deployment.apps/argocd-redis                       1/1     1            1           41s
+deployment.apps/argocd-repo-server                 1/1     1            1           41s
+deployment.apps/argocd-server                      1/1     1            1           40s
+
+NAME                                                         DESIRED   CURRENT   READY   AGE
+replicaset.apps/argocd-applicationset-controller-6ccb885cc   1         1         1       44s
+replicaset.apps/argocd-dex-server-547dfc6dc9                 1         1         1       44s
+replicaset.apps/argocd-notifications-controller-77bffb68cc   1         1         1       43s
+replicaset.apps/argocd-redis-76dff756d7                      1         1         1       42s
+replicaset.apps/argocd-repo-server-69c577765c                1         1         1       42s
+replicaset.apps/argocd-server-5c67dbfcbb                     1         1         1       41s
+
+NAME                                             READY   AGE
+statefulset.apps/argocd-application-controller   1/1     40s
+gcpchary9704@cloudshell:~$ kubectl create sa argocd
+serviceaccount/argocd created
+gcpchary9704@cloudshell:~$ kubectl create clusterrolebinding argocd-binding --clusterrole=cluster-admin --user=gcpchary9704@gmail.com
+clusterrolebinding.rbac.authorization.k8s.io/argocd-binding created
+gcpchary9704@cloudshell:~$ kubectl path svc argocd-server -n argocd -p '{"spec":{"type":"LoadBalancer"}}'
+error: unknown command "path" for "kubectl"
+
+Did you mean this?
+        auth
+        patch
+gcpchary9704@cloudshell:~$ kubectl path svc argocd-server -n argocd -p '{"^C
+gcpchary9704@cloudshell:~$ kubectl patch svc argocd-server -n argocd -p '{"spec":{"type":"LoadBalancer"}}'
+service/argocd-server patched
+gcpchary9704@cloudshell:~$ kubectl get all -n argocd
+NAME                                                   READY   STATUS    RESTARTS   AGE
+pod/argocd-application-controller-0                    1/1     Running   0          18m
+pod/argocd-applicationset-controller-6ccb885cc-zm92c   1/1     Running   0          18m
+pod/argocd-dex-server-547dfc6dc9-lwrp7                 1/1     Running   0          18m
+pod/argocd-notifications-controller-77bffb68cc-svqj9   1/1     Running   0          18m
+pod/argocd-redis-76dff756d7-6rzls                      1/1     Running   0          18m
+pod/argocd-repo-server-69c577765c-7fx57                1/1     Running   0          18m
+pod/argocd-server-5c67dbfcbb-vdj67                     1/1     Running   0          18m
+
+NAME                                              TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
+service/argocd-applicationset-controller          ClusterIP      10.96.11.107   <none>        7000/TCP,8080/TCP            19m
+service/argocd-dex-server                         ClusterIP      10.96.7.131    <none>        5556/TCP,5557/TCP,5558/TCP   18m
+service/argocd-metrics                            ClusterIP      10.96.12.79    <none>        8082/TCP                     18m
+service/argocd-notifications-controller-metrics   ClusterIP      10.96.2.120    <none>        9001/TCP                     18m
+service/argocd-redis                              ClusterIP      10.96.10.142   <none>        6379/TCP                     18m
+service/argocd-repo-server                        ClusterIP      10.96.6.54     <none>        8081/TCP,8084/TCP            18m
+service/argocd-server                             LoadBalancer   10.96.11.9     <pending>     80:32410/TCP,443:30578/TCP   18m
+service/argocd-server-metrics                     ClusterIP      10.96.13.44    <none>        8083/TCP                     18m
+
+NAME                                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/argocd-applicationset-controller   1/1     1            1           18m
+deployment.apps/argocd-dex-server                  1/1     1            1           18m
+deployment.apps/argocd-notifications-controller    1/1     1            1           18m
+deployment.apps/argocd-redis                       1/1     1            1           18m
+deployment.apps/argocd-repo-server                 1/1     1            1           18m
+deployment.apps/argocd-server                      1/1     1            1           18m
+
+NAME                                                         DESIRED   CURRENT   READY   AGE
+replicaset.apps/argocd-applicationset-controller-6ccb885cc   1         1         1       18m
+replicaset.apps/argocd-dex-server-547dfc6dc9                 1         1         1       18m
+replicaset.apps/argocd-notifications-controller-77bffb68cc   1         1         1       18m
+replicaset.apps/argocd-redis-76dff756d7                      1         1         1       18m
+replicaset.apps/argocd-repo-server-69c577765c                1         1         1       18m
+replicaset.apps/argocd-server-5c67dbfcbb                     1         1         1       18m
+
+NAME                                             READY   AGE
+statefulset.apps/argocd-application-controller   1/1     18m
+gcpchary9704@cloudshell:~$ kubectl get all -n argocd
+NAME                                                   READY   STATUS    RESTARTS   AGE
+pod/argocd-application-controller-0                    1/1     Running   0          19m
+pod/argocd-applicationset-controller-6ccb885cc-zm92c   1/1     Running   0          19m
+pod/argocd-dex-server-547dfc6dc9-lwrp7                 1/1     Running   0          19m
+pod/argocd-notifications-controller-77bffb68cc-svqj9   1/1     Running   0          19m
+pod/argocd-redis-76dff756d7-6rzls                      1/1     Running   0          19m
+pod/argocd-repo-server-69c577765c-7fx57                1/1     Running   0          19m
+pod/argocd-server-5c67dbfcbb-vdj67                     1/1     Running   0          19m
+
+NAME                                              TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                      AGE
+service/argocd-applicationset-controller          ClusterIP      10.96.11.107   <none>          7000/TCP,8080/TCP            19m
+service/argocd-dex-server                         ClusterIP      10.96.7.131    <none>          5556/TCP,5557/TCP,5558/TCP   19m
+service/argocd-metrics                            ClusterIP      10.96.12.79    <none>          8082/TCP                     19m
+service/argocd-notifications-controller-metrics   ClusterIP      10.96.2.120    <none>          9001/TCP                     19m
+service/argocd-redis                              ClusterIP      10.96.10.142   <none>          6379/TCP                     19m
+service/argocd-repo-server                        ClusterIP      10.96.6.54     <none>          8081/TCP,8084/TCP            19m
+service/argocd-server                             LoadBalancer   10.96.11.9     xx.xx.xx.xx     80:32410/TCP,443:30578/TCP   19m
+service/argocd-server-metrics                     ClusterIP      10.96.13.44    <none>          8083/TCP                     19m
+
+NAME                                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/argocd-applicationset-controller   1/1     1            1           19m
+deployment.apps/argocd-dex-server                  1/1     1            1           19m
+deployment.apps/argocd-notifications-controller    1/1     1            1           19m
+deployment.apps/argocd-redis                       1/1     1            1           19m
+deployment.apps/argocd-repo-server                 1/1     1            1           19m
+deployment.apps/argocd-server                      1/1     1            1           19m
+
+NAME                                                         DESIRED   CURRENT   READY   AGE
+replicaset.apps/argocd-applicationset-controller-6ccb885cc   1         1         1       19m
+replicaset.apps/argocd-dex-server-547dfc6dc9                 1         1         1       19m
+replicaset.apps/argocd-notifications-controller-77bffb68cc   1         1         1       19m
+replicaset.apps/argocd-redis-76dff756d7                      1         1         1       19m
+replicaset.apps/argocd-repo-server-69c577765c                1         1         1       19m
+replicaset.apps/argocd-server-5c67dbfcbb                     1         1         1       19m
+
+NAME                                             READY   AGE
+statefulset.apps/argocd-application-controller   1/1     19m
+gcpchary9704@cloudshell:~$ ^C
+gcpchary9704@cloudshell:~$ kubectl -n argocd get secret argocd-intial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+Error from server (NotFound): secrets "argocd-intial-admin-secret" not found
+gcpchary9704@cloudshell:~$ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+6RQePdoT0RaevAOKgcpchary9704@cloudshell:~$ kubectl create namespace test
+namespace/test created
+gcpchary9704@cloudshell:~$ kubectl get -all -n test
+error: unknown shorthand flag: 'a' in -all
+See 'kubectl get --help' for usage.
+gcpchary9704@cloudshell:~$ kubectl get all -n test
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/test-hello-world-6596768768-f5lck   1/1     Running   0          65s
+
+NAME                       TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+service/test-hello-world   ClusterIP   10.96.1.240   <none>        80/TCP    67s
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/test-hello-world   1/1     1            1           66s
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/test-hello-world-6596768768   1         1         1       66s
+gcpchary9704@cloudshell:~$ kubectl get all -n test
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/test-hello-world-6596768768-5x8ct   1/1     Running   0          64s
+pod/test-hello-world-6596768768-98rjl   1/1     Running   0          64s
+pod/test-hello-world-6596768768-f5lck   1/1     Running   0          4m39s
+pod/test-hello-world-6596768768-jjc7z   1/1     Running   0          64s
+
+NAME                       TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+service/test-hello-world   ClusterIP   10.96.1.240   <none>        80/TCP    4m41s
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/test-hello-world   4/4     4            4           4m40s
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/test-hello-world-6596768768   4         4         4       4m40s
+gcpchary9704@cloudshell:~$
