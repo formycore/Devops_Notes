@@ -6,6 +6,7 @@ Maven installation
 - cd /opt
 - sudo mv apache-maven-3.6.3/ apache-maven
 - sudo vi /etc/profile.d/maven.sh
+# echo -e 'export M2_HOME=/opt/apache-maven'"\n"'export MAVEN_HOME=/opt/apache-maven' | sudo tee -a /etc/profile.d/maven.sh
     export M2_HOME=/opt/apache-maven
 
     export MAVEN_HOME=/opt/apache-maven
