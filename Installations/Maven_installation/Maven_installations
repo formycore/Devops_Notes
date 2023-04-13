@@ -15,6 +15,22 @@ Maven installation
 - sudo chmod +x /etc/profile.d/maven.sh
 - source /etc/profile.d/maven.sh
 - mvn --version
+# we might get the error JAVA_HOME not set correctly
+sudo find /usr/lib/jvm/java-11* | head -n 3
+/usr/lib/jvm/java-11
+/usr/lib/jvm/java-11-openjdk
+/usr/lib/jvm/java-11-openjdk-11.0.18.0.10-1.el7_9.x86_64
+
+- copy the last line 
+- vi ~/.bash_profile
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.18.0.10-1.el7_9.x86_64
+PATH=$PATH:$JAVA_HOME:$HOME/.local/bin:$HOME/bin
+- save it
+# make the install maven as default maven 
+cd /usr/bin
+mvn --version -- check the path 
+sudo ln -s /opt/apache-maven/bin/mvn mvn
+
 
 
 - install maven plugin in jenkins
