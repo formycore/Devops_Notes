@@ -1,0 +1,18 @@
+version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ce:14.4.4-ce.0'
+    restart: always
+    hostname: 'gitlab.example.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://52.66.83.210'
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '/home/centos/gitlab_test/config:/etc/gitlab'
+      - '/home/centos/gitlab_test/logs:/var/log/gitlab'
+      - '/home/centos/gitlab_test/data:/var/opt/gitlab'
+    shm_size: '256m'

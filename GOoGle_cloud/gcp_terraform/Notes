@@ -1,0 +1,2 @@
+What is the terraform ?
+mkdir tfinfra && cd $_ (to create a directory and move to it)
