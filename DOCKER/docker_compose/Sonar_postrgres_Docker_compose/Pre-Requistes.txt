@@ -1,6 +1,6 @@
 vm.max_map_count is greater than or equal to 524288
 fs.file-max is greater than or equal to 131072
-echo -e 'vm.max_map_count=262144'"\n"'fs.file-max=65536'
+echo -e 'vm.max_map_count=262144'"\n"'fs.file-max=65536' | sudo tee -a /etc/sysctl.conf
 
 add these in the /etc/sysctl.conf
 vm.max_map_count=262144
