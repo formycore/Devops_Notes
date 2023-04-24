@@ -1,0 +1,25 @@
+---
+version: '2' # version of the docker compose
+services:
+  www:
+    build: .
+    # we need Dockerfile in this path
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html/
+    links:
+      - db:
+    networks:
+      - default
+  db:
+    image: mysql:5.7.28
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD:
+    volumes:
+      - ./dump:/docker-entry
