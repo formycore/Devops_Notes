@@ -1,0 +1,20 @@
+Terraform state
+- like when we used Terraform apply to create or update a resource,
+we get a "terraform.tfstate" file that contains the state of the resource
+it can acts as under lying database for Terraform resource
+- it should be stored in a safe place, remote storage is recommended
+
+-- Clean up ----------------
+- terraform destroy
+- terraform destroy --auto-approve
+- terraform destroy -target aws_instance.example ,if we want to remove only one resource
+
+
+----- next session -------
+- key
+- count
+- data source , to get the ami id
+- variable for paramertization
+- outputs
+- depends_on
+- 
