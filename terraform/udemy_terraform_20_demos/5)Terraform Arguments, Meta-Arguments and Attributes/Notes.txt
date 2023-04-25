@@ -1,0 +1,40 @@
+- Arguments,meta-Arguments,attributes
+resource "aws_instance" "my-ec2-vm" {
+    ami = "" # any ami
+    instance_type = "" # machine type
+    key_name = "" # key name without the extension
+    user_data = file("apache_install.sh")
+
+}
+
+# please check the documents for the creating any resource 
+- in the documents we find which one is required and which is optional
+
+# Arguments reference are input for the resource
+attributes reference are output for the resource
+
+# to get the latest ami id 
+data "aws_ami" "ubuntu" {
+    most_recent = true
+    owners = ["099720109477"] # Canonical
+    filter { # this filter is for the ubuntu
+        name = "name"
+        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    }
+    filter { # this filter is for the hvm
+        name = "virtualization-type"
+        values = ["hvm"]
+    }
+    filter { # this filter is for the root device type
+        name = "root-device-type"
+        values = ["ebs"]
+    }
+    filter { # this filter is for the architecture
+        name = "architecture"
+        values = ["x86_64"]
+    }
+}
+After terraform init, ls -ltra, we get .terraform folder,.terraform.lock.hcl,terraform.tfstate,terraform.tfstate.backup,terraform.tfvars,terraform.tfvars.json,variables.tf,main.tf,outputs.tf,apache_install.sh
+all these info
+if we go inside .terraform.lock.hcl. we get the provider version and the terraform version
+and those hash versions
