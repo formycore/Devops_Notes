@@ -1,0 +1,149 @@
+in c1version.tf we mention the version of the terraform we are using. provider block
+in c2variable.tf we mention the variables we are using. provider block
+if we want to give password input we use sensitive =true 
+***************************************************************
+c1version.tf
+
+
+terraform {
+  required_providers {
+    aws = {
+        source = "hashicorp/aws"
+        version = "~>4.0"
+    }
+  }
+}
+provider "aws" {
+  region = var.aws_region
+}
+------------------------------------------------------------------------------
+c2variable.tf
+
+#Input Variables
+# ------------------------------AWS Region------------------------------
+variable "aws_region" {
+  description = "Region in which resource will be created"
+  type = string
+  default = "us-east-1"
+}
+# ------------------------------EC2 instance type------------------------------
+variable "instance_type" {
+  type = string
+  default = "t2.micro"
+  // if we want to give password input we use sensitive =true 
+}
+#------------------------------EC2 Key pair ------------------------------
+variable "instance_keypair" {
+  type = string
+  default = "april"
+
+}
+***************************************************************
+
+
+Now we are going to create security group for our ec2 instance
+c3securitygroup.tf
+
+# Create the Security group -- SSH traffic
+resource "aws_security_group" "vpc_ssh" {
+    name = "vpc_ssh"
+    // vpc_id = as we going to put this in default vpc we dont need to mention
+    ingress {
+        from_port = 22
+        to_port = 22
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"] // allowing from entire internet
+    }
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"] // allowing from entire internet
+    }
+    tags = {
+      "Name" = "vpc-ssh"
+    }
+}
+# Create Security group -- web traffic
+resource "aws_security_group" "vpc-web" {
+  name = "vpc-web"
+  ingress {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+  ingress { // for adding another ingress rule
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+  egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"] // allowing from entire internet
+    }
+    tags = {
+      "Name" = "vpc-web"
+    }
+}
+***************************************************************
+Now we are at taking the datasource to get aws ami id
+c4datasource.tf
+***************************************************************
+# 679593333241  account ID belongs to the official CentOS Amazon Machine Image (AMI) 
+data "aws_ami" "centos" {
+  most_recent = true
+  owners      = ["679593333241"]
+
+  filter {
+    name   = "name"
+    values = ["CentOS 7*"]
+    // when we search for the centos 7 image in the aws market place we get the name as CentOS 7*
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+***************************************************************
+to call this datasource.tf
+resource "aws_instance" "myec2vm" {
+  ami = data.aws_ami.centos.id
+  instance_type = "t2.micro"
+  key_name = "april"
+  user_data = file("some_script.sh")
+  vpc_security_group_ids = [aws_security_group.vpc_ssh.id,aws_security_group.vpc-web.id]
+  # as this is a list we can add multiple security groups  
+
+}
+************************************************************************
+5) now we are taking about ec2instance resource
+resource "aws_instance" "myec2vm" {
+  ami = "someamiid"
+  instance_type = "t2.micro"
+  user_data = file("${path.module}/some_script.sh")
+  tags = {
+    Name = "myec2vm"
+  }
+}
+
+__________________________________
+correcct one
+
+resource "aws_instance" "myec2vm" {
+  ami = data.aws_ami.centos.id
+  instance_type = var.instance_type
+  user_data = file("${path.module}/app1-install.sh")
+  key_name = var.instance_keypair
+  vpc_security_group_ids = [aws_security_group.vpc_ssh.id,aws_security_group.vpc_web.id]
+  tags = {
+    Name = "myec2vm"
+  }
+}
+************************************************************************
