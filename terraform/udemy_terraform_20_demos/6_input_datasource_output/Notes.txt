@@ -147,3 +147,7 @@ resource "aws_instance" "myec2vm" {
   }
 }
 ************************************************************************
+# terraform plan -out command
+terraform plan -out tf.plan
+
+terraform show -no-color tf.plan > tfplan.txt
