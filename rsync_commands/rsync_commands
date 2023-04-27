@@ -1,0 +1,1 @@
+rsync -avz -e "ssh -i path_to_pemfile" local_folder user@remote_host:remote_folder
