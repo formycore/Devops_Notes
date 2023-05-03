@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment # this is deployment kind
+metadata:
+  name: mongodb-deployment # giving some name
+  labels:
+    app: mongodb # labeling it
+spec: # specifications
+  replicas: 1  # replications
+  selector: # selecting the label
+    matchLabels: # checking if the label is matching or not
+      app: mongodb # calling the label here
+  template: # for this spec we need some template
+    metadata:
+      labels:
+        app: mongodb # again calling the label
+    spec: # spec for the container
+      containers: 
+        - name: mongodb # name of the container
+          image: mongo # image name from docker to pull here
+          ports:
+            - containerPort: 27017 # to which port we are accessing this 
+          env: # environmental values
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-username
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-password
+
+# here we dont need to add username and password
+# secret will live in k8s not on the repos 
+# no actual values in the configuration file
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+
