@@ -1,0 +1,27 @@
+overview of k8s components
+    - 2 deployment pods
+    - 2 services
+    - 1 ConfigMap
+    - 1 Secret
+
+************************************
+- we need a mongo db pod
+- to talk to that pod we need a internal service so no external service is required
+- one mongo express deployment
+- one DB url of mongo db, so that mongo express can connect to it
+- second one is credentials to store username and password to authenticate to db
+- all these are done with deployment.yml with env variables
+- config with db url
+- secret with db user & password
+- reference these both on the deployment.yml
+- after these access these mongo express through browser, to do this we need a external service
+- external request talk to 
+    - mongo express pod
+    - url will be ip adress of the node
+    - port of external service
+
+1) create a mongo db pod    
+- first we need to create the secret.yml file then deployment.yml, we need to access the values from 
+secret.yml in deployment.yml
+2) now create internal service
+- here we need 

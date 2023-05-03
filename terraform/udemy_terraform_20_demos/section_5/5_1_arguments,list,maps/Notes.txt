@@ -1,0 +1,24 @@
+meta argument : count
+list & maps
+    - list (string)
+    - map(string)
+Loops:
+    - for loop with list
+    - for loop with map
+    - for loop with map advanced
+Splat operartor:
+    - Legacy splat operator .*.
+    - Generalized splat operator (latest)
+    - Understand about Terraform Generic Splat Expression [*] when dealing with count Meta-Argument and multiple output values
+    
+************************************************************************
+instance_type = var.instance_type this is for only single value
+instance_type = var.instance_type_list[1] this is for list 1 indicates the array mentioned in 
+list of instance_type_list in variables
+instance_type = var.instance_type_map["dev"] this is for map, from the variables instance_type_map
+we have mentioned key value pair here we have given for the value of dev
+
+count = 5
+count.index = 0, 1, 2, 3, 4
+count = 2
+count.index = 0, 1

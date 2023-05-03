@@ -1,0 +1,25 @@
+
+install docker with 
+Install docker: 
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+ls -l var/run/docker.sock
+sudo usermod -aG docker $USER && newgrp docker 
+
+Install minikube
+    1  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    2  sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+    3  sudo chmod +x /usr/local/bin/minikube
+    4  minikube version
+
+
+Install kubectl 
+    5  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    7  sudo mv kubectl /usr/local/bin/kubectl
+    8  sudo chmod +x /usr/local/bin/kubectl
+    9  kubectl version --client
+   10  minikube status
+   11  kubectl cluster-info
+   12  clear
+   13  minikube start
+   14  minikube status
