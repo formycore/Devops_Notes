@@ -1,35 +1,28 @@
 container 1 having war file and container 2 having tomcat deploy container 1 war to container 2 tomcat with volume sharing
-ChatGPT
+**********************************************************************************
 
 Sure, here's an example of how you can share a volume between two Docker containers and deploy a WAR file from one container to another.
 
     First, create a named volume to share between the containers:
 
-kotlin
 
-docker volume create my-shared-data
+```docker volume create my-shared-data```
 
     Start the Tomcat container with the shared volume mounted:
 
-javascript
+```docker run -d --name tomcat -v my-shared-data:/usr/local/tomcat/webapps tomcat:latest```
 
-docker run -d --name tomcat -v my-shared-data:/usr/local/tomcat/webapps tomcat:latest
-
-This command will start the Tomcat container with the named volume my-shared-data mounted at /usr/local/tomcat/webapps.
+This command will start the Tomcat container with the named volume my-shared-data mounted at /```usr/local/tomcat/webapps```.
 
     Copy the WAR file to the shared volume:
 
-bash
-
-docker run --rm -v $(pwd):/src -v my-shared-data:/dest busybox cp /src/myapp.war /dest/
+```docker run --rm -v $(pwd):/src -v my-shared-data:/dest busybox cp /src/myapp.war /dest/```
 
 This command will copy the myapp.war file to the shared volume my-shared-data.
 
     Start the container with the WAR file and share the same volume:
 
-kotlin
-
-docker run -d --name app -v my-shared-data:/data myapp:latest
+```docker run -d --name app -v my-shared-data:/data myapp:latest```
 
 This command will start the container with the myapp image, which has the WAR file in it. It also mounts the same volume my-shared-data at /data.
 
