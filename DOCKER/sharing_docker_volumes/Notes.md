@@ -28,9 +28,8 @@ This command will start the container with the myapp image, which has the WAR fi
 
     Deploy the WAR file to Tomcat:
 
-bash
 
-docker exec -it tomcat bash
+```docker exec -it tomcat bash
 cp /usr/local/tomcat/webapps/ROOT/index.html /usr/local/tomcat/webapps/ROOT/index.html.bak
 rm -rf /usr/local/tomcat/webapps/ROOT/*
 cp /usr/local/tomcat/webapps/myapp.war /usr/local/tomcat/webapps/ROOT.war
@@ -38,7 +37,7 @@ cd /usr/local/tomcat/webapps/
 unzip -q -d ROOT ROOT.war
 rm -f ROOT.war
 exit
-
+```
 This set of commands will copy the existing index.html file to a backup location, remove the contents of the ROOT directory, copy the myapp.war file to ROOT.war, unzip it to ROOT directory, and remove the WAR file.
 
 After these steps, the myapp application should be deployed to the Tomcat container and accessible at http://<tomcat-container-ip>:8080/myapp.
