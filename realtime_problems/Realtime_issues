@@ -1,0 +1,5 @@
+1) jenkins or gitlab
+    - how to store the secrets
+    - with gitlab example , we store the password for sonar api in gitlab secrets
+    - with jenkins example, we store the passwords for sonar api with credentials manager
+    - we used hashi corp vault to access the sonar api or any other 
