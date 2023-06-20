@@ -1,0 +1,432 @@
+Course content
+22 sections • 207 lectures • 23h 20m total length
+Preview
+03:51
+Preview
+00:21
+Preview
+00:02
+Kubernetes Slides
+00:06
+Preview
+03:59
+Preview
+03:41
+Preview
+03:38
+What makes Kubernetes the de facto COE choice
+04:16
+Negatives of using Kubernetes
+02:35
+Basics of Kubernetes
+9 questions
+Exercise
+00:25
+Preview
+00:35
+Preview
+04:44
+Preview
+08:10
+Preview
+10:37
+Preview
+08:12
+Preview
+03:40
+Preview
+05:35
+Preview
+05:57
+Preview
+06:48
+Path to Automation with Kubernetes
+11 questions
+Exercise
+00:20
+Who is this section for ?
+00:19
+Setting up and validating docker environment
+05:37
+Running your first container
+05:07
+Making containers persist with -idt options
+04:42
+Essential Container Operations - list, logs, exec, cp, inspect, stop, rm
+05:18
+Lab : Operating Containers
+00:00
+Publishing containers using port mapping
+07:09
+Using docker instead of VMs to create development environments
+04:25
+Portainer - Web console to managing Docker Environemnts
+05:45
+Launching Application Stack with Docker Compose
+04:12
+Building an image manually with docker commit
+05:55
+Lab : Building and Publishing a Docker Image
+00:00
+Automatiing image builds with a Dockerfile
+04:26
+Dockerfile Primer
+03:46
+Section Intro- Setting up Environment
+02:29
+LAB: Option 1: Setting up single node kubernetes with Minikube
+00:51
+LAB: Option 2: Provisioning 3 nodes for Kubernetes with Vagrant and VirtualBox
+00:17
+Preview
+03:53
+Preview
+06:38
+Setting up Weave CNI
+04:15
+Launching Kubernetes Dashboard
+05:10
+Preview
+03:41
+Setting up a kubernetes Visualizer
+05:29
+LAB: Setting up Kubernetes Visualiser
+00:30
+Troubleshooting : Resetting cluster created with kubeadm
+06:14
+Setting up Environment
+10 questions
+Exercise
+01:02
+Preview
+00:53
+Writing pod Specification
+04:37
+Preview
+04:54
+LAB: Writing Pod Spec, Launching and Operating a Pod
+01:52
+Troubleshooting Pods Issues
+05:14
+LAB: Troubleshooting Pod Issues
+00:55
+Attaching a volume to a Pod
+07:18
+LAB: Attaching a volume to the Pod
+00:30
+Launching Multi-Container Pods
+03:39
+Connecting to Individual Containers
+05:19
+LAB : Multi Container Pods
+00:31
+Building Blocks - Pods
+11 questions
+Exercise
+01:47
+Section Intro - Replication Controllers
+01:05
+Preview
+04:10
+LAB: Creating a Namespace and switching to it
+00:34
+Writing Replica Set Specification
+08:19
+LAB: Writing Replica Set Specs
+00:36
+Launching Replica Set and Fault Tolerance
+04:24
+LAB: ReplicaSet in Action
+00:49
+Replication Controllers and Replica Sets
+10 questions
+Exercises
+01:42
+Section intro - Services
+01:15
+Writing Service Specification
+05:06
+Preview
+06:01
+LAB: Creating a Service and exposing it with NodePort
+00:51
+LAB: Exposing Sevice with ExternalIPs
+00:25
+Service Discovery
+04:38
+LAB: Intetnal Service Discovery with ClusterIP
+01:22
+Service Discovery and Load Balancing
+11 questions
+Exercise
+00:45
+Preview
+01:21
+Writing Deployment Specification
+04:38
+Preview
+04:12
+LAB: Create and rollout a Deployment
+00:55
+Update and Rollback
+04:34
+Rollbacks
+04:49
+Lab : Scale, Rollout and Rollback
+00:41
+MINI PROJECT : Deploy instavote app stack with Kubernetes
+00:46
+Solution part I - Deploying a worker App
+04:44
+Solution part II - Deploying DB service
+03:35
+Solutions part III - Results App
+04:03
+Application Deployments and Updates
+10 questions
+Exercise
+00:35
+Preview
+01:39
+Creating Config Map for Vote app Options
+05:56
+LAB: Injecting env variables with configmaps
+00:40
+Preview
+04:23
+LAB: Providing environment Specific Configs
+00:47
+Adding Configs from Files
+04:13
+LAB: Configuration file as ConfigMap
+00:37
+Creating Secrets to Encrypt Database Credentials
+03:34
+Setting Environment vars using Secrets
+04:03
+LAB: Using Secrets to encrypt sensitive data
+01:18
+Managing Application Configurations
+10 questions
+Exercise
+00:32
+Preview
+01:24
+Setting up RBAC for NFS Provisioner
+04:16
+Setting up NFS provisioner with Statefulset
+07:07
+LAB: Setting up NFS using StatefuleSets
+00:18
+Creating storage class for NFS
+02:01
+Preview
+05:01
+Dynamically provisioning of persistent volumes
+07:43
+LAB: Creating and mounting PersistentVolumeClaim
+00:36
+Persistent Volumes
+9 questions
+Exercise
+00:24
+Section Intro- Release Strategies
+00:42
+Defining Recreate as a Release Strategy
+06:12
+LAB: Releases with downtime using Recreate Strategy
+00:41
+Preview
+03:56
+LAB: Rolling out a Canary Release
+00:47
+Blue Green Deployments
+07:12
+LAB: Deploying a Blue-Green Release
+03:45
+Pausing and fixing rollouts
+03:02
+LAB: Pause and Resume a Release
+00:42
+Exercise
+00:17
+Section Intro HPA
+01:22
+Setting up code monitoring with Metrics Server
+05:18
+LAB: Deploy Metrics Server for feeding in core metrics to HPA
+01:16
+Defining Resource Requests and Limits
+07:29
+LAB: Defining Resource Requests and Limits
+00:16
+Creating a Horizontal Pod Autoscaler
+07:00
+LAB: Create a HorizontalPodAutoscaler
+00:13
+Writing load test Job definition
+05:50
+Preview
+07:32
+Autoscaling in action with HPA
+08:33
+LAB: Running load test as a kubernetes Job
+00:45
+Exercise
+01:04
+Preview
+01:03
+Ingress Controllers and Ingress
+06:20
+Choosing Traefik as a ingress controller and DaemonSet as a deployment type
+07:07
+Creating DaemonSet for Traefik
+11:28
+LAB: Create a Ingress Controller
+01:17
+Preview
+07:30
+Testing ingress and accessing the application
+05:53
+LAB: Adding Named Based Routing
+01:34
+Annotations and setting up basic auth for vote app
+07:44
+LAB: Using Annotations to enable HTTP Auth
+00:52
+Exercise
+00:24
+Creating default network policy for instavote namespace
+07:22
+Exposing public facing apps and allowing inter namespace communication
+07:54
+LAB: Creating firewall with Network Policies
+01:41
+Preview
+01:56
+Introduction to Kubespray
+02:34
+HA Design
+03:15
+Preparing Nodes to setup Kubernetes
+05:10
+Ansible control node and inventory setup
+06:33
+Preview
+07:27
+Adding a new node to cluster with kubespray
+03:13
+Enabling additional kubernetes features with with Kubespray
+03:45
+Understanding HA setup, mapping services to nodes
+06:19
+Kubernetes configurations quick dive
+07:42
+Preview
+06:32
+Deploying instavote app on prod cluster
+07:25
+Accessing kubernetes dashboard
+03:29
+Preview
+06:20
+Preview
+10:23
+Defining Users, Groups and Authorizations
+04:52
+Creating Users and Groups using x509 Certificates
+07:10
+LAB: Creating users and groups using x509 certificates
+03:01
+Setting credentials and contexts
+06:49
+Creating Roles and RoleBindings for interns
+12:37
+Binding to existing ClusterRole using ClusterRoleBinding for Ops
+05:16
+LAB: Defining authorisation rules with Roles and ClusterRoles
+00:41
+Exercise
+00:24
+Using nodeName to bind a pod to a node
+02:40
+Selecting node based on labels with nodeSelector
+06:23
+LAB: Using NodeSelector
+01:41
+Preview
+11:04
+LAB: Defining Node Affinity
+00:48
+Using podAffinity and podAntiAffinity to ensure co locating applications
+08:57
+LAB: Defining affinity between applications with PodAffinity
+01:31
+Using taints and tolerations to make nodes unschdulable or run only specific app
+06:18
+LAB: Using Taints and Tolerations
+01:26
+Exercise
+00:39
+Introduction to HELM
+04:51
+Setting up helm with tiller and launching prometheus
+07:09
+Quick overview of helm Charts
+08:22
+Launching wordpress with custom values
+07:22
+Setting up prometheus with custom storageclass and ingress rules
+09:47
+Deploying grafana and integrating it with prometheus
+08:34
+LAB 1: Helm Package Manager
+00:37
+LAB 2: Install Wordpress with Helm
+00:16
+LAB 3: Install Prometheus with Helm
+00:31
+Exercise
+00:11
+Session 1 - Introduction to Kubernetes
+42:21
+Session 2 - Setting up Kubernetes Cluster with Kubeadm
+32:45
+Session 3 - Pods
+02:18:48
+Session 4 - Namespaces and Replicasets ( High Availability and Scalability)
+01:13:13
+Session 5 - Service Networking
+01:29:17
+Session 6 - Pod Networking and Container Network Interface (CNI)
+29:52
+Session 7 - Deployment and Rolling Updates
+01:01:56
+Session 8 - Persistent Storage and Dynamic Provisioning
+50:16
+Session 9 - Role Based Access Control (RBAC)
+22:22
+Session 10 - HELM
+01:07:09
+Session 11 - Ingress Controllers
+17:16
+Deploying Istio Cluster with Google Kubernetes Engine
+07:43
+Setting up Google Cloud SDK
+05:35
+Examine
+05:35
+Validating Istio Telemetry Plugin
+04:16
+Overview of Bookinfo app
+04:54
+Deploying canary releases with intelligent routing
+07:33
+Testing application resiliency by injecting a fault
+09:37
+Zero downtime deployments with weight based routing
+05:53
+Traffic Routing and Deployment - Kubernetes vs Istio
+15:29
+Cleaning Up
+02:18
