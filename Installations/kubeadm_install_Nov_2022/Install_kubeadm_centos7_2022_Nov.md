@@ -44,6 +44,12 @@ sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 sudo systemctl enable --now kubelet
 ```
+
+
+# ONLY ON MASTER
+# Run as root
+
+```kubeadm init```
 #### here we will get some errors for that we need to run this command first
 Solution
 ```
@@ -54,7 +60,7 @@ modprobe bridge
 modprobe br_netfilter
 ```
 
-# ONLY ON MASTER
+# rerun this command
 ```kubeadm init```
 
         here we get the join command for the nodes
