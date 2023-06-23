@@ -27,3 +27,9 @@ Login as a ansible user on master and generate ssh key
     #ssh-keygen 
 Copy keys to target servers
    # ssh-copy-id <target-server> 
+
+## On Ubuntu
+$ sudo apt update
+$ sudo apt install software-properties-common
+$ sudo add-apt-repository --yes --update ppa:ansible/ansible
+$ sudo apt install ansible
