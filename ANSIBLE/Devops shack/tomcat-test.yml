@@ -1,0 +1,16 @@
+---
+- hosts: test
+  name: Install tomcat
+  become: yes
+  tasks:
+    - name: Download open jdk
+      apt:
+        name: openjdk-8-jre-headless
+        update_cache: yes
+        state: present
+    - name: Validate if java is available
+      shell: java -version
+      register: java_output
+    - name: Checking the result
+      debug:
+        msg: "{{ java_output }}"
