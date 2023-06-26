@@ -1,0 +1,7 @@
+---
+- hosts: vm
+  tasks:
+    - name: creating a directory
+      file:
+        path: /home/ubuntu/samantha
+        state: directory

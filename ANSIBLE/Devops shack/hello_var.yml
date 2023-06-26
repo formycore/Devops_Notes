@@ -1,0 +1,11 @@
+---
+- hosts: vm
+  vars:
+    - name: samantha
+  tasks:
+    - name: Print Message
+      debug:
+        msg: hello Ansible
+    - name: with variables
+      debug:
+        msg: "hello {{ test }}"

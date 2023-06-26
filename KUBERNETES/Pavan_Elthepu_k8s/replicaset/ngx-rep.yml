@@ -1,0 +1,22 @@
+# kubectl api-resources | grep -i replicaset
+# kubectl api-resources -- to get the kind apiversion
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: ngx-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template: # what pods it should create
+    metadata:
+      name: nginx-pod1
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+          ports:
+            - containerPort: 80
