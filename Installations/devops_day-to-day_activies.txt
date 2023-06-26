@@ -1,0 +1,17 @@
+
+
+
+always start with git (vcs)
+target platform as kubernetes
+with jenkins as orchestrator, jenkins has multiple statges with declarative 
+	- Continous Integration
+	- stages
+		- checkout
+		- Build
+		- code scan with sonarqube
+		- image build (container image)
+		- image scan (aqua)
+		- image push (docker hub)
+    - Continous Delivery
+    	- update the manifest files (from other github repo  as it is a good practice )
+    	

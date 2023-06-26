@@ -1,0 +1,24 @@
+mymodule and module_test these scripts should be in the same location for time being
+-----------------------------------------------------------
+mymodule.py 
+my_value = 123456788889
+-----------------------------------------------
+module_test.py
+import mymodule
+
+print(mymodule.my_value)
+# these scripts should be in the same location for time being
+# here we are taking the value of my_value from the mymodule 
+# reusing the values in other scripts
+########################################################################
+
+default modules are there for example math
+
+>>> import math
+>>> print(math.pi)
+3.141592653589793
+>>> 
+
+- to get modules 
+>>> help("modules") 
+- it will list all the modules are there while installing python
