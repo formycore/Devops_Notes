@@ -1,0 +1,78 @@
+pipeline {
+    agent any
+    tools {
+        maven "maven3"
+    }
+    environment {
+        // This is for nexus3
+        NEXUS_VERSION = "nexus3"
+        // This can be http or https
+        NEXUS_PROTOCOL = "http"
+        // Where your nexus is running
+        NEXUS_URL = "3.108.238.211:8081"
+        // Repository where we will upload the artifact
+        NEXUS_REPOSITORY = "sam-repo"
+        // Jenkins credentials id to authenticate to Nexus
+        NEXUS_CREDENTIALS_ID = "Nexus-cred"
+    }
+    stages {
+        stage('Git Checkout'){
+            steps {
+                git 'https://github.com/formycore/eks_project.git'
+            }
+        }
+        stage('Build'){
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Test'){
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Build & SonarqubeAnalysis'){
+            steps {
+                withSonarQubeEnv('SonarAJ'){
+                    sh "mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=jenkins_sonar \
+                        -Dsonar.projectName='jenkins_sonar' \
+                        -Dsonar.host.url=http://15.206.178.9:9000 \
+                        -Dsonar.token=sqp_70f6116619b1a05326004850f91b21cf100833f0"
+                }
+            }
+        }
+        // stage('Quality Gate'){
+        //     steps {
+        //         timeout(time: 2, unit: 'MINUTES'){
+        //             waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
+        stage('Build docker image'){
+            steps {
+                script {
+                    sh 'docker build -t formycore/petclinic-1.0 .'
+                }
+            }
+        }
+        stage('Deploy docker image'){
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'docker-secret-text', variable: 'Docker')]) {
+                            sh "docker login -u formycore -p ${Docker}"
+                        }
+                        sh "docker push formycore/petclinic-1.0"
+                }
+            }
+        }
+        stage('k8s deploy'){
+            steps {
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                        sh "kubectl apply -f kubernetes/petclinic.yaml"
+                    }
+            }
+        }
+    }
+
+}
