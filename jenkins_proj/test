@@ -1,0 +1,7 @@
+sqp_70f6116619b1a05326004850f91b21cf100833f0
+
+mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=jenkins_sonar \
+  -Dsonar.projectName='jenkins_sonar' \
+  -Dsonar.host.url=http://15.206.178.9:9000 \
+  -Dsonar.token=sqp_70f6116619b1a05326004850f91b21cf100833f0
