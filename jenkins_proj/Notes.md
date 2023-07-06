@@ -17,22 +17,27 @@
 - cat /var/lib/jenkins/secrets/initialAdminPassword
 ------------------------------------------------------------
 # Install docker
-```sudo apt-get update
+```
+sudo apt-get update
 sudo apt install docker.io -y
 sudo usermod -aG docker jenkins
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo systemctl start jenkins
-sudo systemctl enable jenkins```
+sudo systemctl enable jenkins
+```
 ------------------------------------------------------------
 # install aws cli
+```
 sudo apt-get update
 sudo apt-get install awscli -y
 
 aws configure   
+```
 ------------------------------------------------------------
 # Create IAM role with administrator access
 ## this is useful for eks   
+```
 - create a role
 - aws service
 - ec2
@@ -40,26 +45,34 @@ aws configure
 - attach policy
 - save
 - copy the role arn
+```
 ------------------------------------------------------------
 # Create a new user
+```
 - create a user
 - programmatic access
 - attach existing policies directly
 - administrator access
 - create user
 - copy the access key id and secret access key
+```
 ------------------------------------------------------------
 # Install eksctl
+```
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
+```
 ------------------------------------------------------------
 # Install kubectl
+```
 sudo curl --silent --location -o /usr/local/bin/kubectl \
   https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl
 sudo chmod +x /usr/local/bin/kubectl
+```
 ------------------------------------------------------------
 # switch to jenkins user and create a cluster using eksctl
+```
 sudo su - jenkins
 eksctl create cluster \
 --name sam-eks-test \
@@ -72,8 +85,10 @@ eksctl get cluster
 - check the cluster is created or not
 - Update the kubecofig file
 - aws eks update-kubeconfig --name sam-eks-test --region ap-south-1
+```
 ------------------------------------------------------------
 # Now install the plugins in jenkins 
+```
 Docker pipeline
 Docker API plugin
 Docker commons plugin
@@ -116,16 +131,21 @@ Command Agent Launcher	 Success
 Quality Gates	 Pending
 Loading plugin extensions	 Pending
 
+
 list of pliugin needs to be installed
+```
 ------------------------------------------------------------
 # Install Maven
+```
  Global tool configuration
   Maven
   Name: maven3
   Install automatically
   Save
+```
 ------------------------------------------------------------
 # Install SonarQube
+```
 Global tool configuration
   SonarScanner for MSBuild
   Name: Sonar
@@ -138,8 +158,10 @@ Global tool configuration
   Version: 4.7.0.2472
   Install automatically
   Save
+```
 ------------------------------------------------------------
 # Credetials for sonarqube, docker, docker secret
+```
 - for eks_cluste
   - copy the content of the file from /var/lib/jenkins/.kube/config
   - paste that in some extenal file explorer
@@ -165,28 +187,34 @@ Global tool configuration
   - username and password
   - admin
   - <password>
+```
 ------------------------------------------------------------
 # Configure sonar,nexus,dockerhub credentials
 
 
 ------------------------------------------------------------
 # Creating a user in nexus
+```
 - settings
 - users
 - create local user
 - fill the details
 - roles: nx-admin
 - save
+```
 ------------------------------------------------------------
 # Creating a repository in nexus
+```
 - repositories
 - create repository
 - maven2(hosted)
 - Version policy: mixed
 - Hosted: allow redeploy
 - create repository
+```
 ------------------------------------------------------------
 # In Sonarqube Dashboard
+```
 --> Administration
    ---> configuration
          ---> Webhooks
@@ -213,4 +241,4 @@ Global tool configuration
         ---> locally
         ---> Run analysis select maven
         ---> copy code and generate in run analysis for maven
-
+```
