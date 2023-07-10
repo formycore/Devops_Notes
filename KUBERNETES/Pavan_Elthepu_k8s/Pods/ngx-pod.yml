@@ -3,7 +3,9 @@ kind: Pod
 metadata:
   name: nginx-pod1
   labels:
-    app: team
+    app: todo
+    team: integration
+    # These labels acts as indentifiers to the pod
 spec:
   containers:
     - name: nginx-container

@@ -1,0 +1,9 @@
+if there are 4 lines and we printed first line using readline(), only first line is printed and again used second line is printed,
+- read(), from the current position to the end of the file
+- file = open("test.txt")
+print(file.readline())
+# first line is printed and again used second line is printed 
+print(file.read())
+# from the second line all the lines are printed
+- file.close()
+# this closes the file
