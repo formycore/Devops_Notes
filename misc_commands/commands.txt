@@ -1,0 +1,6 @@
+https://www.cyberciti.biz/faq/how-to-find-my-public-ip-address-from-command-line-on-a-linux/
+curl checkip.amazonaws.com
+curl ifconfig.me
+curl icanhazip.com
+curl ipecho.net/plain
+curl ifconfig.co
