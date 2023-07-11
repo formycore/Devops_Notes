@@ -12,15 +12,25 @@ curl -fsSL https://get.docker.com -o install-docker.sh
 sudo apt-get install make
 
 ```
+### Install go
+```
+# RUN THIS AS ROOT
+wget https://storage.googleapis.com/golang/getgo/installer_linux
+chmod +x installer_linux
+./installer_linux
+source ~/.bash_profile
+
+```
 
 #### Install cri-dockerd from the mirantis github repo see the readme for more info
 ```
+# RUN THIS AS ROOT
 git clone https://github.com/Mirantis/cri-dockerd.git
 cd cri-dockerd
-make cri-dockerd
-cd cri-dockerd
+mkdir bin
+go build -o bin/cri-dockerd
 mkdir -p /usr/local/bin
-install -o root -g root -m 0755 cri-dockerd /usr/local/bin/cri-dockerd
+install -o root -g root -m 0755 bin/cri-dockerd /usr/local/bin/cri-dockerd
 install packaging/systemd/* /etc/systemd/system
 sed -i -e 's,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,' /etc/systemd/system/cri-docker.service
 systemctl daemon-reload
@@ -39,6 +49,9 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ```
 # On Master only
 ```
+
+kubeadm init --help
+check for the --pod-network-cidr and --cri-socket
 kubeadm init --pod-network-cidr "10.244.0.0/16" --cri-socket "unix:///var/run/cri-dockerd.sock"
 
 To start using your cluster, you need to run the following as a regular user:
