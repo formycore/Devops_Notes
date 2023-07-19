@@ -19,12 +19,12 @@ variable "instance_keypair" {
 }
 #-------------------------- AWS EC2 Instance type -with list ------------------------------
 variable "instance_type_list" {
-  type = list(string)
-  default = [ "t2.micro","t2.small" ]
+  type = list(string) # going to have list of strings
+  default = [ "t2.small","t2.micro" ] # [] are used for list
 }
 #-------------------------- AWS EC2 Instance type -with Map ------------------------------
 variable "instance_type_map" {
-  type = map(string)
+  type = map(string) 
   default = {
     "dev" = "t2.small"
     "qa" = "t2.micro"
