@@ -1,0 +1,34 @@
+Shebang
+Variables
+User Input
+Tests
+Decision Making
+Iterative Statements
+Positional Parameters
+Exit Statuses
+Logic Operations
+Functions
+Wildcards
+Debugging
+
+https://www.youtube.com/watch?v=gN3iluxAycM
+
+
+Need for shell scripting
+what is shell
+use of variable and comments
+Read user input
+Pass arguments to bash scripts
+if statement(if then,if then else,elif else)
+File test operators
+How to append output to the end of the file
+Logical "AND" "OR" operator
+Arthimatic operations
+The case statement
+loops
+	while
+	UNTIL
+	FOR
+	select
+	Break & continue
+	Functions
