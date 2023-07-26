@@ -47,7 +47,7 @@ sudo systemctl enable --now kubelet
 ## 12) Installing a specific version of kubernetes
 
 ```
-sudo yum install -y kubeadm-1.24.0-0 kubelet-1.24.0-0 kubectl-1.24.0-0
+sudo yum install -y kubeadm-1.24.0-0 kubelet-1.24.0-0 kubectl-1.24.0-0 --disableexcludes=kubernetes
 
 
 ```
