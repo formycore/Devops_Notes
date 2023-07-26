@@ -48,12 +48,17 @@ sudo systemctl enable --now kubelet
 
 ```
 sudo yum install -y kubeadm-1.24.0-0 kubelet-1.24.0-0 kubectl-1.24.0-0
-sudo kubeadm init --kubernetes-version=1.24.0 -- only on master
+
 
 ```
 
 # ONLY ON MASTER
 # Run as root
+
+## if we need any specific version 
+```
+sudo kubeadm init --kubernetes-version=1.24.0
+```
 
 ```kubeadm init```
 #### here we will get some errors for that we need to run this command first
