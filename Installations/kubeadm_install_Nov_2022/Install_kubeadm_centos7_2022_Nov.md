@@ -1,5 +1,5 @@
-# Followed https://docs.google.com/document/d/1_SlIpFvrLbHFe2XL6-OEFDKbbp2p0nFKW1hFSDHOFDw/edit
-# YouTube Link https://www.youtube.com/watch?v=nbp9zxkmi74&t=2261s
+## Followed https://docs.google.com/document/d/1_SlIpFvrLbHFe2XL6-OEFDKbbp2p0nFKW1hFSDHOFDw/edit
+## YouTube Link https://www.youtube.com/watch?v=nbp9zxkmi74&t=2261s
 
 # MASTER & NODES
 
@@ -44,7 +44,13 @@ sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 sudo systemctl enable --now kubelet
 ```
+## 12) Installing a specific version of kubernetes
 
+```
+sudo yum install -y kubeadm-1.24.0-0 kubelet-1.24.0-0 kubectl-1.24.0-0
+sudo kubeadm init --kubernetes-version=1.24.0 -- only on master
+
+```
 
 # ONLY ON MASTER
 # Run as root
@@ -61,6 +67,7 @@ modprobe br_netfilter
 ```
 
 # rerun this command
+
 ```kubeadm init```
 
         here we get the join command for the nodes
