@@ -18,7 +18,7 @@ spec:
       containers:
         - image: mongo
           name: mongo
-          args: ["--dbpath", "/data/db"]
+          args: ["--dbpath", "/data/db"] # this will used when we uses any volumes
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: "admin"
@@ -75,7 +75,7 @@ spec:
       containers:
         - image: mongo
           name: mongo
-          args: ["--dbpath", "/data/db"]
+          args: ["--dbpath", "/data/db"] # "/data/db" is used to mount the volume
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: "admin"
@@ -193,7 +193,7 @@ spec:
     # - ReadOnlyMany
     # - ReadWriteOncePod
   local:
-    path: /home/ubuntu/test
+    path: /home/centos/test
   nodeAffinity:
     required:
       nodeSelectorTerms:

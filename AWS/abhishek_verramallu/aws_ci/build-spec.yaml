@@ -1,0 +1,22 @@
+version: 0.2
+
+env:
+  parameter-store: # provide the docker build login in a secret location
+     # key: "value"
+     # key: "value"
+
+phases:
+  install:
+    runtime-versions: # here the code is in python 
+      python: 3.11
+    # as there is no commands to run at the run time   
+  pre_build: # install flask on the image
+    commands:
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - echo "Building the docker image"
+      - docker build -t <> # here we user aws system manager
+  post_build:
+    commands:
+      - echo "Build Successfull"
