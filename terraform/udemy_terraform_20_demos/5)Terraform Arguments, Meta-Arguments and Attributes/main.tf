@@ -15,7 +15,7 @@ provider "aws" {
 
 # Resource Block
 resource "aws_instance" "ec2_demo" {
-    ami = "ami-007855ac798b5175e" # ami varies from regions to os images
+    ami = "ami-053b0d53c279acc90" # ami varies from regions to os images # for us-east-1
     instance_type = "t2.micro" # machine type
     # here we need to add the app1-install.sh, we use file function to read the content of the file
     # we need to create a file in the same directory with the name app1-install.sh
