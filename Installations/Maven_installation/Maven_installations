@@ -1,10 +1,10 @@
 Maven installation
 -------------------
 
-- wget https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
-- sudo tar xf apache-maven-3.6.3-bin.tar.gz -C /opt
+- wget https://downloads.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
+- sudo tar xf apache-maven-3.8.8-bin.tar.gz -C /opt
 - cd /opt
-- sudo mv apache-maven-3.6.3/ apache-maven
+- sudo mv apache-maven-3.8.8/ apache-maven
 - sudo vi /etc/profile.d/maven.sh
 # echo -e 'export M2_HOME=/opt/apache-maven'"\n"'export MAVEN_HOME=/opt/apache-maven' | sudo tee -a /etc/profile.d/maven.sh
     export M2_HOME=/opt/apache-maven
