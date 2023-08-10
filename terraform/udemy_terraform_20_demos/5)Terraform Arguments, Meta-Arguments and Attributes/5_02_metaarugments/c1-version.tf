@@ -14,3 +14,5 @@ terraform {
 provider "aws" {
   region = var.aws_region
 }
+#required_version = "~> 0.15" should be checked with terraform verison 
+# - then change the required_version to the terraform version 

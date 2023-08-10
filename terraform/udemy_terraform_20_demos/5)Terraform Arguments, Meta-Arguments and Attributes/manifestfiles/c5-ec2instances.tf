@@ -11,4 +11,6 @@ resource "aws_instance" "myec2vm" {
   tags = {
     "Name" = "Count-Demo-${count.index}"
   }
+ 
+
 }

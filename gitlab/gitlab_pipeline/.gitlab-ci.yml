@@ -1,0 +1,8 @@
+stages:
+  - "build"
+job:
+  stage: "build"
+  script:
+    - echo "Hello, $GITLAB_USER_LOGIN!" > test.txt
+tags:
+  - "helloworld"

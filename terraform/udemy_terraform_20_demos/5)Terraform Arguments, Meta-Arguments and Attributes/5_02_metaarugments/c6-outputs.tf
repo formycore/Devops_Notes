@@ -11,8 +11,7 @@ output "for_output_list" {
 output "for_output_map" {
   value = {for instance in aws_instance.myec2vm: instance.id => instance.public_ip}
   /*
-  in the c5-ec2instances.tf file, we have created 2 ec2 instances.
-  as the count=2
+  
 
   */
 }
@@ -30,10 +29,3 @@ output "for_output_map2" {
         */
     }
 # output with splat operator 
-output "legacy_splat_output" {
-    value = aws_instance.myec2vm.*.public_ip
-}
-# output with splat operator latest
-output "latest_splat_output" {
-    value = aws_instance.myec2vm[*].public_ip
-}
