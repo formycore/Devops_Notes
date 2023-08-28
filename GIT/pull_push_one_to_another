@@ -1,0 +1,7 @@
+git clone https://gitlab.com/shazforiot/mavengitlabproject.git
+cd mavengitlabproject
+git add .
+git commit -m "Your commit message here"
+git remote add new-origin https://gitlab.com/xxxxxxxx/mavengitlabproject.git
+git pull new-origin master
+git push new-origin master
