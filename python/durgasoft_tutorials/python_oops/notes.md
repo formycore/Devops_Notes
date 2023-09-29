@@ -113,8 +113,78 @@ def __init__(self): # this is the constructor
 data should be changed from object to object then we should go for instance variables
 
 
+```
+```
+SELF POSTMARTEM 
+Recap: 
+  - we can define class,methods and reference variables
+  - to access members of class
+  - self
+  - constructor
 
-
+SELF:
+  - first argument to the constructor and instance method should be self
+  - methods inside the class is called instance method
+  - actually there are 3 types
+    - instance method
+    - static method
+    - class method
+  - this is reference variable which is always pointing to current object
+  - with in the python class to refer current object we should use self variable
+  - the first argument to the constructor and instance method should be self
+  - some refernce variable is required to refer current object then we should go for self
+###################################################################
+class Student:
+  def __init__(self):
+    print("Address pointing to self", id(self))
+  s = Student()
+  print("Address pointing to s", id(s))
+###################################################################
+- we cannot use s(object reference) inside the class
+- self is used to within the class
+- self is accessed by outside the class with some object reference
+- id() is used to get the address of the object
+- from the above code we can see that both the address are same
+###################################################################
+class Test:
+  def __init__(self):
+    print("constructor execution")
+  def m1(self,x):
+    print("x value is:",x)
+t = Test()
+t.m1(10)
+###################################################################
+- here we are not passing the values to the test() method, python virtual machine will pass the values
+- for t.m1(10) but here we need to pass two values for the self and x
+- here we are passing only for x
+- self value will be passed by python virtual machine
+- at the time of object creation,constructor will be executed automatically
+- for every method call,first argument should be self
+- variables in python class are called instance variables
+- actually there are 3 types of variables
+  - instance variables
+  - static variables
+  - local variables
+###################################################################
+class Student:
+  def __init__(self):
+    self.name = name
+    self.rno = rno
+    self.marks = marks
+  def talk():
+    print("Hello my name is :",self.name)
+    print("my roll number is :",self.rno)
+    print("my marks are :",self.marks)
+s = Student("sunny",101,80)
+s.talk()
+###################################################################
+- self.name is the current object name variable, a name variable is created in the current object for that name variable we are assigning the value sunny
+- self.rno is the current object rno variable, a rno variable is created in the current object for that rno variable we are assigning the value 101
+- self.marks is the current object marks variable, a marks variable is created in the current object for that marks variable we are assigning the value 80
+**********************************************************************************
+what is the purpose of self variable?
+- to declare instance variables
+- to access instance variables
 
 
 ```
