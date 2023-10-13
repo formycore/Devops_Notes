@@ -1,0 +1,14 @@
+trigger:
+- main
+
+pool: self-hosted
+
+steps:
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: c:\temp
+    contents: '**'
+    targetFolder: \\vm1\shared-folder
+    copyTool: AzureCopy
+    progressBar: yes
+    logTimeTaken: yes
