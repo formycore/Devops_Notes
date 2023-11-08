@@ -4,6 +4,7 @@
 
 ## Other way to register the runner
 ```
+- https://www.youtube.com/watch?v=QwW2hlL1yF4
 - Goto the gitlab server
 - settings -> CI/CD -> Runners
 - at the new runner there will be three dots click on it
