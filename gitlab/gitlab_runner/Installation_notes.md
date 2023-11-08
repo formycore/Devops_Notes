@@ -8,6 +8,12 @@
 - settings -> CI/CD -> Runners
 - at the new runner there will be three dots click on it
 - select the runner installation and registration instructions
+- after following those instructions we might get an error
+
+ERROR: Job failed: prepare environment: exit status 1. Check https://docs.gitlab.com/runner/shells/index.html#shell-profile-loading for more information
+
+- sudo rm /home/gitlab-runner/.bash_logout
+- sudo gitlab-runner register
 
 ```
 
