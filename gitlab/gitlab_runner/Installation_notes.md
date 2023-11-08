@@ -1,6 +1,17 @@
 # Install gitlab runnner
 # https://docs.gitlab.com/runner/install/
 # https://docs.gitlab.com/runner/install/linux-manually.html
+
+## Other way to register the runner
+```
+- Goto the gitlab server
+- settings -> CI/CD -> Runners
+- at the new runner there will be three dots click on it
+- select the runner installation and registration instructions
+
+```
+
+
 ```
 sudo yum update -y
 sudo yum install git
