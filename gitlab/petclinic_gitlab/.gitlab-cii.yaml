@@ -1,0 +1,24 @@
+stages:
+  - compile
+  - sonarqube-analysis
+  - build
+compile-job:
+  stage: compile
+  tags:
+    - "test"
+  script:
+    - echo "Compling the code"
+    - mvn clean compile
+sonarqube-analysis-job:
+  stage: sonarqube-analysis
+  tags:
+    - "test"
+  script:
+    - mvn sonar:sonar -Dsonar.host.url="$SONAR_HOST_URL" -Dsonar.login="$SONAR_TOKEN" -Dsonar.projecKey=myproject -Dsonar.projectName=Petclinic -Dsonar.java.binaries=.
+build-job:
+  stage: build
+  tags:
+    - "test"
+  script:
+    - echo "MAVEN BUILD"
+    - mvn clean install
