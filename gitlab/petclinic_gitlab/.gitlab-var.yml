@@ -1,0 +1,10 @@
+stages:
+  - compile
+  - sonarqube-analysis
+  - build
+compile-job:
+  stage: compile
+  tags:
+    - "test"
+  script:
+    - echo this is "$SONAR_HOST_URL"
