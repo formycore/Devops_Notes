@@ -1,0 +1,12 @@
+---
+- name: Working on windows server
+  hosts: win
+  tasks:
+    - name: Create a Directory
+      win_file:
+        path: C:\Temp\demofolder
+        state: Directory
+    - name: Create a file
+      win_file:
+        path: C:\Temp\demofolder\demo.txt
+        state: touch

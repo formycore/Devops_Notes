@@ -1,3 +1,4 @@
 To fetch only the container ID using the docker ps -a command, 
 docker ps -a --format "{{.ID}}"
 docker ps -a --format "{{.ID}}\t{{.Image}}"
+docker rm $(docker ps -a -q -f status=exited)

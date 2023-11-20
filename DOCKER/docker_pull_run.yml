@@ -1,0 +1,18 @@
+---
+- name: Docker pull the image
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: pull the image
+      docker_image:
+        name: formycore/test:nov16
+        source: pull
+    - name: Start the container
+      docker_container:
+        name: petclinic
+        image: formycore/test:nov16
+        state: started
+        ports:
+          - "8081:8080"
+          

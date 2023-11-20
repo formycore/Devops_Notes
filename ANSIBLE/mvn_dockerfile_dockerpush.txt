@@ -1,0 +1,43 @@
+---
+- name: Build Docker Image and Push to Docker Hub
+  hosts: localhost
+  tasks:
+    - name: Clone Maven Project
+      git:
+        repo: "https://github.com/your/maven/project.git"
+        dest: "/path/to/your/maven/project"
+
+    - name: Build Maven Project
+      command: "mvn clean install"
+      args:
+        chdir: "/path/to/your/maven/project"
+
+    - name: Create Dockerfile
+      copy:
+        content: |
+          FROM openjdk:11-jre-slim
+          WORKDIR /app
+          COPY /path/to/your/maven/project/target/your-app.jar /app/
+          CMD ["java", "-jar", "your-app.jar"]
+        dest: "/path/to/your/maven/project/Dockerfile"
+
+    - name: Build Docker Image
+      command: "docker build -t your-docker-username/your-app:latest /path/to/your/maven/project"
+    
+    # Add tasks for Docker login and push in the next steps
+2. Docker Login and Push Tasks:
+---
+# ... (previous tasks)
+
+    - name: Docker Login
+      ansible.builtin.docker_login:
+        username: "{{ docker_hub_username }}"
+        password: "{{ docker_hub_password }}"
+        email: "{{ docker_hub_email }}"
+    
+    - name: Docker Push
+      command: "docker push your-docker-username/your-app:latest"
+3. Encrypt Docker Hub Password using Ansible Vault:
+ansible-vault encrypt_string --ask-vault-pass "your-docker-hub-password"
+4. Run the Playbook:
+ansible-playbook -i localhost, -e "ansible_become_pass=your-sudo-password" --ask-vault-pass build_docker_image.yml
