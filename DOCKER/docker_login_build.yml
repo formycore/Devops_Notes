@@ -1,0 +1,29 @@
+#ansible-playbook docker_build.yml --extra-vars "username=username password=password"
+---
+  - name: docker login and push to docker hub
+    hosts: localhost
+    connection: local
+    vars_files:
+      - docker_password.yml
+    tasks:
+      - name: run the maven command
+        shell: mvn clean package
+      - name: docker build
+        community.docker.docker_image:
+          name: formycore/test:nov16
+          build:
+            path: .
+          source: build
+      - name: docker login
+        docker_login:
+          username: "{{ username }}"
+          password: "{{ password }}"
+        when: username and password is defined
+      - name: Tab and push to docker hub
+        docker_image:
+          name: formycore/test:nov16
+          repository: formycore/test:nov16
+          push: true
+          source: local
+# how to store the password in the azure devops pipeline variable ?
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml

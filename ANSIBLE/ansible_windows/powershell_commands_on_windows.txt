@@ -1,0 +1,39 @@
+winrm e winrm/config/Listener
+check the output 
+we need to have https Listener is also needed
+for https Listener a  SSL certificate is needed
+
+step 1: Create Certificate
+----------------------------
+New-SelfSignedCertificate -DnsName <hostname> -CertStoreLocation cert:\LocalMachine\My
+
+- it will generate one thumb print
+
+
+step 2: whitelist the port 5985(http) & 5986(https) in firewall in the aws security group
+
+step 3: Create HTTPS Listener
+------------------------------
+winrm create winrm/config/Listener?Address=*+Transport=HTTPS '@{Hostname="<hostname>";CertificateThumbprint="<thumbprint>"}'
+
+
+step 4 : Add new firewall rule to allow port 5986
+-------------------------------------------------
+netsh advfirewall firewall add rule name="Windows Remote Management (HTTPS-In)" dir=in action=allow protocol=TCP localport=5986
+
+step 5: check the listener for https
+-------------------------------------
+winrm e winrm/config/Listener
+
+step 6 : Check the services
+----------------------------
+winrm get winrm/config/service
+
+step 7: Enable basic authentication
+------------------------------------
+Set-Item -Force WSMan:\localhost\Service\Auth\Basic $true
+
+
+step 8: check the status of the ansible host i.e, windows machine 
+------------------------------------------------------------------
+ansible -i hosts.ini win -m win_ping (as per the hosts.ini file about the win)

@@ -1,0 +1,7 @@
+---
+- name: run the maven package
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: run the maven package
+      command: mvn clean package

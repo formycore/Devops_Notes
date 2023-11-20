@@ -1,0 +1,25 @@
+#ansible-vault encrypt_string --name 'docker_password' 'rekcod' --output docker_password.yml
+
+---
+  - name: docker login and push to docker hub
+    hosts: localhost
+    connection: local
+    vars_files:
+      - docker_password.yml
+    tasks:
+      - name: docker build
+        community.docker.docker_image:
+          name: formycore/test:nov14
+          build:
+            path: .
+          source: build
+      - name: docker login
+        docker_login:
+          username: formycore
+          password: "{{ docker_password }}"
+      - name: Tag and push to Docker Hub
+        community.docker.docker_image:
+          name: formycore/test:nov14
+          repository: formycore/test:nov14
+          push: true
+          source: local
