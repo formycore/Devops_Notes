@@ -17,7 +17,7 @@ chmod +x install-docker.sh
 ./install-docker.sh
 sudo usermod -aG docker $USER
 sudo systemctl start docker
-sudo systemctl enable docker
+sudo systemctl enable --now docker
 
 ```
 
