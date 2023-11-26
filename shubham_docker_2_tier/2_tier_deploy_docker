@@ -1,0 +1,23 @@
+```
+sudo chown $UDER /var/run/docker.sock
+
+#########################################
+FROM python:3.9-slim
+WORKDIR /app
+RUN apt-get update -y \
+    && apt-get upgrade -y \
+    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
+    && rm -rf /var/lib/apt/list/*
+COPY requirements.txt .
+RUN pip install mysqlclient
+RUN pip install -r requirements.txt
+COPY . .
+CMD [ "python", "app.py"]
+#########################################
+- docker build -t testnov25:v1 .
+# This is for flask app
+- docker run -d -p 5000:5000 --name flask-app testnov25:v1
+
+# This is for mysql
+- docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=admin mysql:5.7
+```
