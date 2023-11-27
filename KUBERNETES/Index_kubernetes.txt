@@ -1,0 +1,212 @@
+A Practical Guide to Kubernetes
+########################################
+Pods
+----
+A Quick and Dirty way to Run Pods
+Defining Pods through Declarative Syntax
+Components and Stages involved in a Pod's Scheduling
+Playing around with the Running Pod
+Running Multiple Containers in a Single Pod
+Single vs. Multi-Container Pods
+Monitoring Health
+
+
+ReplicaSets
+-----------
+Getting Started with ReplicaSets
+Creating ReplicaSets
+Sequential Breakdown of the Process
+Operating ReplicaSets
+
+
+Services
+----------
+Getting Started with Communication
+Creating Services by Exposing Ports
+Sequential Breakdown of the Process
+Creating Services through Declarative Syntax
+Splitting the Pod and Establishing communication through Services
+Creating the Split API Pods
+Defining Multiple Objects in the Same YAML file
+Discovering Services
+
+Deployments
+-----------
+Getting Started with Deploying Releases
+Deploying new Releases
+Sequential Breakdown of the Process
+Updating Deployments
+Defining a Zero-Downtime Deployment
+Creating a Zero-Downtime Deployment
+Rolling Back or Rolling Forward?
+Playing around with the Deployment
+Rolling Back Failed Deployments
+Merging Everything into the Same YAML Definition
+Updating Multiple Objects
+Scaling Deployments
+
+
+
+Ingress
+----------
+Getting Started with Ingress
+Why Services Are Not the Best Fit for External Access?
+Enabling Ingress Controllers
+Creating Ingress Resources Based on Paths
+Sequential Breakdown of the Process
+Creating Ingress Resources Based on Domains
+Creating an Ingress Resource with Default Backend
+
+
+
+Volumes
+---------
+
+Getting Started with Volumes
+Accessing Host’s Resources through hostPath Volumes
+Running the Pod after mounting hostPath
+Using hostPath Volume Type to Inject Configuration Files
+Working with the New Prometheus Configuration
+Non-Persisting State
+Persisting State through the emptyDir Volume Type
+
+
+ConfigMaps
+----------
+Getting Started with ConfigMaps
+Injecting Configuration from a Single File
+Injecting Configurations from Multiple Files
+Injecting Configurations from Key/Value Literals
+Injecting Configurations from Environment Files
+Converting ConfigMap Output into Environment Variables
+Defining ConfigMaps as YAML
+A Plea NOT to Use ConfigMaps!
+
+
+Secrets
+--------
+Getting Started with Secrets
+Exploring Built-In Secrets
+Creating Generic Secrets
+Mounting Generic Secrets
+Secrets Compared to ConfigMaps
+Not so Secretive Secrets
+
+Namespaces
+-----------
+Getting Started with Cluster Division
+Deploying the First Release
+Exploring Virtual Clusters
+Exploring the Existing Namespaces
+Creating a New Namespace
+Deploying to a New Namespace
+Communicating between Namespaces
+Deleting a Namespace and All Its Objects
+
+
+
+Securing Kubernetes Clusters
+-----------------------------
+Getting Started with Security
+Accessing Kubernetes API
+Authorizing Requests and Creating a Cluster
+Creating Users to Access the Cluster
+Accessing the Cluster as a User
+Exploring RBAC Authorization
+Peeking into Pre-Defined Cluster Roles
+Creating Role Bindings
+Creating Cluster Role Bindings
+Combining Role Bindings with Namespaces
+Granting Access as a Release Manager
+Replacing Users With Groups
+
+Managing Resources
+------------------
+Getting Started with Managing Resources
+Defining Container Memory and CPU Resources
+Getting Practical with Container Memory and CPU Resources
+Measuring the Actual Memory and CPU Consumption
+Allocating Insufficient Resource than the Actual Usage
+Allocating Excessive Resource than the Actual Usage
+Adjusting Resources Based on Actual Usage
+Exploring Quality of Service (QoS) Contracts
+Examining QoS in Action
+Defining Resource Defaults and Limitations within a Namespace
+The Mismatch Scenario
+Defining Resource Quotas for a Namespace
+Exploring the Effects by Violating Quotas
+Exploring the Types of Quotas
+
+
+Creating A Production-Ready Kubernetes Cluster
+------------------------------------------------
+Getting Started with Production-Ready Clusters
+Kubernetes Operations (kops) Project
+Preparing for the Cluster Setup: AWS CLI and Region
+Preparing for the Cluster Setup: IAM Group and User
+Preparing for the Cluster Setup: Availability Zones and SSH Keys
+Creating a Cluster: Creating S3 Bucket and Installing kops
+Creating a Cluster: Discussing the Specifications
+Creating a Cluster: Running and Verification
+Exploring the Components That Constitute the Cluster
+Updating the Cluster
+Sequential Breakdown and Verification of the Update Process
+Upgrading the Cluster Manually: Changing the Kubernetes Version
+Exploring and Verifying the Output
+Upgrading the Cluster Automatically
+Accessing the Cluster: Understanding the Protocol
+Accessing the Cluster: Adding the Load Balancer
+Deploying Applications
+Exploring the High-Availability and Fault-Tolerance
+Giving Others Access to the Cluster
+Destroying the Cluster
+
+
+Persisting State
+-----------------
+Getting Started with State Persistence
+Deploying Stateful Applications without Persisting State
+Analyzing Failure of the Stateful Application
+Creating AWS Volumes
+Creating Kubernetes Persistent Volumes
+Claiming Persistent Volumes
+Creating Deployment for Attaching Claimed Volumes to Pods
+Verifying the State Persistence and Exploring the Failures
+Removing the Resources and Exploring the Effects
+Using Storage Classes to Dynamically Provision Persistent Volumes
+Using Default Storage Classes
+Defining Storage Classes
+Creating Storage Classes
+
+
+
+Appendix: Running a Kubernetes Cluster Locally
+-----------------------------------------------
+Exploring the Options
+Installing kubectl
+Installing Minikube
+Creating a Local Kubernetes Cluster with Minikube
+Exploring Minikube Commands
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
