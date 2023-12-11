@@ -1,0 +1,9 @@
+youtube url https://www.youtube.com/watch?v=spA3jJYi6Q4
+# trying for the interactive mode with docker
+- $ docker run -it -v ${PWD}:/app -p 3000:3000 node:14 sh
+- inside the container app dir is created
+- cd app
+- touch app.js (as we can see the in the local host app.js is being created)
+- rm app.js
+# Initialize the new react application
+- $ npx create-react-app .
