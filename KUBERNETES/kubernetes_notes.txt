@@ -1,0 +1,7 @@
+Delete Node
+--------------------
+eksctl delete nodegroup --cluster=<cluster_name> --region=<region> --name=<name_of_the_nodegroup>
+
+Delete Cluster
+--------------
+eksctl delete cluster --name=<cluster_name> --region=<region>
