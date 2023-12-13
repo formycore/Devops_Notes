@@ -1,0 +1,26 @@
+Installation commmand mysql Centos Machine:
+
+ rpm -Uvh https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
+yum --enablerepo=mysql80-community install mysql-community-server
+ sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+yum --enablerepo=mysql80-community install mysql-community-server
+ yum install mysql
+yum install mysql-server
+yum -y install mysql-community-server
+ service mysqld  status
+ service mysqld  start
+service mysqld  status
+
+
+Change mysql passwqord
+  grep "A temporary password" /var/log/mysqld.log
+   16   mysql_secure_installation
+
+
+Database and table create:
+mysql -u root -p
+show databases;
+create database kritika;
+use kritika;
+create table tblEmployee1(Employee_first_name varchar(500) NOT null,Employee_last_name varchar(500) NOT null);
+INSERT INTO tblEmployee1 (employee_first_name, employee_last_name) values ("Nisarg","Upadhyay");
