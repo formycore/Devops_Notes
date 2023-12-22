@@ -1,0 +1,222 @@
+
+Certainly! Let's start with some basic examples using pathlib and then gradually move on to more advanced use cases.
+
+Basic Examples:
+#######################################################
+Example 1: Creating a Path Object
+python
+******************************
+from pathlib import Path
+
+# Create a Path object for a directory
+path = Path("/path/to/your/directory")
+
+# Display the path
+print("Path:", path)
+#######################################################
+Example 2: Listing Contents of a Directory
+python
+******************************
+from pathlib import Path
+
+# Create a Path object for a directory
+path = Path("/path/to/your/directory")
+
+# List all items in the directory
+for item in path.iterdir():
+    print(item)
+#######################################################
+Example 3: Checking if a Path Exists
+python
+******************************
+from pathlib import Path
+
+# Create a Path object for a file or directory
+path = Path("/path/to/your/file_or_directory")
+
+# Check if the path exists
+if path.exists():
+    print(f"{path} exists.")
+else:
+    print(f"{path} does not exist.")
+#######################################################
+Example 4: Checking if a Path is a Directory or File
+python
+******************************
+from pathlib import Path
+
+# Create a Path object
+path = Path("/path/to/your/file_or_directory")
+
+# Check if it's a directory
+if path.is_dir():
+    print(f"{path} is a directory.")
+elif path.is_file():
+    print(f"{path} is a file.")
+else:
+    print(f"{path} is neither a file nor a directory.")
+#######################################################    
+Example 5: Joining Paths
+python
+******************************
+from pathlib import Path
+
+# Create Path objects for a base directory and a subdirectory/file
+base_path = Path("/path/to/your/base")
+sub_path = Path("subdirectory/file.txt")
+
+# Join the paths
+full_path = base_path / sub_path
+
+# Display the full path
+print("Full Path:", full_path)
+#######################################################
+Intermediate Examples:
+Example 6: Reading the Contents of a File
+python
+******************************
+from pathlib import Path
+
+# Create a Path object for a file
+file_path = Path("/path/to/your/file.txt")
+
+# Read and print the contents of the file
+with open(file_path, "r") as file:
+    content = file.read()
+    print("File Contents:\n", content)
+#######################################################    
+Example 7: Filtering Files by Extension
+python
+******************************
+from pathlib import Path
+
+# Create a Path object for a directory
+path = Path("/path/to/your/directory")
+
+# List only files with a specific extension (e.g., .txt)
+txt_files = list(path.glob("*.txt"))
+
+# Display the list of matching files
+print("Text Files:")
+for txt_file in txt_files:
+    print(txt_file)
+#######################################################    
+Example 8: Creating Directories
+python
+******************************
+from pathlib import Path
+
+# Create a Path object for a new directory
+new_directory = Path("/path/to/your/new_directory")
+
+# Create the directory if it doesn't exist
+new_directory.mkdir(parents=True, exist_ok=True)
+
+print(f"Directory {new_directory} created.")
+#######################################################
+Example 9: Copying Files
+python
+******************************
+from pathlib import Path
+import shutil
+
+# Create Path objects for source and destination files
+source_file = Path("/path/to/your/source/file.txt")
+destination_file = Path("/path/to/your/destination/file.txt")
+
+# Copy the file
+shutil.copy(source_file, destination_file)
+
+print(f"File copied from {source_file} to {destination_file}.")
+#######################################################
+Example 10: Recursively Walking Through Directories
+python
+******************************
+from pathlib import Path
+
+# Create a Path object for a starting directory
+start_directory = Path("/path/to/your/start_directory")
+
+# Recursively walk through the directory
+for current_path, subdirectories, files in start_directory.rglob("*"):
+    print("Current Path:", current_path)
+    print("Subdirectories:", subdirectories)
+    print("Files:", files)
+    print("-" * 30)
+#######################################################    
+Advanced Examples:
+Example 11: Renaming Files
+python
+******************************
+from pathlib import Path
+
+# Create a Path object for a file
+file_path = Path("/path/to/your/old_name.txt")
+
+# Specify the new name and rename the file
+new_name = "new_name.txt"
+file_path.rename(file_path.with_name(new_name))
+
+print(f"File renamed to {new_name}.")
+#######################################################
+Example 12: Finding the Largest File in a Directory
+python
+******************************
+from pathlib import Path
+
+# Create a Path object for a directory
+directory_path = Path("/path/to/your/directory")
+
+# Find the largest file in the directory
+largest_file = max(directory_path.glob("*"), key=lambda f: f.stat().st_size, default=None)
+
+if largest_file:
+    print(f"Largest file: {largest_file}, Size: {largest_file.stat().st_size} bytes")
+else:
+    print("Directory is empty.")
+#######################################################    
+Example 13: Monitoring a Directory for Changes
+python
+******************************
+from pathlib import Path
+import time
+
+# Create a Path object for a directory
+directory_path = Path("/path/to/your/directory")
+
+# Monitor the directory for changes for 10 seconds
+end_time = time.time() + 10
+while time.time() < end_time:
+    changes = directory_path.glob("*")
+    print("Changes in the directory:")
+    for change in changes:
+        print(change)
+    time.sleep(1)
+#######################################################    
+Example 14: Compressing a Directory
+python
+******************************
+from pathlib import Path
+import shutil
+
+# Create a Path object for a directory
+directory_path = Path("/path/to/your/directory")
+
+# Create a zip file containing the contents of the directory
+shutil.make_archive("/path/to/your/compressed_directory", 'zip', directory_path)
+
+print("Directory compressed.")
+#######################################################
+Example 15: Using Path Objects in Pathlib.Path.resolve()
+python
+******************************
+from pathlib import Path
+
+# Create a Path object with a relative path
+relative_path = Path("relative/directory")
+
+# Resolve the absolute path
+absolute_path = relative_path.resolve()
+
+print(f"Relative Path: {relative_path}")
+print(f"Absolute Path: {absolute_path}")

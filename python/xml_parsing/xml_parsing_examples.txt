@@ -1,0 +1,72 @@
+Example 1: Basic Parsing
+python
+Copy code
+import xml.etree.ElementTree as ET
+
+# Parse the XML file
+tree = ET.parse('breakfast_menu.xml')
+root = tree.getroot()
+
+# Access elements and attributes
+for food in root.findall('food'):
+    name = food.find('name').text
+    price = food.find('price').text
+    print(f"{name}: {price}")
+Example 2: Modify XML Data
+python
+Copy code
+# Modify the price of 'Belgian Waffles'
+for food in root.findall('food'):
+    if food.find('name').text == 'Belgian Waffles':
+        food.find('price').text = '$6.95'
+
+# Save the modified XML
+tree.write('modified_menu.xml')
+Example 3: Add New Element
+python
+Copy code
+# Add a new food item
+new_food = ET.Element('food')
+name = ET.SubElement(new_food, 'name')
+name.text = 'Pancakes'
+price = ET.SubElement(new_food, 'price')
+price.text = '$5.50'
+description = ET.SubElement(new_food, 'description')
+description.text = 'Classic pancakes served with syrup'
+calories = ET.SubElement(new_food, 'calories')
+calories.text = '500'
+
+# Append the new element to the root
+root.append(new_food)
+
+# Save the modified XML
+tree.write('modified_menu.xml')
+Example 4: XPath Query
+python
+Copy code
+# Use XPath to find specific elements
+high_calorie_foods = root.findall(".//food[calories > 800]")
+for food in high_calorie_foods:
+    name = food.find('name').text
+    calories = food.find('calories').text
+    print(f"{name} is high in calories: {calories}")
+Example 5: Validate with XML Schema
+python
+Copy code
+from lxml import etree
+
+# Define XML Schema
+schema = etree.XMLSchema(etree.parse('breakfast_menu.xsd'))
+
+# Parse XML and validate against the schema
+xml_parser = etree.XMLParser(schema=schema)
+tree = etree.parse('breakfast_menu.xml', parser=xml_parser)
+
+print("Validation successful.")
+Make sure to replace 'breakfast_menu.xml' and 'breakfast_menu.xsd' with the actual paths to your XML file and XML Schema Definition file, respectively. These examples cover basic parsing, modification, addition, XPath querying, and XML schema validation in Python.
+
+
+
+
+
+
