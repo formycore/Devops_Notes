@@ -1,0 +1,1 @@
+this is for counting the number of characters in this file this is a single line file no new lines are there
