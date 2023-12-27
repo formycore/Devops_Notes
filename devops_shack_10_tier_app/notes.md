@@ -69,10 +69,42 @@ eksctl version
 
 # Create EKS cluster
 
-eksctl create cluster --name=my-eks \
+eksctl create cluster --name=my-eksa \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
                       --without-nodegroup
+
+# Install jenkins
+
+# Install docker
+
+# Install SonarQube
+docker run -d -p 9000:9000 -v /path/to/your/host/directory:/opt/sonarqube/data sonarqube:lts-community
+
+# OIDC provider
+
+eksctl utils associate-iam-oidc-provider \
+    --region us-east-1 \
+    --cluster my-eksa \
+    --approve
+
+eksctl create nodegroup --cluster-my-eksa \
+                        --region-us-east-1 \
+                        --name=node2 \
+                        --node-type=t3.medium \
+                        --nodes=3\
+                        --nodes-min=2 \
+                        --nodes-max=3 \
+                        --node-volume-size=20 \
+                        --ssh-access \
+                        --ssh-public-key=Key \
+                        --managed \
+                        --asg-access \
+                        --external-dns-access \
+                        --full-ecr-access \
+                        --appmesh-access \
+                        --alb-ingress-access
+
 
 ```
 
