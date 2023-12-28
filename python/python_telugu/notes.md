@@ -1,4 +1,4 @@
-'''
+```
 what is oops ?
 why need oops ?
 advantage of oops ?
@@ -85,4 +85,4 @@ what is object ?
 - with class only we can design the object 
 
 ![screenshot](design.png)
-'''
+```
