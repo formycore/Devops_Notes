@@ -85,4 +85,15 @@ what is object ?
 - with class only we can design the object 
 ```
 
-![Design](design.png)
+![Design](./design.png)
+```
+- every thing in the python is object
+- if we check the type of anything we get the class name
+>>> type(1)
+<class 'int'>
+>>> type('maanya')
+<class 'str'>
+
+
+
+```
