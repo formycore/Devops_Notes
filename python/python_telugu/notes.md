@@ -76,12 +76,13 @@ what is object ?
 - behaviour are called as
     - methods/functions
     - procedures
-```
+
 - object has both properties and behaviour in a single object
 - data security and access is easy
 
 - if we need object is to be created then we need class
 - class is object blue print
 - with class only we can design the object 
+```
 
-![screenshot](design.png)
+![Design](design.png)
