@@ -84,5 +84,5 @@ what is object ?
 - class is object blue print
 - with class only we can design the object 
 
-[screenshot](./design.png)
+![screenshot](./design.png)
 '''
