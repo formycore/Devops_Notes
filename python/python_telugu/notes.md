@@ -93,7 +93,30 @@ what is object ?
 <class 'int'>
 >>> type('maanya')
 <class 'str'>
+>>> type(True)
+<class 'bool'>
+>>> type((1,2,3))
+<class 'tuple'>
+>>> type([1,2,3])
+<class 'list'>
+>>> type({1:2})
+<class 'dict'>
+>>> type(2.3)
+<class 'float'>
+>>> type({1,2,3})
+<class 'set'>
 
+
+>>> str.
+str.capitalize(    str.find(          str.isdecimal(     str.istitle(       str.mro()          str.rjust(         str.strip(
+str.casefold(      str.format(        str.isdigit(       str.isupper(       str.partition(     str.rpartition(    str.swapcase(
+str.center(        str.format_map(    str.isidentifier(  str.join(          str.removeprefix(  str.rsplit(        str.title(
+str.count(         str.index(         str.islower(       str.ljust(         str.removesuffix(  str.rstrip(        str.translate(
+str.encode(        str.isalnum(       str.isnumeric(     str.lower(         str.replace(       str.split(         str.upper(
+str.endswith(      str.isalpha(       str.isprintable(   str.lstrip(        str.rfind(         str.splitlines(    str.zfill(
+str.expandtabs(    str.isascii(       str.isspace(       str.maketrans(     str.rindex(        str.startswith(  
+
+- these all the string methods objects
 
 
 ```
