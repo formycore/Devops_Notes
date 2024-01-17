@@ -1,0 +1,14 @@
+- if a class contains more than 1 abstract method, then the class must be declared abstract
+- what is abstract method?
+    if the method declared without implementation 
+    - we cannot instantiate abstract class it means we cannot create object of abstract class
+-------------------------
+class A:
+    def method(self):
+        pass
+obj = A()
+obj.method() # ouput is empty 
+------------------------------
+- we need to use abc module to create abstract class
+- in abc module we have ABC class, and abstractmethod
+- how to use these
