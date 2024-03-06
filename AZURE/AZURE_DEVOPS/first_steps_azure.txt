@@ -1,0 +1,20 @@
+- connect the azure devops with any vcs
+- select the vcs repository
+- Configure your pipeline
+- starter pipeline
+
+------------------------------------
+trigger:
+- master
+
+pool:
+  name: docker_azure_agent # name of the pool of agents
+
+steps:
+- script: ifconfig # any command here to run
+
+
+  displayName: 'Get IP Address of the Agent'
+
+  displayName: 'Run a one-line script'
+-------------------------------------------

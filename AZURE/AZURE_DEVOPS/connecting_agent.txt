@@ -1,0 +1,14 @@
+connecting agents in azure devops
+    - open project settings
+    - agent pool
+    - add pool agent
+    - name of the pool agent : docker_azure_agent
+    - follow the procedure and install on the agent machine
+    - download the tar.gz file and un tar it 
+    - run ./config.sh 
+    - it will ask the some questions go with it
+    - agent pool name : docker_azure_agent
+    - agent name: press enter for same name of the host
+    - run.sh
+
+    
