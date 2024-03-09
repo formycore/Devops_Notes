@@ -11,4 +11,5 @@ docker run -d -p 9000:9000 -v /path/to/your/host/directory:/opt/sonarqube/data s
   -v sonarqube_extensions:/opt/sonarqube/extensions \
   -v sonar_plugins:/opt/sonarqube/lib/bundled-plugins \
   -v sonar_conf:/opt/sonarqube/conf \
-  sonarqube
+  sonarqube:lts-community
+
