@@ -1,0 +1,2 @@
+# kubectl api-resources | grep -i replicaset
+# kubectl api-resources -- to get the kind apiversion
