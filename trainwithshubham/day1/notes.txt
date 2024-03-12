@@ -1,0 +1,11 @@
+Check your present working directory.
+
+pwd
+
+List all the files or directories including hidden files.
+
+ls -al
+
+Create a nested directory A/B/C/D/E
+
+mkidr -p A/B/C/D/E

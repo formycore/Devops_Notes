@@ -1,0 +1,36 @@
+
+Common tasks:
+wget https://github.com/coreos/etcd/releases/download/v3.0.12/etcd-v3.0.12-linux-amd64.tar.gz
+tar zxvf etcd-v3.0.12-linux-amd64.tar.gz
+cd etcd-v3.0.12-linux-amd64
+dockerserver01 node:
+- change the hostname : sudo hostnamectl set-hostname webserver.mydomain.com
+
+nohup ./etcd --name dockerserver-node1 --initial-advertise-peer-urls http://172.31.15.43:2380 --listen-peer-urls http://172.31.15.43:2380 --listen-client-urls http://172.31.15.43:2379,http://127.0.0.1:2379 --advertise-client-urls http://172.31.15.43:2379 --initial-cluster-token etcd-cluster --initial-cluster dockerserver-node1=http://172.31.15.43:2380, dockerserver-node1=http://172.31.12.96:2380 --initial-cluster-state new&
+
+
+nohup ./etcd \
+--name dockerserver-node1 \
+--initial-advertise-peer-urls http://172.31.15.43:2380 \
+--listen-peer-urls http://172.31.15.43:2380 \
+--listen-client-urls http://172.31.15.43:2379,http://127.0.0.1:2379 \
+--advertise-client-urls http://172.31.15.43:2379 \
+--initial-cluster-token etcd-cluster \
+--initial-cluster dockerserver-node1=http://172.31.15.43:2380,dockerserver-node1=http://172.31.12.96:2380 \
+--initial-cluster-state new &
+
+
+
+dockerserver02 node:
+
+nohup ./etcd \
+--name dockerb-initial-advertise-peer-urls http://172.31.12.96:2380 \
+--listen-peer-urls http://172.31.12.96:2380 \
+--listen-client-urls http://172.31.12.96:2379,http://127.0.0.1:2379 \
+--advertise-client-urls http://172.31.12.96:2379 \
+--initial-cluster-token etcd-cluster \
+--initial-cluster dockerserver-node1=http://192.168.1.40:2380, dockerserver-node2=http://172.31.12.96:2380 \ --initial-cluster-state new&
+
+check cluster status/health:
+/etcdctl cluster-health
+Stop and start Docker daemon (common task on nodes):

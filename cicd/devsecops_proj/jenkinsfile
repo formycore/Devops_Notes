@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    tools {
+        jdk 'jdk11'
+        maven 'maven3'
+    }
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage ('Checkout scm'){
+            steps {
+                git 'https://github.com/formycore/eks_project.git'
+            }
+        }
+        stage ('Compile'){
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+take two servers
+and make one server as nfs and other as docker 
+lsb_release -a
+
+# install nfs server
+go to server nfs
+sudo apt-get install nfs-kernel-server -y
+make a directory & allow this directory to be shared
+mkdir /nfs-data
+chown -R nobody:nogroup /nfs-data
+vi /etc/exports
+/nfs-data(the directory to be shared) 192.168.0.0/24(to give access to all the ip in the n/w)(rw,sync,no_subtree_check)
+/nfs-data <ip of the client>(rw,sync,no_subtree_check,no_root_squash)
+:wq!
+exportfs -av
+
+sudo systemctl restart nfs-kernel-server
+sudo systemctl enable nfs-kernel-server
+sudo systemctl status nfs-kernel-server
+
+---------------------------------------------------------------------
+on the docker server
+- docker run --name jenkins-cicd --mount 'type=mount,src=/jenkins_data,dst=/var/jenkins_home,volume-driver=local,volume-opt=nfs,volume-opt=device=:/jenkins_data(dir we made for nfs),"volume-opt=o=addr=(ip of the nfs server),rw,nfsvers=4,async"' jenkins/jenkins;lts
+
+docker run -d --name jenkins-cicd -p 8080:8080 --mount 'type=volume,src=jenkins-data,dst=/var/jenkins_home,volume-driver=local,volume-opt=type=nfs,volume-opt=device=:/jenkins_data,"volume-opt=o=addr=172.31.12.96,rw,nfsvers=4,async"' jenkins/jenkins:lts

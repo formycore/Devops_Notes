@@ -1,0 +1,5 @@
+1) To View whats written in the file
+cat file.txt
+2) Check the access permission of the file
+ls -al file
+3) To Check which commands 
