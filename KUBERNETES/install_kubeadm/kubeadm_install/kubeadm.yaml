@@ -1,0 +1,166 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Set hostname
+      hostname:
+        name: master
+      when: "'master' in inventory_hostname"
+
+    - name: Download Docker installation script
+      get_url:
+        url: https://get.docker.com
+        dest: /home/ubuntu/install-docker.sh
+        mode: 0755
+      when: "'master' in inventory_hostname"
+
+    - name: Install make
+      apt:
+        name: make
+        state: present
+
+    - name: Install Go
+      become_user: root
+      block:
+        - name: Download Go installer
+          get_url:
+            url: https://storage.googleapis.com/golang/getgo/installer_linux
+            dest: /home/ubuntu/installer_linux
+            mode: 0755
+
+        - name: Install Go
+          shell: ./installer_linux
+          args:
+            chdir: /home/ubuntu
+          environment:
+            PATH: "/usr/local/go/bin:{{ ansible_env.PATH }}"
+          creates: /usr/local/go
+          changed_when: false
+
+        - name: Add Go to PATH
+          lineinfile:
+            dest: /home/ubuntu/.bash_profile
+            line: 'export PATH="/usr/local/go/bin:$PATH"'
+            create: yes
+
+        - name: Source .bash_profile
+          shell: source ~/.bash_profile
+          args:
+            executable: /bin/bash
+          changed_when: false
+
+    - name: Install cri-dockerd
+      become_user: root
+      block:
+        - name: Clone cri-dockerd repository
+          git:
+            repo: https://github.com/Mirantis/cri-dockerd.git
+            dest: /home/ubuntu/cri-dockerd
+            version: master
+
+        - name: Build cri-dockerd
+          shell: go build -o bin/cri-dockerd
+          args:
+            chdir: /home/ubuntu/cri-dockerd
+          creates: /home/ubuntu/cri-dockerd/bin/cri-dockerd
+          changed_when: false
+
+        - name: Copy cri-dockerd to /usr/local/bin
+          copy:
+            src: /home/ubuntu/cri-dockerd/bin/cri-dockerd
+            dest: /usr/local/bin/cri-dockerd
+            mode: 0755
+
+        - name: Copy systemd unit files
+          copy:
+            src: /home/ubuntu/cri-dockerd/packaging/systemd/*
+            dest: /etc/systemd/system/
+
+        - name: Update cri-docker.service
+          lineinfile:
+            path: /etc/systemd/system/cri-docker.service
+            regexp: '^ExecStart=/usr/bin/cri-dockerd'
+            line: 'ExecStart=/usr/local/bin/cri-dockerd'
+          notify: Restart cri-dockerd
+
+        - name: Enable cri-dockerd service
+          systemd:
+            name: cri-docker.service
+            enabled: yes
+            state: started
+
+    - name: Install required packages for Kubernetes
+      apt:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+
+    - name: Add Kubernetes apt key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: Add Kubernetes apt repository
+      apt_repository:
+        repo: "deb [signed-by=/etc/apt/trusted.gpg.d/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"
+        state: present
+        filename: kubernetes
+        update_cache: yes
+
+    - name: Install kubelet, kubeadm, kubectl
+      apt:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+        state: present
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Mark Kubernetes packages on hold
+      apt:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+        state: held
+
+    - name: Initialize Kubernetes master
+      shell: kubeadm init --pod-network-cidr "10.244.0.0/16" --cri-socket "unix:///var/run/cri-dockerd.sock"
+      register: kubeadm_init_output
+      changed_when: false
+      when: "'master' in inventory_hostname"
+
+    - name: Create .kube directory
+      become_user: "{{ ansible_user }}"
+      file:
+        path: "{{ ansible_env.HOME }}/.kube"
+        state: directory
+
+    - name: Copy Kubernetes admin.conf
+      become_user: "{{ ansible_user }}"
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: "{{ ansible_env.HOME }}/.kube/config"
+        remote_src: yes
+
+    - name: Set ownership of kube config file
+      become_user: "{{ ansible_user }}"
+      file:
+        path: "{{ ansible_env.HOME }}/.kube/config"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: 0644
+
+    - name: Deploy Flannel network
+      shell: kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
+      when: "'master' in inventory_hostname"
+
+    - name: Join Kubernetes cluster as node
+      shell: "{{ kubeadm_init_output.stdout_lines[-2] }}"
+      when: "'master' not in inventory_hostname"
