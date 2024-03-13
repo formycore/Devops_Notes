@@ -38,3 +38,18 @@ Use code with caution.
 Learn more
 In general, Popen() is more flexible than call(), but it can also be more complex to use. If you just need to run a command and wait for it to finish, then call() is a good choice. If you need to interact with the subprocess while it's running, then you should use Popen().
 ------------------------------------------------------------------------------------------------
+this is for test
+----------------------------------------
+import subprocess
+for i in range(1,11):
+	dir_name = f"test{i}"
+	subprocess.call(["mkdir" ,dir_name])
+# to create the directories
+-----------------------------------------------------
+# remove only directories
+
+import os
+import shutil
+for i in os.listdir():
+	if os.path.isdir(i):
+		shutil.rmtree(i)
