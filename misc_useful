@@ -58,4 +58,7 @@ for i in os.listdir():
 https://opensource.com/article/19/8/ops-tasks-ansible -- to check the ansible 
 https://opensource.com/tags/ansible -- ansible
 https://www.middlewareinventory.com/blog/category/ansible/
+----------------------------------------------------------------
+ansible to work with only pem files 
+https://www.youtube.com/watch?v=65XXE0DMxcU
 
