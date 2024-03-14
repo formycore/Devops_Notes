@@ -53,3 +53,9 @@ import shutil
 for i in os.listdir():
 	if os.path.isdir(i):
 		shutil.rmtree(i)
+-------------------------------------------------------------------------------------------------------------------------------------
+
+https://opensource.com/article/19/8/ops-tasks-ansible -- to check the ansible 
+https://opensource.com/tags/ansible -- ansible
+https://www.middlewareinventory.com/blog/category/ansible/
+
