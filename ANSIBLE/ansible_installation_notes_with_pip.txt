@@ -1,0 +1,24 @@
+```
+sudo yum -y install epel-release
+sudo yum -y groupinstall "Development Tools"
+sudo yum -y install openssl-devel bzip2-devel libffi-devel xz-devel
+export VERSION=3.8.18
+sudo yum -y install wget
+wget https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tgz
+tar xvf Python-$VERSION.tgz
+cd Python-$VERSION/
+./configure 
+sudo make altinstall
+which python3.8
+# go to that location 
+/usr/local/bin/python3.8
+at /usr/local/bin/
+echo $PATH
+- if the /usr/local/bin is there in the path output
+cd /usr/local/bin
+ln -s python3.8 python3
+ln -s pip3.8 pip3 
+
+python3 -m pip install --user ansible
+
+```

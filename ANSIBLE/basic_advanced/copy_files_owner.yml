@@ -1,0 +1,15 @@
+---
+- name: Copy files from local to remote
+  hosts: test
+  become: yes
+  tasks:
+    - name: copy files from local to remote
+      copy:
+        src: ./test.txt
+        dest: /tmp/
+        owner: maanya
+        group: maanya
+        #mode: 0777
+        mode: ugo=rw
+        backup: true
+        

@@ -1,0 +1,16 @@
+# create a script on the remote
+# give u+x modes to the script, chmod u+x test.sh
+# -------------------------------------------
+# #!/bin/bash
+# echo "hello Buddy"
+# touch scriptfile
+#---------------------------------------------
+---
+- name: Run a script
+  hosts: test
+  tasks:
+  - name: Run script
+    shell: ./test.sh >> test.log
+    args:
+      chdir: /home/maanya
+      creates: test.log

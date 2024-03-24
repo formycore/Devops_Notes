@@ -1,0 +1,13 @@
+---
+- name: File Module
+  hosts: total
+  tasks:
+  - name: Create a file
+    file:
+      path: /tmp/test_file.txt
+      state: touch
+      owner: maanya
+      group: maanya
+      #mode: ugo=rw
+      mode: u=rwx,g=rw,o=r
+

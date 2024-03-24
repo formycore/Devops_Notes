@@ -1,0 +1,25 @@
+[total]
+10.138.0.10
+localhost
+[total:vars]
+ansible_user=maanya
+ansible_ssh_private_key_file=/home/maanya/id_rsa
+ansible_connection=ssh
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+
+[local]
+local ansible_host=10.138.0.7
+[local:vars]
+ansible_user=maanya
+ansible_ssh_private_key_file=/home/maanya/id_rsa
+ansible_connection=ssh
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[test]
+10.138.0.10
+[test:vars]
+ansible_user=maanya
+ansible_ssh_private_key_file=/home/maanya/id_rsa
+ansible_connection=ssh
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
