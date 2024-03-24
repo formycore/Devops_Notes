@@ -1,0 +1,6 @@
+---
+- name: File Module
+  hosts: total
+  tasks:
+    - name: Create File
+      

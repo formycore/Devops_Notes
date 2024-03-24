@@ -1,0 +1,9 @@
+---
+- name: File Module
+  hosts: total
+  tasks:
+  - name: Folder creation
+    file:
+      path: /tmp/myfolder
+      state: directory
+      

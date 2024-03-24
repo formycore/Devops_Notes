@@ -1,0 +1,23 @@
+---
+- name: Cloning the git 
+  hosts: test
+  become: yes
+  tasks:
+    - name: Install git
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - git
+        - maven    
+    - name: Cloning the repo
+      git:
+        repo: https://github.com/ravdy/hello-world.git
+        dest: /home/maanya/test
+        clone: yes
+    - name: Compile Maven project
+      command: mvn clean install
+      args:
+        chdir: /home/maanya/test
+
+
