@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: db
+  labels:
+    app: postgres
+    role: database
+    tier: back
+spec:
+  containers:
+    - name: db
+      image: postgres:9.4
+      ports:
+        - containerPort: 5432
+# here we are adding volume related configurations
+      volumeMounts: # Mount the volume to container with this
+        - name: pg-data # source is what we defined in the volumes
+          mountPath: /var/lib/postgres/data # inside the container the source is from path mentioned in the volumes sections
+# before we do this we need to create the volume for a pod not a container
+  volumes: # this should be in pod spec not in a container spec
+    - name: pg-data # we gonna refer when we mount it 
+      hostPath: # this is one of the options to create the volume
+        path: /var/lib/postgres # where is the volume should be stored & it is for host
+        type: Directory
