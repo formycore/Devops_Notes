@@ -11,7 +11,7 @@ spec:
       app: nginx
   template: # what pods it should create
     metadata:
-      name: nginx-pod1
+      name: nginx-pod1 # labeling the pods
       labels:
         app: nginx
     spec:

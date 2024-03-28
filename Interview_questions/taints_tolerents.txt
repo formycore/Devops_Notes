@@ -1,0 +1,187 @@
+maanya@master:~$ kubectl get pods
+NAME                                 READY   STATUS    RESTARTS   AGE
+nginx-replicaset-9szt5               0/1     Unknown   1          47h
+nginx-replicaset-c6fgf               0/1     Unknown   1          47h
+nginx-replicaset-wxm54               0/1     Unknown   1          47h
+sample-deployment-54cb5d6dd4-pfvwf   0/1     Unknown   0          32h
+sample-deployment-54cb5d6dd4-vkqdc   0/1     Unknown   0          32h
+sample-deployment-54cb5d6dd4-xr4qd   0/1     Unknown   0          32h
+maanya@master:~$ kubectl get nodes
+NAME     STATUS   ROLES           AGE    VERSION
+master   Ready    control-plane   2d3h   v1.27.11
+nodea    Ready    <none>          2d3h   v1.27.11
+nodeb    Ready    <none>          2d3h   v1.27.11
+maanya@master:~$ kubectl get all -A
+NAMESPACE      NAME                                     READY   STATUS    RESTARTS      AGE
+default        pod/nginx-replicaset-9szt5               1/1     Running   2 (56s ago)   47h
+default        pod/nginx-replicaset-c6fgf               1/1     Running   2 (56s ago)   47h
+default        pod/nginx-replicaset-wxm54               1/1     Running   2 (56s ago)   47h
+default        pod/sample-deployment-54cb5d6dd4-pfvwf   1/1     Running   1 (56s ago)   32h
+default        pod/sample-deployment-54cb5d6dd4-vkqdc   1/1     Running   1 (55s ago)   32h
+default        pod/sample-deployment-54cb5d6dd4-xr4qd   1/1     Running   1 (56s ago)   32h
+kube-flannel   pod/kube-flannel-ds-9x2kp                1/1     Running   3 (56s ago)   2d3h
+kube-flannel   pod/kube-flannel-ds-pkjhw                1/1     Running   3 (56s ago)   2d3h
+kube-flannel   pod/kube-flannel-ds-rsd4g                1/1     Running   3 (55s ago)   2d3h
+kube-system    pod/coredns-5d78c9869d-95ccx             1/1     Running   3 (55s ago)   2d3h
+kube-system    pod/coredns-5d78c9869d-k4cqx             1/1     Running   3 (55s ago)   2d3h
+kube-system    pod/etcd-master                          1/1     Running   3 (55s ago)   2d3h
+kube-system    pod/kube-apiserver-master                1/1     Running   3 (55s ago)   2d3h
+kube-system    pod/kube-controller-manager-master       1/1     Running   3 (55s ago)   2d3h
+kube-system    pod/kube-proxy-4758s                     1/1     Running   3 (55s ago)   2d3h
+kube-system    pod/kube-proxy-lv5xz                     1/1     Running   3 (56s ago)   2d3h
+kube-system    pod/kube-proxy-xx5b9                     1/1     Running   3 (56s ago)   2d3h
+kube-system    pod/kube-scheduler-master                1/1     Running   3 (55s ago)   2d3h
+
+NAMESPACE     NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE
+default       service/kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP                  2d3h
+default       service/sample-service   NodePort    10.104.82.135   <none>        5000:32421/TCP           32h
+kube-system   service/kube-dns         ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP,9153/TCP   2d3h
+
+NAMESPACE      NAME                             DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+kube-flannel   daemonset.apps/kube-flannel-ds   3         3         3       3            3           <none>                   2d3h
+kube-system    daemonset.apps/kube-proxy        3         3         3       3            3           kubernetes.io/os=linux   2d3h
+
+NAMESPACE     NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
+default       deployment.apps/sample-deployment   3/3     3            3           32h
+kube-system   deployment.apps/coredns             2/2     2            2           2d3h
+
+NAMESPACE     NAME                                           DESIRED   CURRENT   READY   AGE
+default       replicaset.apps/nginx-replicaset               3         3         3       47h
+default       replicaset.apps/sample-deployment-54cb5d6dd4   3         3         3       32h
+kube-system   replicaset.apps/coredns-5d78c9869d             2         2         2       2d3h
+maanya@master:~$ kubectl delete deoployment sample-deployment
+error: the server doesn't have a resource type "deoployment"
+maanya@master:~$ kubectl delete deployment sample-deployment
+deployment.apps "sample-deployment" deleted
+maanya@master:~$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS       AGE
+nginx-replicaset-9szt5   1/1     Running   2 (107s ago)   47h
+nginx-replicaset-c6fgf   1/1     Running   2 (107s ago)   47h
+nginx-replicaset-wxm54   1/1     Running   2 (107s ago)   47h
+maanya@master:~$ kubectl get rs
+NAME               DESIRED   CURRENT   READY   AGE
+nginx-replicaset   3         3         3       47h
+maanya@master:~$ kubectl delete rs nginx-replicaset
+replicaset.apps "nginx-replicaset" deleted
+maanya@master:~$ kubectl get pods
+No resources found in default namespace.
+maanya@master:~$ clear
+maanya@master:~$ kubectl get nodes
+NAME     STATUS   ROLES           AGE    VERSION
+master   Ready    control-plane   2d3h   v1.27.11
+nodea    Ready    <none>          2d3h   v1.27.11
+nodeb    Ready    <none>          2d3h   v1.27.11
+maanya@master:~$ kubectl taint nodes nodea run=mypod:NoSchedule
+node/nodea tainted
+maanya@master:~$ kubectl describe node nodea | grep -i taint
+Taints:             run=mypod:NoSchedule
+maanya@master:~$ kubectl describe nodes nodea | grep -i taint
+Taints:             run=mypod:NoSchedule
+maanya@master:~$ kubectl run --image=nginx --restart=Never
+error: NAME is required for run
+See 'kubectl run -h' for help and examples
+maanya@master:~$ kubectl run test --image=nginx --restart=Never
+pod/test created
+maanya@master:~$ kubectl get pods
+NAME   READY   STATUS    RESTARTS   AGE
+test   1/1     Running   0          5s
+maanya@master:~$ kubectl get pods -o wide
+NAME   READY   STATUS    RESTARTS   AGE   IP            NODE    NOMINATED NODE   READINESS GATES
+test   1/1     Running   0          9s    10.244.2.13   nodeb   <none>           <none>
+maanya@master:~$ kubectl api-resources | grep pod
+pods                              po           v1                                     true         Pod
+podtemplates                                   v1                                     true         PodTemplate
+horizontalpodautoscalers          hpa          autoscaling/v2                         true         HorizontalPodAutoscaler
+poddisruptionbudgets              pdb          policy/v1                              true         PodDisruptionBudget
+maanya@master:~$ kubectl api-resources | grep pods
+pods                              po           v1                                     true         Pod
+maanya@master:~$ mkdir test
+maanya@master:~$ cd test/
+maanya@master:~/test$ clear
+maanya@master:~/test$ cat > mypod.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  tolerations:
+  - key: "key"
+    operator: "Equal"
+    value: "value"
+    effect: "NoSchedule"  
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+  restartPolicy: Never
+    ports:
+    - containerPort: 80
+maanya@master:~/test$ cat > mypod.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  tolerations:
+  - key: "run"
+    operator: "Equal"
+    value: "mypod"
+    effect: "NoSchedule"  
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+  restartPolicy: Never
+    ports:
+    - containerPort: 80
+maanya@master:~/test$ kubectl apply -f mypod.yml 
+error: error parsing mypod.yml: error converting YAML to JSON: yaml: line 15: mapping values are not allowed in this context
+maanya@master:~/test$ kubectl run mypod --image=nginx --restart=Never --dry-run -o yaml > mypod.yml
+W0314 18:01:50.366039    6733 helpers.go:692] --dry-run is deprecated and can be replaced with --dry-run=client.
+maanya@master:~/test$ cat mypod.yml 
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: mypod
+  name: mypod
+spec:
+  containers:
+  - image: nginx
+    name: mypod
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+maanya@master:~/test$ cat > mypod.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: mypod
+  name: mypod
+spec:
+  tolerations:
+  - key: "run"
+    operator: "Equal"
+    value: "mypod"
+    effect: "NoSchedule"
+  containers:
+  - image: nginx
+    name: mypod
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+maanya@master:~/test$ kubectl apply -f mypod.yml 
+pod/mypod created
+maanya@master:~/test$ kubectl get pods -o wide
+NAME    READY   STATUS    RESTARTS   AGE   IP            NODE    NOMINATED NODE   READINESS GATES
+mypod   1/1     Running   0          9s    10.244.1.17   nodea   <none>           <none>
+test    1/1     Running   0          12m   10.244.2.13   nodeb   <none>           <none>
+maanya@master:~/test$ kubectl run mypod --image=nginx --restart=Never --dry-run -o yaml > mypod.yml^C
+maanya@master:~/test$ kubectl taint nodes nodea run=mypod:NoSchedule-
+node/nodea untainted
+maanya@master:~/test$ kubectl describe node nodea | grep -i Taint
+Taints:             <none>
+maanya@master:~/test$ 

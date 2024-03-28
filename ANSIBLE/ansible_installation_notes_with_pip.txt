@@ -29,3 +29,53 @@ under the cfg file
 interpreter_python=(fetch from which python3)
 
 ```
+```
+---
+- name : Install python3
+  hosts: gcp
+  become: true
+  vars: 
+    VERSION: "3.8.18"
+  tasks:
+  # - name: Install prerequsite packages
+  #   package:
+  #     name: "{{ item }}"
+  #     state: present
+  #   with_items:
+  #     - epel-release
+  #     - "@Development Tools"
+  #     - openssl-devel 
+  #     - bzip2-devel 
+  #     - libffi-devel 
+  #     - xz-devel
+  # - name: Download the python3.8 version
+  #   unarchive:
+  #     src: "https://www.python.org/ftp/python/{{ VERSION }}/Python-{{ VERSION }}.tgz"
+  #     dest : /home/maanya/
+  #     remote_src: yes
+  #   tags:
+  #     - python
+  # - name: Configure the  python
+  #   shell : ./configure
+  #   args:
+  #     chdir: /home/maanya/Python-{{ VERSION }}
+  #   tags:
+  #     - config
+  # - name: Alt Install
+  #   make:
+  #     chdir : /home/maanya/Python-{{ VERSION }}
+  #     target: install
+  #   tags:
+  #     - install
+  - name: Extract Major and Minor Version
+    set_fact:
+      version_major_minor: "{{ VERSION.split('.')[0:2] | join('.') }}"
+    tags:
+      - mj_mi
+  #   register:
+  #     out_version_major_minor
+  # - debug:
+  #     var : out_version_major_minor
+  - name: Check the python Version
+    shell : which python3.8
+```

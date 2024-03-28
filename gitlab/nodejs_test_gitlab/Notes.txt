@@ -1,0 +1,240 @@
+sudo apt-get update 
+    3  sudo apt install nodejs 
+    4  nodejs --version
+    5  sudo apt install npm -y
+    6  npm --version
+    7  mkdir gitlab_test
+    8  pwd
+    9  ls
+   10  cd gitlab_test/
+   11  ls
+   12  pwd
+   13  ls
+   14  npm install
+   15  ls
+   16  cd node_modules/
+   17  ls
+   18  cd ..
+   19  node app.js
+   20  ls
+   21  nano app.js 
+   22  node app.js
+   23  history
+-------------------------------
+- craete a .gitlab-ci.yml
+
+build:
+  script:
+    - apt update -y
+    - apt install npm -y
+    - npm install
+deploy:
+  script:
+    - apt update -y
+    - apt install nodejs -y
+    - node app.js
+    
+------------------------------
+git remote set-url origin "https://gitlab_url"
+
+- any of the jobs may run first if the deploy job run first then it will throw error
+- stages
+---------------------------
+# here we are telling which stage belongs to which stage 
+# build_stage needs to run first then we given the build_stage in the build stage and so on
+stages:
+  - build_stage
+  - deploy_stage
+ build:
+   stage: build_stage
+   script:
+    - apt update -y
+    - apt install npm -y
+    - npm install
+deploy:
+  stage: deploy_stage
+  script:
+    - apt update -y
+    - apt install nodejs -y
+    - node app.js
+-----------------------------------------
+- even though it will fail
+- two jobs does not share the info
+- ARTIFACTS
+	- to share the info from one job to another
+		- info
+		- dependencies
+		- reports
+- create artifacts to store node modules then transfered to deploy stages
+-----------------------------------------------------
+stages:
+  - build_stage
+  - deploy_stage
+build:
+  stage: build_stage
+  script:
+    - apt update -y
+    - apt install npm -y
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
+      - package-lock.json
+deploy:
+  stage: deploy_stage
+  script:
+    - apt update -y
+    - apt install nodejs -y
+    - node app.js
+--------------------------------------------------
+- while running the app.js all the neccessary modules are downloaded in the node_modules and another file is created package-lock.json	
+******************************
+stages:
+  - build_stage
+  - deploy_stage
+build:
+  stage: build_stage
+  image: node # as we are using the node image no need for the update,npm to be installed
+  script:
+    #- apt update -y
+    #- apt install npm -y
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
+      - package-lock.json
+deploy:
+  stage: deploy_stage
+  image: node
+  script:
+    #- apt update -y
+    #- apt install nodejs -y # as we are using the node image no need for the update,nodejs to be installed
+    - node app.js > /dev/null 2>&1 & # this run in the back ground even it is fails or pass 
+******************************************
+- now the build is running fine 
+- now merge it 
+- click on code 
+- merge request 
+- approve
+- delete the feature branch
+- merge
+- same pipeline is triggered for main branch 
+################################################
+- RUNNERS
+  -setting cicd
+-----------------------
+# Download the binary for your system
+sudo curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+
+# Give it permission to execute
+sudo chmod +x /usr/local/bin/gitlab-runner
+
+# Create a GitLab Runner user
+sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+
+# Install and run as a service
+sudo gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+sudo gitlab-runner start
+---------------------------
+- make this as a script.sh
+- sh script.sh
+- Command to register runner
+--------------------------------------------
+sudo gitlab-runner register --url https://gitlab.com/ --registration-token xxxxxxxxxxxxxxxxxxxxxxxx
+Runtime platform                                    arch=amd64 os=linux pid=6959 revision=xxxxxxxxxxxx version=16.10.0
+Running in system-mode.                            
+                                                   
+Enter the GitLab instance URL (for example, https://gitlab.com/):
+[https://gitlab.com/]: 
+Enter the registration token:
+[xxxxxxxxxxxxxxxxxxxxxxxxx]: 
+Enter a description for the runner:
+[ip-172-31-6-110]: aws_cloud
+Enter tags for the runner (comma-separated):
+server,ec2
+Enter optional maintenance note for the runner:
+
+WARNING: Support for registration tokens and runner parameters in the 'register' command has been deprecated in GitLab Runner 15.6 and will be replaced with support for authentication tokens. For more information, see https://docs.gitlab.com/ee/ci/runners/new_creation_workflow 
+Registering runner... succeeded                     runner=xxxxxxxxxxxxxxxxxxx
+Enter an executor: parallels, virtualbox, docker, docker+machine, docker-autoscaler, instance, custom, shell, ssh, docker-windows, kubernetes:
+shell
+Runner registered successfully. Feel free to start it, but if it's running already the config should be automatically reloaded!
+ 
+Configuration (with the authentication token) was saved in "/etc/gitlab-runner/config.toml" 
+ubuntu@ip-172-31-6-110:~$ sudo gitlab-runner status
+Runtime platform                                    arch=amd64 os=linux pid=6969 revision=81ab07f6 version=16.10.0
+gitlab-runner: Service is running
+
+--------------------------------------------------------------------------------------------------------
+runner demo is pending
+
+- first install docker on the runner system
+- chmod -aG docker gitlab-runner
+-------------------------------------
+- create a new repo
+
+- appy.py 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+from flask import Flask
+import os
+app = Flask(__name__)
+@app.route("/")
+def skill():
+    message = "{name} is a Gitlab DevOps Engineer"
+    return message.format(name=os.getenv("NAME", "Samantha"))
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Dockerfile
+
+FROM python:3.8.0-slim
+WORKDIR /app
+ADD . /app
+RUN pip install --trusted-host pypi.python.org Flask
+ENV NAME Mark
+CMD ["python", "app.py"]
+################################################
+- .gitlab-ci.yml
+
+stages:
+    - build_stage
+    - deploy_stage
+build:
+    stage: build_stage
+    script:
+        - docker --version
+        - docker build -t pyapp .
+    tags:
+        - ec2
+        - server
+deploy:
+    stage: deploy_stage
+    script:
+        - docker run -d --name pythoncontainer -p 80:8080 pyapp 
+    tags:
+        - ec2
+        - server    
+##########################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

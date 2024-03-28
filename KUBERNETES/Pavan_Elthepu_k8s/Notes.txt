@@ -1,0 +1,1 @@
+- minikube node add --worker -p local-cluster
