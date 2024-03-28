@@ -16,7 +16,7 @@ ansible_connection=ssh
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ```
 4) if we have two two servers with two different keys
-   ```
+ ```
    [master]
 knode ansible_host=xx.xx.xx.xx
 
