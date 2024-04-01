@@ -1,0 +1,95 @@
+git clone https://github.com/LondheShubham153/two-tier-flask-app.git
+   65  cd two-tier-flask-app/
+   66  ls
+   69  vim
+   70  vim Dockerfile
+   71  docker build -t formycore/python_2303:v1 .
+   72  docker images
+   73  docker run -d -p 5000:5000 --name python_frontend formycore/python_2303:v1 
+   74  docker ps
+   75  df -h
+   76  dockr run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD="admin" mysql:5.7 
+   77  docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD="admin" mysql:5.7 
+   78  docker ps
+   79  docker network create twotier
+   80  docker network ls
+   81  docker stop mysql python_frontend
+   82  docker rm mysql python_frontend
+   83  docker ps
+   84  docker ps -a
+   85  docker rm python_jenkins
+   86  docker ps -a
+   87  docker run -d -p 5000:5000 --network=twotier -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=admin -e MYSQL_DB=mydb --name flaskapp formycore/python_2303:v1 
+   88  docker ps
+   89  docker run -d --name mysql -v mysql-data:/var/lib/mysql --network=twotier -e YSQL_DATABASE=mydb     -e MYSQL_USER=root \
+   90  docker run -d     --name mysql     -v mysql-data:/var/lib/mysql     --network=twotier     -e MYSQL_DATABASE=mydb     -e MYSQL_USER=root     -e MYSQL_ROOT_PASSWORD=admin     -p 3306:3306     mysql:5.7
+   91  docker os
+   92  docker ps
+   93  docker ps -a
+   94  docker logs c4078ef41f5b
+   95  docker rm c4078ef41f5b
+   96  docker run -d -p 3306:3306 --network=twotier --name mysql -e MYSQL_DATABASE=mydb -e MYSQL_USER=admin -e MYSQL_ROOT_PASSWORD=admin mysql:5.7 
+   97  docker ps
+   98  docker network inspect twotier
+   99  docker exec -it mysql bash
+        mysql -u root -p (enter the password : admin)
+        show databases;
+        use mydb;
+        CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT
+);
+   - select * from messages
+   - then refresh the webpage (where we opened with ip:5000)
+  100  docker ps
+  101  docker login
+  102  docker images
+  103  docker push formycore/python_2303:v1 
+  104  curl -SL https://github.com/docker/compose/releases/download/v2.26.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+  105  sudo curl -SL https://github.com/docker/compose/releases/download/v2.26.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+  106  sudo chmod +x /usr/local/bin/docker-compose
+  107  docker-compose --version
+------------------------------------------------
+version: '3.8'
+services:
+  backend:
+    image: formycore/python_2303:v1
+    ports:
+      - "5000:5000"
+    environment:
+      - MYSQL: "mysql"
+      - MYSQL_USER: "admin"
+      - MYSQL_PASSWORD: "admin"
+      - MYSQL_DB: "mydb"
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE: "mydb"
+      - MYSQL_USER: "admin"
+      - MYSQL_ROOT_PASSWORD: "admin"
+      - MYSQL_PASSWORD: "admin"
+    ports:
+      - "3306:3306"
+    volumes:
+      # this message.sql is called seeding and path docker-entrypoint-initdb.d/message.sql
+      # use this path for intialize db 
+      - /message.sql:/docker-entrypoint-initdb.d/message.sql
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data
+----------------------------------------------------------------
+- docker stop mysql flaskapp
+- docker rm mysql flaskapp
+-----------------------------------------------
+- docker build with the Dockerfile
+- docker run -d -p 5000:5000 --network=twotier -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=admin -e MYSQL_DB=mydb --name flaskapp formycore/python_2303:v1
+- docker run -d -p 3306:3306 --network=twotier --name mysql -e MYSQL_DATABASE=mydb -e MYSQL_USER=admin -e MYSQL_ROOT_PASSWORD=admin mysql:5.7
+- docker exec -it mysql bash
+- mysql -u root -p 
+- (enter password : admin)
+- CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT
+);

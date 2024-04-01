@@ -1,0 +1,29 @@
+version: '3'
+services:
+  backend:
+    image: formycore/python_2303:v1
+    ports:
+      - "5000:5000"
+    environment:
+      - MYSQL: "mysql"
+      - MYSQL_USER: "admin"
+      - MYSQL_PASSWORD: "admin"
+      - MYSQL_DB: "mydb"
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE: "mydb"
+      - MYSQL_USER: "admin"
+      - MYSQL_ROOT_PASSWORD: "admin"
+      - MYSQL_PASSWORD: "admin"
+    ports:
+      - "3306:3306"
+    volumes:
+      # this message.sql is called seeding and path docker-entrypoint-initdb.d/message.sql
+      # use this path for intialize db 
+      - /message.sql:/docker-entrypoint-initdb.d/message.sql
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data
