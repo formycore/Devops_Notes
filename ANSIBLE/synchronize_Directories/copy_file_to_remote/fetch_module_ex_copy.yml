@@ -1,0 +1,13 @@
+---
+- name: copy files
+  hosts: all_servers
+  tasks:
+    - name: fetch file from ansiblenode to master
+      fetch:
+        src: /home/maanya/test.txt
+        dest: buffer/
+        flat: yes
+      when: "{{ inventory_hostname == 'ansiblenode' }}"
+    - name: Debug
+      debug:
+        msg: "Host name is {{ inventory"
