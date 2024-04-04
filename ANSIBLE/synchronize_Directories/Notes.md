@@ -15,7 +15,11 @@ sudo service sshd restart
 * in the directory create a file called hosts
 * in the hosts file add the ip address of the ec2 instance
 ```
-docker ansible_host=172.31.91.46 ansible_user=centos ansible_ssh_private_key_file=<path of the pem file> ansible_connection=ssh ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+docker ansible_host=172.31.91.46
+ansible_user=centos
+ansible_ssh_private_key_file=<path of the pem file>
+ansible_connection=ssh
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ```
 * ansible -m ping all -i hosts
 *********************************************************************************
