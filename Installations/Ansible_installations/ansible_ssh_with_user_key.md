@@ -1,4 +1,5 @@
-  [master]
+```
+[master]
 knode ansible_host=xx.xx.xx.xx
 
 [master:vars]
@@ -19,3 +20,4 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 [all_servers:children]
 master
 other_server
+```
