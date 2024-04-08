@@ -1,0 +1,23 @@
+---
+- name: replace module
+  hosts: all
+  tasks:
+  - name: Ansible replace Unix with Linux
+    replace:
+      path: /etc/ansible/sample.txt
+      regexp: 'Unix'
+      replace: 'Linux'
+  - name: Replace before the expression till the begin of the file
+    replace:
+      path: /etc/apache2/sites-available/default.conf
+      before: '# live site config'
+      regexp: 'Unix'
+      replace: 'Linux'
+  - name: Replace between the expressions and create a backup
+    replace:
+      path: /etc/hosts
+      after: '<VirtualHost [*]>'
+      before: '</VirtualHost>'
+      regexp: 'Unix'
+      replace: 'Linux'
+      backup: yes
