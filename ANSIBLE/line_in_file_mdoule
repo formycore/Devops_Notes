@@ -1,0 +1,27 @@
+---
+- name: lineinfile module
+  hosts: all
+  tasks:
+  - name: adding a line
+    lineinfile:
+      path: /etc/selinux/config
+      regexp: '^SELINUX='
+      line: SELINUX=enforcing
+
+  - name: deleting a line
+    lineinfile:
+      path: /etc/sudoers
+      state: absent
+      regexp: '^%wheel'
+
+  - name: Replacing a line
+    lineinfile:
+      path: /etc/hosts
+      regexp: '^127\.0\.0\.1'
+      line: 127.0.0.1 localhost
+  - name: replace a line only after a specified string 
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^Listen '
+      insertafter: '^#Listen '
+      line: Listen 8080
