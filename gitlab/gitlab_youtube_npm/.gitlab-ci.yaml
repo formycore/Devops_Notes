@@ -1,0 +1,15 @@
+stages:
+  - npm_install
+
+npm_install:
+  tags:
+    - gcp
+  stage: npm_install
+  image: docker:latest
+  services:
+    - docker:latest
+  script:
+    - docker run --name npm_container -v "/home/maanya/gitlab_pipeline":/app -w /app node:16 npm install
+  artifacts:
+    paths:
+      - node_modules/
