@@ -1,0 +1,21 @@
+- first enable the kubernetes engine API
+- select the kubernetes engine form the search bar
+- kubernetes engine
+    - crete cluster
+    - standard & autopilot
+    - select autopilot
+    - nodes
+    - storage
+    - logs
+- workloads
+    - nginx:latest (image is already there we can use this )
+    - continue
+    - deploy
+- select the cluster 
+- connect 
+- in the shell 
+- gcloud init 
+- connect to the project
+- in the cluster we have connect option, click on it we get a command copy that command and paste
+  in the shell 
+- kubectl get pods
