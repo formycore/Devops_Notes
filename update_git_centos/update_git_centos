@@ -1,0 +1,9 @@
+sudo yum install wget -y
+wget https://github.com/git/git/archive/v2.7.2.tar.gz -O git.tar.gz
+tar -zxf git.tar.gz
+cd  git
+make configure
+./configure --prefix=/usr/local
+sudo make install
+git --version
+https://www.edureka.co/blog/install-git/#centos
