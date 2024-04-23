@@ -1,0 +1,7 @@
+https://stackoverflow.com/questions/55057898/npm-command-not-found-centos-7
+curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash - (change the setup_(version))
+sudo yum install nodejs -y
+sudo rm -rf /var/cache/yum
+sudo yum remove -y nodejs
+sudo rm /etc/yum.repos.d/nodesource*
+sudo yum clean all
