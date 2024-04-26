@@ -1,3 +1,5 @@
+-- url :  https://github.com/formycore/ecsdeployment.git
+
 - install awscli 
 -- https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 - install docker on amazon linux 
