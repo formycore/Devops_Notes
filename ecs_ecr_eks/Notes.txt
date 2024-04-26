@@ -1,0 +1,9 @@
+- install awscli 
+-- https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+- install docker on amazon linux 
+-- https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-container-image.html
+- create a role for ecr (container registry)
+- container full access and container public full access
+- create a ecr repo
+- give the name of the repo as loginwebapp
+- ecr to ecs to deploy
