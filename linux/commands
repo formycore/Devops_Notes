@@ -1,0 +1,2 @@
+- to check the service is enabled or not
+-- $ sudo systemctl is-enabled app_name(containerd, httpd)
