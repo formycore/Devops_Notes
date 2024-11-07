@@ -3,6 +3,7 @@
 - https://v1-29.docs.kubernetes.io/docs/setup/production-environment/container-runtimes/
 
 ## install container runtime
+- `sudo hostnamectl set-hostname master`
 ## 1_ Enabling IPV4 packet farwarding (Forwarding IPv4 and letting iptables see bridged traffic)
 ```
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
