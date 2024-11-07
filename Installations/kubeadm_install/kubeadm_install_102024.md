@@ -82,3 +82,13 @@ sudo systemctl status containerd
 ### Install the kubeadm, kubectl and kubelet
 - select the operating system
 - https://v1-29.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+# Only on Master
+### Intialize the cluster in k8s control plane
+- `https://v1-29.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/`
+- `kubeadm init --apiserver-advertise-address <private-ip-master> --pod-network-cidr 10.244.0.0/16`
+- `kubeadm get pods -A`
+- `kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.29/net.yaml`
+- if we face any issue in container creating
+- delete the pod
+- `kubectl delete pod <pod-name> -n kube-system`
+- 
