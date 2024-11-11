@@ -24,6 +24,9 @@ EOF
 # Apply sysctl params without reboot
 sudo sysctl --system
 ```
+### Verify IPv4 Packet Forwarding
+```sysctl net.ipv4.ip_forward```
+
 #### Verify that the br_netfilter, overlay modules are loaded by running the following commands:
 ```
 lsmod | grep br_netfilter
