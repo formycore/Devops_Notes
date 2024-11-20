@@ -1,0 +1,9 @@
+#  - host 'stapp03' is not added correctly in '/home/thor/ansible/inventory' file on Jump Server
+---
+- name: empty file in the app server1
+  hosts: stapp01
+  tasks:
+  - name: Create empty file
+    file:
+      path: /tmp/file.txt
+      state: touch

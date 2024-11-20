@@ -1,0 +1,12 @@
+---
+- name : change files contents
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+  - name: changing file contents
+    file:
+      path: /etc/ansible/ansible.cfg
+      insertafter: [defaults]
+      line: remote_user = amar
+      create: yes
