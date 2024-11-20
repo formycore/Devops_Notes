@@ -1,0 +1,39 @@
+here we need see the labels and selectors
+Deployment tells us the desired state of the pod
+there might be many pods in the cluster, we need figure it out that this pod belongs to this deployment
+with labels we can identify our pods, label has to match with pod, pod also have label
+the configuration file for the pod, it will get activated,
+the label which is assigned to pod needs to match with deployment label
+-----------------------------------------------------------
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels: # this is the label with app:nginx
+    app: nginx
+spec: # this is desired state, configuration
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template: # this template is for pod 
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+-----------------------------------------------------------
+- in the line 20, it also have labels
+- under the template label is app: nginx and deployment label is also app: nginx
+- this should match 
+- with matchLabels app: nginx which is same for the deployment label and pod template then it will match 
+- deployment label is app: nginx and pod template label is app: nginx
+- under the selector, we are saying that matchLabels app: nginx
+- what ever might be the replicas count 
+- when label matches, this deployment will take care of auto-scaling
+- kubectl scale deployment <deployment-name> --replicas=<no of pods>
