@@ -1,0 +1,78 @@
+apiVersion: v1
+Kind: Pod
+metadata:
+  name: my-nginx-label-pod
+  labels:
+    my-web-server: nginx
+	env: development
+spec:
+  containers:
+    - name: nginx-pod
+	  image: nginx
+	  ports:
+	    containerPort: 80
+---------------------------------------
+- kubectl get pods dont show the label columns
+  - kubectl get pods --showlabels
+controlplane $ kubectl get pods --show-labels
+NAME           READY   STATUS    RESTARTS   AGE   LABELS
+my-nginx-pod   1/1     Running   0          44s   env=development,my-nginx-pod=nginx
+
+
+- based on labels
+  - kubectl get pods -l env=development  
+controlplane $ kubectl get pods -l env=development
+NAME           READY   STATUS    RESTARTS   AGE
+my-nginx-pod   1/1     Running   0          3m8s
+
+- add the labels to the running pod
+controlplane $ kubectl label pod my-nginx-pod my-app=nginx
+pod/my-nginx-pod labeled
+----
+controlplane $ kubectl get pods --show-labels
+NAME           READY   STATUS    RESTARTS   AGE    LABELS
+my-nginx-pod   1/1     Running   0          5m9s   env=development,my-app=nginx,my-nginx-pod=nginx
+
+- overwrite attribute
+- edit the label
+- kubectl label pod my-nginx-pod my-app=my-application
+ kubectl label pod my-nginx-pod my-app=my-application --overwrite (from my-app=nginx to my-app=my-application)
+pod/my-nginx-pod labeled
+controlplane $ kubectl get pods --show-labels
+NAME           READY   STATUS    RESTARTS   AGE     LABELS
+my-nginx-pod   1/1     Running   0          7m28s   env=development,my-app=my-application,my-nginx-pod=nginx
+
+-Field selector to list the pods
+--field-selector
+- kubectl get pods --field-selector status.phase=Running
+- kubectl get pods --field-selector status.phase!=Running
+controlplane $ kubectl get pods --field-selector status.phase=Running
+NAME           READY   STATUS    RESTARTS   AGE
+my-nginx-pod   1/1     Running   0          9m38s
+
+controlplane $ kubectl get pods --field-selector status.phase!=Running
+No resources found in default namespace.
+
+- kubectl get pods --field-selector status.phase=Running,metadata.namespace=default
+controlplane $ kubectl get pods --field-selector status.phase=Running,metadata.namespace=default
+NAME           READY   STATUS    RESTARTS   AGE
+my-nginx-pod   1/1     Running   0          13m
+
+- field-selector -L to get the additional results
+kubectl get pods --field-selector status.phase=Running,metadata.namespace=default -L env
+controlplane $ kubectl get pods --field-selector status.phase=Running,metadata.namespace=default -L env
+NAME           READY   STATUS    RESTARTS   AGE   ENV
+my-nginx-pod   1/1     Running   0          16m   development
+-------------------------------------------
+apiVersion: v1
+Kind: Pod
+metadata:
+  name: my-nginx-label-pod
+  annotations:
+    developer: my@gmail.com
+spec:
+  containers:
+    - name: nginx-pod
+	  image: nginx
+	  ports:
+	    containerPort: 80
