@@ -1,0 +1,29 @@
+3 types of volumes
+    - volume mount
+    - bind mount
+    - tempfs mount
+- bind mount: entire file system on the host system can be used by containers
+- volume mount: only the docker area is used by the container
+- tempfs mount: the data of the container is stored in the memory not on the disk not even inside the container
+
+-------------------------------
+volume mount:
+- can be controlled by API & cli
+- shares the host file system under Docker root directory /var/lib/docker
+- docker info (it will show the docker root directory)
+- under the root directory the is directory called volumes in this we will volumes
+- single volume can attched to multiple containers to share the data, like nfs (network file system)
+- we can give read-only mode container cannot manipulate the volume
+- used as -v , --volume or --mount 
+- static and dynamic volumes can be created
+- we have to provide the volume name
+- use relative path
+-------------------------------------
+bind mount:
+- we have use -v hostpath:container path
+- absolute path (full path) /var, /backups
+- with --mount the file or directory needs to be present in the container or host
+- with -v the file or directory dont need  to be present in the container or host it will create the file or directory
+- shared to multiple containers
+
+
