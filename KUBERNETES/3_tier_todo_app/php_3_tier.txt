@@ -1,0 +1,151 @@
+- Deploy PHP tool with k8s phpadmin & mysql
+
+Requirement 
+- DB - Mysql
+- DB Management tool - Phpmyadmin
+- php app
+
+
+- step 1 :
+    - ConfigMaps
+        - check any ConfigMaps are there
+            - kubectl get cm
+        - create the ConfigMap
+            - kubectl create configmap <configmap-name> --from-literal=<env variable(here mysql_database)>=<name of the db>
+            - $ kubectl create configmap db-cm --from-literal=MYSQL_DATABASE=mydb
+            - here we can see the MYSQL_DATABASE is key and mydb is the value
+            ###########################################################################
+            kubectl describe cm db-cm
+                Name:         db-cm
+                Namespace:    default
+                Labels:       <none>
+                Annotations:  <none>
+
+                Data
+                ====
+                MYSQL_DATABASE:
+                ----
+                mydb
+
+                BinaryData
+                ====
+
+
+            ##############################################################################
+
+    - Secrets
+        - create the Secret
+            - kubectl create secret <type of the secret> <name of the secret> --from-literal=<here we can use filename also>(MYSQL_ROOT_PASSWORD)(rootpassword)
+            - $ kubectl create secret generic db-secret --from-literal=MYSQL_ROOT_PASSWORD=rootpassword
+    - Mysql Pod
+        - crate the mysql Pod
+            - kubectl run <pod_name> --image=<image_name> --dry-run=client -o yaml >> mysql.yaml
+             - $ kubectl run mysql-pod --image=mysql --dry-run=client -o yaml >> mysql.yaml
+             ##################################################################################################
+              cat mysql.yaml
+                apiVersion: v1
+                kind: Pod
+                metadata:
+                creationTimestamp: null
+                labels:
+                    run: mysql-pod
+                name: mysql-pod
+                spec:
+                containers:
+                - image: mysql
+                    name: mysql-pod
+                    resources: {}
+                dnsPolicy: ClusterFirst
+                restartPolicy: Always
+                status: {}
+
+             - here we need to add the configmap and secret 
+
+             ##################################################################################################
+    - Mysql service expose
+            - create the service
+                - kubectl expose pod <pod_name> --port=<port_number> --targetport=<targetport_number> --name=mysql-svc
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    run: mysql-pod
+************************************************************************************************************************
+- Step 2: Phpmyadmin POD
+        - check for the phpmyadmin in docker hub we get environmental values
+        - in the variable we are setting for PMA_HOST,PMA_PORT
+        - PMA_USER and PMA_PASSWORD are used in the secret
+        - here we use the mysql-svc cluster ip is the host name
+
+    - ConfigMaps
+        - kubectl create configmap phpmyadmin-cm \
+          --from-literal=PMA_HOST=<mysql-svc_clusterip> \
+          --from-literal=PMA_PORT=3306
+    - Secrets
+        - kubectl create secret generic phpmyadmin-secret \
+          --from-literal=PMA_USER=root \
+          --from-literal=PMA_PASSWORD=rootpassword
+    - Phpmyadmin Pod
+        - kubectl run phpmyadmin --image=phpmyadmin --dry-run=client -o yaml >> phpmyadminyaml
+        - we need to update the values of configmap and secrets in this yaml file
+####################################################################################
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: phpmyadmin
+  name: phpmyadmin
+spec:
+  containers:
+  - image: phpmyadmin
+    name: phpmyadmin
+    envFrom:
+    - configMapRef:
+        name: phpmyadmin-cm
+    - secretRef:
+        name: phpmyadmin-secret
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+
+####################################################################################
+    - Phpmyadmin service expose
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpadmin-svc
+spec:
+  ports:
+   - port: 8055
+     targetPort: 80
+  selector:
+    run: phpmyadmin
+  type: NodePort
+    
+
+
+- Step 3: PHP Todo-app-POD
+    - phpapp Pod
+        - kubectl run php-todo-pod --image=formycore/php_todo:v1 --dry-run=client -o yaml >> php_todo-pod.yaml
+    - phpapp service expose
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-todo-pod
+spec:
+  ports:
+   - port: 8087
+     targetPort: 80
+  selector:
+    run: php-todo-pod
+  type: NodePort  
+    
+- $ kubectl get svc
+- try to connect with the podadmin-svc (try to change the value of mysql-svc cluster ip in the index.php file)
