@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage('git clone'){
+            steps {
+                git 'https://github.com/ravdy/hello-world'
+            }
+        }
+        stage ('mvn build'){
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        stage ('copy war with rsync'){
+            steps {
+                sh 'rsync -avz -e "ssh -o StrictHostKeyChecking=no" /var/lib/jenkins/workspace/test/* ubuntu@172.31.35.186:~'
+            }
+        }        
+    }
+}

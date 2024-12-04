@@ -1,0 +1,29 @@
+- go to https://github.com/kubernetes-sigs/metrics-server
+- install the 
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+- kubectl get pods -n kube-system
+- if it is not running 
+- kubectl edit deployment metrics-server -n kube-system
+- spec:
+  containers:
+  - name: metrics-server
+    image: k8s.gcr.io/metrics-server/metrics-server:v0.6.1
+    command:
+      - /metrics-server
+    args:
+      - --cert-dir=/tmp
+      - --secure-port=4443
+      # Add the --kubelet-insecure-tls flag here
+    args:
+  - --cert-dir=/tmp
+  - --secure-port=4443
+  - --kubelet-insecure-tls  # <-- Add this line
+- kubectl get pods -n kube-system | grep metrics-server
+- kubectl get apiservices v1beta1.metrics.k8s.io
+- kubectl get pods -n kube-system 
+- check for the metric server 
+-------------------------------
+- kubectl top nodes
+- kubectl top pod <pod name> -n kube-system
+- kubectl top pods -n kube-system --sort-by=memory
+- kubectl top pods -n kube-sysetm --sort-by=cpu

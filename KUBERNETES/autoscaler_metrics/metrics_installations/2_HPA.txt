@@ -1,0 +1,2 @@
+-- docker container run --help 
+- check for cpu and memory

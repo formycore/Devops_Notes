@@ -1,0 +1,4 @@
+- kubectl create cm db-config --from-literal=MYSQL_DATABASE=mysqldb
+- kubectl create secret generic db-secret --from-literal=MYSQL_PASSWORD=rootpassword
+- creting the mysql pod
+- $ kubectl run mysql-pod --image=mysql --dry-run=client -o yaml >> mysql-pod.yaml
