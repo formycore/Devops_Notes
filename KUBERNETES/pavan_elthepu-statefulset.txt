@@ -1,0 +1,36 @@
+Stateful Sets(incomplete)
+- problem 1
+	- in the stateful set replicas should more than one for example take it as 3 pods (mongodb)
+	- so 3 pods uses same pvc from pv 
+	- data inconsistancy
+- solution 
+	- seperate pods have seperate pvcs and seperate pv 
+--------------------------------
+example
+volumeClaimTemplate:
+  - metadata:
+      name: mongo-volume
+	spec:
+	  accessModes: ["ReadWriteOnce"]
+	  storageClassName: demo-storage
+	  resources:
+	    requests:
+		  storage: 1Gi
+-----------------------------
+problem -2 with using the deployment
+- master node handles both read write 
+- slave1 node reads
+- slave2 node reads 
+- master should be up and running
+- from master slave1 reads 
+- from slave1 slave2 reads
+- load on the master reduces
+- with this continously syncs the data from master to slaves
+- this can be achived with stateful set
+- in the stateful set pod1 is created then pod2 is created and then pod3 is created
+- for deletion also the pod3 deletes first then pod2 then pod1
+- 
+----------------------------------------------------------------
+problem 3 with deployment
+- sticky identity for each node
+- 

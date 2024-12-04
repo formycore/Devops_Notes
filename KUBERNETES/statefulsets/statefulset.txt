@@ -1,0 +1,14 @@
+- stateful set is workload component
+- deployments are wrapper around the pods
+- pods have random names, no order in creating the pods
+- pods created simuntaneously in deployments
+
+- in statefulset 
+	- pods follow naming order
+	- if we specify the sts as the pod name with 3 replicas 
+	- it will deployed in sts-0 , sts-1, sts-2 ..... order
+	- if the sts-0 is completly running then it deploys to sts-1 and so on 
+	- if the replicas value is reduced to 2 then it deletes the last created pod
+	- ## try to increase the replicas count ###
+	- if the pod crashes and kubernetes checks the state and it creates with the same name 
+---------------------------------https://www.youtube.com/watch?v=kRynOqdpWxc&t=1154s

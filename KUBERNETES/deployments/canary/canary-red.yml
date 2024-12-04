@@ -3,21 +3,26 @@ kind: Deployment
 metadata:
   name: canary-red
 spec:
-  replicas: 4
-  selectors:
+  replicas: 1 # to start with 1 then we will increase this 
+  selector:
     matchLabels:
       name: canary
-    template:
-      metadata:
-        labels:
-          name: canary
+  template:
+    metadata:
+      labels:
+        name: canary # the label in this file and canary-blue file is same
     spec:
       containers:
         - name: canary-red
-          image: adamtravis/rollouts:blue
+          image: adamtravis/rollouts:red
           ports:
             - name: http
-              targetPort: 8080
+              containerPort: 8080
               protocol: TCP
               
-              
+# in canary we already deployed the red pods now we want to subset deployements with percent of the traffic to this pod
+# here we dont use any service for this increament pods 
+# the service will take the 25% from this manifest file also
+# both the labels in the canary-blue and canary-red manifest files are same 
+# in the service file we have mentioned as selector as canary 
+
