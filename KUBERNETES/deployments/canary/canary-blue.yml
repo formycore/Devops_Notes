@@ -6,7 +6,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      name: canary
+      name: canary # this same labels is used in the service yaml file
   template:
     metadata:
       labels:
