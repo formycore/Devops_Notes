@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: red-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: red-deployment
+  template:
+    metadata:
+      labels:
+        name: red-deployment
+    spec:
+      containers:
+        - name: red-deployment
+          image: adamtravis/rollouts:red
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: web-application
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    mathchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - image: nginx
+          name: web-application
+          resources:
+            limits:
+              # this is upper 
+              # this container cant use above these limits
+              cpu: "100m"
+              memory: "500m"
+            requests:
+              # this is for container in a pod
+              # it is used by kube-scheduler, 
+              # we are telling to kube-scheduler, keep this pod in the node as far as 
+              # the node have below cpu and memory mentioned
+              # soft reservation on the node for this container
+              # memory in bytes and cpu in cores
+              cpu: "100m"
+              memory: "500m"        
+# creating a service with expose command
+# kubectl expose deploy <deploy-name> --port=<port no> --type=NodePort --name <name of the service>
+# ex: kubectl expose deplpoy web-applicatoin --port=80 --name svc-web-application --type=NodePort

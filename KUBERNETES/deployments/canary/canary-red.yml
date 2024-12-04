@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-red
+spec:
+  replicas: 4
+  selectors:
+    matchLabels:
+      name: canary
+    template:
+      metadata:
+        labels:
+          name: canary
+    spec:
+      containers:
+        - name: canary-red
+          image: adamtravis/rollouts:blue
+          ports:
+            - name: http
+              targetPort: 8080
+              protocol: TCP
+              
+              

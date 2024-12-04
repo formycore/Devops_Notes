@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: green-svc
+  labels:
+    name: green-svc
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+  selector:
+    #name: green-deployment
+    name: blue-deployment
+  type: NodePort
+  

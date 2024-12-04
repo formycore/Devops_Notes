@@ -1,0 +1,9 @@
+- for example there are 9 pods 
+- each node has cpu=4 and memory=4 
+- 4 pods are used in the each nodes so all the resources are fully utilized 
+- there is not enough resources left in the nodes
+- and 9th pod will be in pending with error insufficient resources, this 9th pod will not be schduled
+- for pod1 if the traffic increases it will try to take the more resources
+- if pod1 tries to take more resources from node than resources already present in the node
+- pod1 will throughs error OOM (out of memory)
+

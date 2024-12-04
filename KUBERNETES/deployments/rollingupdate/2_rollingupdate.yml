@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollingupdate-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: rollingupdate-demo
+  template:
+    metadata:
+      labels:
+        name: rollingupdate-demo
+    spec:
+      containers:
+        - name: rollingupdate-demo
+          #image: adamtravis/rollouts:red
+          image: adamtravis/rollouts:blue
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+
+        

@@ -1,0 +1,62 @@
+- deploy replicas
+- kubectl scale deploy/app --replicas=2
+- autoscalers are of three types for scaling up and down also
+   - HPA - horizantal pod autoscalers
+   - VPA - vertical pod autoscalers
+   - CA  - cluster autoscalers
+
+
+- HPA: 
+    - increase the no of pod to distribute the lod
+    - when ther is a spike in 
+        - Memory
+        - CPU
+        - other metrics
+    - decrease the no of pods when there is no load
+    - not a best solution
+    - example database connections
+        - increase the database connections by increasing Memory and CPU
+        - increase the resource of the pods instead of increasing the pods numbers
+
+- VPA:
+  - increase the resource of the pods not the no of pods
+  - if there is no capacity in the cluster
+  - it doesn't make any sense to increase the no of pods or increase the resources
+  - decrease the resource when there is no load
+
+
+- CA:
+    - this will do the perfect job for this 
+    - it will create the new node 
+    - creates the nodes if the pods are stuck at pending due to lack of resource in the cluster
+    - decrease the no of nodes when there is no node
+
+---------------------------------------------------------------------------------------------------------
+- HOW HPA WORKS
+    - on every worker node kubelet runs
+    - inside the kubelet there is an agent CAdvisor or container adviser by google
+    - when a pods runs on the worker node 
+    - this CAdvisor collects Memory and Cpu metrics for every 10 seconds
+    - for every minute this metrics which are collected from CAdvisor with the help of metric server
+    which is on the master node sends to API-server
+    - now the HPA queries the API-server for every 15 seconds, to get the metrics of the worker node
+    - how much cpu and Memory is available 
+    - once this controller gets the desired pod metrics 
+    - HPA check it with manifest file 
+    - Decides to scale up or scale down of replicas
+    - HPA just updates the replicas count in the target deployment
+    - adding or deletion of the pod will be take care of replication controller
+    - CAdvisor will collects the metric from the new pods as well 
+    - HPA uses this formula
+    - d=ceil[a*(c/t)]
+        - d - desired no of replicas
+        - a - current no of replicas
+        - c - current value of the metrics
+        - t - target value
+    - example
+        - deployment with 2 pods (pods as "a" value)
+        - 2 pods consuming 90 of the CPU usage (CPU as metric value "C")
+        - under the manifest we have taken as average cpu utilization to 70 to scale the deployment (cpu utilization as target value)
+        - for every 15 seconds HPA caliculates the desired no of replicas 
+        - d = ceil[2*(90/70)] = ceil(2*1.28)=(2.57)=3 replicas
+        

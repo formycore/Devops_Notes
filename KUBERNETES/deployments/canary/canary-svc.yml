@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: canary-svc
+  labels:
+    name: canary-svc
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+  selector:
+    name: canary # this is the same labels used for the pod
+  type: NodePort
