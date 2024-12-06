@@ -80,3 +80,7 @@ in the .gitignore file added as *.sh and even though sh is showing in the remote
 
 If the files were already staged, you need to unstage them using git rm --cached <file> and then commit the changes.
 If the files were already committed, you need to remove them from version control using git rm --cached <file> and then commit the changes.
+
+
+How to find all PDF files in directories and their subdirectories
+ls | grep .pdf
