@@ -138,8 +138,8 @@ services:
 - and we need to import the database also
 - here is the update docker-compose FILE
 ```
-# first mongodb should run till the backend should wait
-# attach the sample database which is under the backend dir attached to this container with volume
+- FIRST MONGODB SHOULD RUN TILL THE BACKEND SHOULD WAIT
+- ATTACH THE SAMPLE DATABASE WHICH IS UNDER THE BACKEND DIR ATTACHED TO THIS CONTAINER WITH VOLUME
 version: '3.8'
 services:
   mongodb:
