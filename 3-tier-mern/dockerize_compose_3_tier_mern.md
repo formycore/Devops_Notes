@@ -80,6 +80,7 @@ CMD ["npm", "run", "dev", "--", "--host"]
 - if we check the site is up but not showing any content 
 - f12
 - network
+- refresh the page
 - featured
 - check the status it is showing as local
 - we need to change the env Variables of the frontend
