@@ -42,9 +42,12 @@ CMD ["npm", "start"]
 ## Setup MongoDB
 ```
 - docker run -detach -ports container_port:host_port --name of the container image
+# Pulling the mongo image and running it 
 - docker run -d -p 27017:27017 --name mongo mongo:latest 
+# docker ps
 CONTAINER ID   IMAGE          COMMAND                  CREATED              STATUS              PORTS                                           NAMES
 4dc513786ed6   mongo:latest   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:27017->27017/tcp, :::27017->27017/tcp   mongo
+# to check whether the mongo is running successfully
 - go inside the docker container 
 - docker exec -it <name of the container> bash
 - docker exec -it mongo bash
@@ -57,6 +60,7 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED              STAT
 ```
 # Now run the Docker image for the backend
 ```
+# with this we are running the docker build
 - docker run -d -p 5000:5000 --name backend backend:v1
 ```
 ## Now setup the frontend
@@ -81,6 +85,7 @@ CMD ["npm", "run", "dev", "--", "--host"]
 - we need to change the env Variables of the frontend
 - in the frontend
 - cat .env.sample
+- edit the value of the VITE_API_PATH to the public ip
 
 ```
 ### IF WE CHANGE THE CODE WE NEED TO BUILD DOCEKR FILE AGAIN
@@ -173,6 +178,7 @@ volumes:
 ------------------------------------------------------------------------------------------------------------------------------------
 # first mongodb should run till the backend should wait
 # attach the sample database which is under the backend dir attached to this container with volume
+```
 version: '3.8'
 services:
   mongodb:
@@ -200,7 +206,7 @@ services:
       - "5173:5173"
 volumes:
   data: # from the above lines we have created the data, here we are creating it 
- ```
+```
  - here we need Import sample data
  - mongoimport --db wanderlust --collection posts --file ./data/sample_posts.json --jsonArray
  - we need to go inside the mongo container
