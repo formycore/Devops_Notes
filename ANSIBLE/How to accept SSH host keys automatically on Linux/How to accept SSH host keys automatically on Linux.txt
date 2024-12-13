@@ -1,3 +1,4 @@
+if the there are two same server like ubuntu to ubuntu or ec2-user to ec2-user
 first in the master create ssh-keygen
 after copy the id_rsa.pub 
 paste the copied id_rsa.pub in the node server in ~/.ssh/authorized_keys
@@ -10,3 +11,9 @@ save it
 -- 
 then use ssh -oStrictHostKeyChecking=no user@remote_host 
 - this will not ask for hostkeyverfication
+------------------------------------------------------------------------
+- if there are two different server like ubuntu and ec2-user
+- on the ubuntu server some it shows only ed... ssh keys 
+- so use ssh-keygen -t rsa -b 4096 on the both servers
+- copy the pub files vice versa 
+
