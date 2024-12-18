@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  mongo-url: mongo-svc # we got it from the mongo-svc while giving the service file name under metadata
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: mongo-config
