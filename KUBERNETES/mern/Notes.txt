@@ -1,0 +1,79 @@
+first we need to create the secret
+then configmaps
+then deployment and services
+--------------------------------------
+secret creation with imperative commands
+
+kubectl create secret generic mongo-secret --from-literal=mongo-user=mongouser --from-literal=mongo-password=mongopassword --dry-run=client -o yaml
+apiVersion: v1
+data:
+  mongo-password: bW9uZ29wYXNzd29yZA==
+  mongo-user: bW9uZ291c2Vy
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: mongo-secret
+------------------------------
+configmaps creation with imperative commands
+
+kubectl create configmap mongo-config --from-literal=mongo-url=somethig --dry-run=client -o yaml
+apiVersion: v1
+data:
+  mongo-url: somethig
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: mongo-config
+-------------------------------------
+deployment creation with imperative commands
+
+ kubectl create deployment mongo-deploy --image=mongo:6.0 --dry-run=client -o yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mongo-deploy
+  name: mongo-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mongo-deploy
+    spec:
+      containers:
+      - image: mongo:6.0
+        name: mongo
+        resources: {}
+status: {}
+-------------------------------------------------
+services creation with imperative commands
+
+kubectl create service nodeport mongo-svc --tcp=27017:27017 --dry-run=client -o yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mongo-svc
+  name: mongo-svc
+spec:
+  ports:
+  - name: 27017-27017
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    app: mongo-svc
+  type: NodePort
+status:
+  loadBalancer: {}
+-------------------
+then mongoweb which is using the mongoexpress
+then mongoweb svc 
