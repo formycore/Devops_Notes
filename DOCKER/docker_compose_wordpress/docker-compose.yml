@@ -1,0 +1,74 @@
+version: "3.8"
+services:
+  nginx:
+    container_name: ${CONTAINER_NAME}-nginx
+    image: nginx:1.15.2-alpine
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d:rw
+      - wordpress:/var/www/html
+    networks:
+      - wordpress
+  database:
+    container_name: ${CONTAINER_NAME}-database
+    image: mysql:8.0
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # all these keys check in the mysql docker hub page
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    healthcheck:
+      # to check test command 
+      # to ping to the localhost with in this image
+      # db is listening and alive
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$DATABASE_ROOT_PASSWORD"]
+      timeout: 20s
+      retries: 10
+    ports:
+      - "3306:3306"
+    volumes:
+      - sqldata:/var/lib/mysql  
+    networks:
+      - wordpress
+  phpmyadmin:
+    container_name: ${CONTAINER_NAME}-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    env_file: .env
+    environment:
+      # to get the keys info check the docker hub phpmyadmin
+      PMA_HOST: database # this is the service name for the mysql db we have mentioned above
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+    ports:
+      - "8081:80"
+    networks:
+      - wordpress
+  wordpress:
+    depends_on:
+      - database
+    container_name: ${CONTAINER_NAME}-wordpress
+    image: wordpress:6.5.2-fpm-alpine # this fpm image connects with nginx other images wont
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      WORDPRESS_DB_HOST: database:3306 # mysql service name and the port
+      WORDPRESS_DB_USER: ${DATABASE_NAME}
+      WORDPRESS_DB_PASSWORD: ${DATABASE_PASSWORD}
+      WORDPRESS_DB_NAME: ${DATABASE_NAME}
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - wordpress
+volumes:
+  sqldata:
+  wordpress:
+
+networks:
+  wordpress:
+    driver: bridge
