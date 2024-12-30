@@ -76,6 +76,7 @@ vi /etc/containerd/config.toml
 ```
 sudo systemctl restart containerd
 sudo systemctl status containerd
+sudo systemctl enable containerd
 ```
 ## Steps to check once again
 - enabled ipv4 forwarding
