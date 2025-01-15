@@ -1,0 +1,125 @@
+
+TWS three tier challenge
+
+clone this https://github.com/LondheShubham153/TWSThreeTierAppChallenge.git
+
+check with devloper on which version this nodejs java version 
+react is library
+under the package-lock.json it 
+
+create the docker image/ file
+# stable base image
+FROM node:14
+WORKDIR app
+# python and nodejs are stored in the packages and requirements 
+# here ./ is under the app
+COPY package*.json ./
+RUN npm install 
+COPY . .
+CMD ["npm", "start"] # check in the packages.json file under scripts
+
+
+Step 1: IAM Configuration
+Create a user eks-admin with AdministratorAccess.
+Generate Security Credentials: Access Key and Secret Access Key.
+
+Step 2: EC2 Setup
+Launch an Ubuntu instance in your favourite region (eg. region us-west-2).
+SSH into the instance from your local machine.
+
+
+Step 3: Install AWS CLI v2
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt install unzip
+unzip awscliv2.zip
+sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
+aws configure
+
+-- give the access key and secret key 
+- for region and output (just go on with enter)
+
+
+step 4 ) 
+create the amazon ecr
+- Amazon ECR
+Public Registry
+Repositories
+
+- for now on the aws site searched with ecr
+- create repo 
+- private repo is getting as default
+- click on the private 
+- now we can see the public repo on the left 
+- create the repo in the public
+
+
+# get the commands from the view push commands
+- aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/<>
+
+- now the code is in the frontend right go to the frontend
+cd /three-tier/Application-Code/frontend
+- now follow the commands from view push commands
+
+----------------------------------------------------------------------------------------------------------------------
+now go to backend 
+if we have index.js file do we need to run it in the docker file ????
+keep in mind as per the index.js file this is listening on 3500
+
+FROM node:14
+WORKDIR app
+COPY package*.json ./
+RUN npm install
+COPY . .
+CMD ["node", "index.js"]
+
+- create the amazon ecr
+- Amazon ECR
+Public Registry
+Repositories
+- create a new backend repo
+- same as above using the push commands
+- create a docker container
+- check the docker images
+- $ docker images ( check for the backend )
+- docker run --name backend -d -p 3500:3500 formycore/3-tier-backend:latest
+- docker logs backend 
+- it will through the error 
+- as of now just push the ecr
+
+--------------------------------
+now install the kubectl and eksctl also in the readnme file from the repository
+Step 5: Install kubectl
+
+curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin
+kubectl version --short --client
+
+Step 6: Install eksctl
+
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+
+
+Step 7: Setup EKS Cluster
+
+eksctl create cluster --name three-tier-cluster --region ap-south-1 --node-type t2.medium --nodes-min 2 --nodes-max 2
+aws eks update-kubeconfig --region ap-south-1 --name three-tier-cluster
+kubectl get nodes 
+
+
+# with this command 
+aws eks update-kubeconfig --region ap-south-1 --name three-tier-cluster
+- we need to bind the eks-cluster with my-machine kubectl 
+- to get a particular cluster nodes then we need to use the above command
+- like context set
+- like only bring the this context cluster only
+- without this command also we can get the nodes info 
+- what if we have multiple clusters ?
+- to which cluster my-machine kubectl should point 
+-- Added new context arn:aws:eks:ap-south-1:396608772816:cluster/three-tier-cluster to /home/ubuntu/.kube/config
+
+------------------ 
+now working on the kubernetes manifest file
+

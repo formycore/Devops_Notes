@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: demopv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/ec2-user/volumes/pv"
+---
+#- kubectl get pv
+#- kubectl describe pv demopv
+####################################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: demopvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+###########################
+## kubectl get pv
+# kubectl get pvc
+#  kubectl get pvc
+#NAME      STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+#demopvc   Bound    demopv   10Gi       RWO                           <unset>                 4s
+#kubectl get pv
+#NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM             STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+#demopv   10Gi       RWO            Retain           Bound    default/demopvc                  <unset>                          3m58s
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: persistance-pod
+spec:
+  containers:
+    - name: persistance-container
+      image: nginx
+      volumeMounts:
+        - name: persistance-pod-storage
+          mountPath: "/usr/share/nginx/html"
+  volumes:
+    - name: persistance-pod-storage
+      persistentVolumeClaim:
+        claimName: demopvc
+  nodeName: nodea      
+          

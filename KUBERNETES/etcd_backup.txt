@@ -1,0 +1,83 @@
+
+
+Learning Objectives
+By the end of this chapter, you should be able to:
+
+Download installation and configuration tools.
+Install a Kubernetes master and grow a cluster.
+Configure a network solution for secure communications.
+Discuss highly-available deployment considerations.
+
+
+
+updating the kubernetes version (https://www.youtube.com/watch?v=Uj0XaNUesXs&t=612s)
+	1) take backup 
+		- take backup to aws s3 bucket
+		- take all the backup for object/resources that are running in the cluster 
+		- $ kubectl get all -A (need to take backup of the control plane components also)
+		- $ kubectl get all -A -o yaml > backup.yml -- this is not useful with this no data backup for the pv and version control files
+		- etcd backup and restore
+		- cd /etc/kubernetes/manifests
+		- here we have 
+			- etcd.yaml
+			- kube-apiserver.yaml
+			- kube-controller-manager.yaml
+			- kube-schedueler.yaml
+			- under etcd.yaml
+				- --data-dir=""
+				- here it stores the etcd stores the configuration data
+				- imp files to take backup
+					- --data-dir=/var/lib/etcd
+					-  --listen-client-urls=https://127.0.0.1:2379,https://172.31.45.151:2379
+				- here we are using etcd:3.5.16-0 
+				-     volumeMounts:
+						- mountPath: /var/lib/etcd
+						  name: etcd-data # in this path all the data is stored
+						- mountPath: /etc/kubernetes/pki/etcd
+						  name: etcd-certs # in this path all the certs are stored
+	    
+		- etcd is also a pod
+		- this pod has var/lib/etcd and  /etc/kubernetes/pki/etcd volumes are mounted
+		- this is the url etcd client is listening
+		- when apiserver sends a request 
+		- like kubectl get pods 
+		- this request is sent by kubectl utility 
+		- to apiserver kubectl utility is a client
+		- now the apiserver gets the data from the etcd 
+		- kube-apiserver acts a client and send request to etcd 
+		- etcd is listening on the below servers
+		- --listen-client-urls=https://127.0.0.1:2379,https://172.31.45.151:2379 
+		
+
+--------------------------
+	- backup
+	  - https://kubernetes.io/docs/tasks/administer-cluster/#backing-up-an-etcd-cluster
+		- install etcdctl
+			- ETCD_VERSION="3.5.16-0"
+			- wget https://github.com/etcd-io/etcd/releases/download/v${ETCD_VERSION%%-*}/etcd-v${ETCD_VERSION%%-*}-linux-amd64.tar.gz
+			- tar -xvzf etcd-v${ETCD_VERSION%%-*}-linux-amd64.tar.gz
+			- sudo mv etcd-v${ETCD_VERSION%%-*}-linux-amd64/etcdctl /usr/local/bin/
+			- etcdctl -v
+			
+	- ALWAYS REMEMBER TO SET THE VALUE OF ETCDCTL_API=3
+	- it will always runs on version 2 it has some deprecated features
+	- just type ETCDCTL_API=3
+	- $ ETCDCTL_API=3 etcdctl snapshot
+	- else we can set the ETCDCTL_API=3 as environmental variable 
+	- export ETCDCTL_API=3
+	- go to https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/
+	 - Snapshot using etcdctl options
+	 - just for reference open the etcd.yaml file 
+	 - under /etc/kubernetes/manifests/etcd.yaml
+	 - 
+	 - etcdctl --endpoints=https://127.0.0.1:2379 (sudo cat /etc/kubernetes/manifests/etcd.yaml | grep listen) \
+	   --cacerts=/etc/kubernetes/pki/etcd/ca.crt (sudo cat /etc/kubernetes/manifests/etcd.yaml | grep '\-\-trusted') \
+	   --cert=/etc/kubernetes/pki/etcd/server.crt(sudo cat /etc/kubernetes/manifests/etcd.yaml | grep cert-file) \
+	   --key=/etc/kubernetes/pki/etcd/server.key(sudo cat /etc/kubernetes/manifests/etcd.yaml | grep key-file) \
+	   snapshot save <path>.db
+	   
+	- ex: ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
+  --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> \
+  snapshot save <backup-file-location>
+		
+		

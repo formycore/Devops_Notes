@@ -1,0 +1,166 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: mypod
+  name: mypod
+spec:
+  containers:
+  - image: redis
+    name: mypod
+    volumeMounts:
+    - name: redis-storage
+      mountPath: /root/redis
+  volumes:
+  - name: redis-storage
+    emptyDir: {}
+  volumes:
+  - name: redis-storage # it has to be the same with the volumeMounts
+	emptyDir: {} # this is persistance till the life cycle of the pod
+
+- go into the containers
+	- $ kubectl exec -it mypod -- sh
+	- the volume was attached to the pod not with the container 
+--------------------------------------------------------------------------------------------------------------------------------
+controlplane $ kubectl get pods 
+NAME    READY   STATUS    RESTARTS   AGE
+mypod   1/1     Running   0          2m20s
+controlplane $ kubectl exec -it mypod
+error: you must specify at least one command for the container
+controlplane $ kubectl exec -it mypod --sh
+error: unknown flag: --sh
+See 'kubectl exec --help' for usage.
+controlplane $ kubectl exec -it mypod -- sh
+# cd /root
+# ls
+redis
+# cd redis
+# pwd
+/root/redis
+# ls -lrt
+total 0
+# echo "hello samantha" >> sample.txt
+# ls
+sample.txt
+# cat sample.txt
+hello samantha
+# ps -aux
+sh: 9: ps: not found
+# apt-get update && apt-get install procps -y
+Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8789 kB]
+Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [8856 B]
+Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [216 kB]
+Fetched 9268 kB in 1s (7284 kB/s)                         
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libgpm2 libncursesw6 libproc2-0 psmisc
+Suggested packages:
+  gpm
+The following NEW packages will be installed:
+  libgpm2 libncursesw6 libproc2-0 procps psmisc
+0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1178 kB of archives.
+After this operation, 3778 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main amd64 libncursesw6 amd64 6.4-4 [134 kB]
+Get:2 http://deb.debian.org/debian bookworm/main amd64 libproc2-0 amd64 2:4.0.2-3 [62.8 kB]
+Get:3 http://deb.debian.org/debian bookworm/main amd64 procps amd64 2:4.0.2-3 [709 kB]
+Get:4 http://deb.debian.org/debian bookworm/main amd64 libgpm2 amd64 1.20.7-10+b1 [14.2 kB]
+Get:5 http://deb.debian.org/debian bookworm/main amd64 psmisc amd64 23.6-1 [259 kB]
+Fetched 1178 kB in 0s (6032 kB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package libncursesw6:amd64.
+(Reading database ... 6100 files and directories currently installed.)
+Preparing to unpack .../libncursesw6_6.4-4_amd64.deb ...
+Unpacking libncursesw6:amd64 (6.4-4) ...
+Selecting previously unselected package libproc2-0:amd64.
+Preparing to unpack .../libproc2-0_2%3a4.0.2-3_amd64.deb ...
+Unpacking libproc2-0:amd64 (2:4.0.2-3) ...
+Selecting previously unselected package procps.
+Preparing to unpack .../procps_2%3a4.0.2-3_amd64.deb ...
+Unpacking procps (2:4.0.2-3) ...
+Selecting previously unselected package libgpm2:amd64.
+Preparing to unpack .../libgpm2_1.20.7-10+b1_amd64.deb ...
+Unpacking libgpm2:amd64 (1.20.7-10+b1) ...
+Selecting previously unselected package psmisc.
+Preparing to unpack .../psmisc_23.6-1_amd64.deb ...
+Unpacking psmisc (23.6-1) ...
+Setting up libgpm2:amd64 (1.20.7-10+b1) ...
+Setting up psmisc (23.6-1) ...
+Setting up libproc2-0:amd64 (2:4.0.2-3) ...
+Setting up libncursesw6:amd64 (6.4-4) ...
+Setting up procps (2:4.0.2-3) ...
+Processing triggers for libc-bin (2.36-9+deb12u9) ...
+# ps -aux
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+redis          1  0.2  0.5 133628 10520 ?        Ssl  16:36   0:00 redis-server *:6379
+root          19  0.0  0.0   2568   908 pts/0    Ss   16:39   0:00 sh
+root         211  0.0  0.1   8052  3968 pts/0    R+   16:41   0:00 ps -aux
+# pkill -9 1 
+# ps -aux
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+redis          1  0.2  0.5 133628 10520 ?        Ssl  16:36   0:00 redis-server *:6379
+root          19  0.0  0.0   2568   908 pts/0    Ss   16:39   0:00 sh
+root         213  0.0  0.1   8052  3964 pts/0    R+   16:42   0:00 ps -aux
+# cd /root/redis
+# ls
+sample.txt
+# cat sample.txt
+hello samantha
+
+controlplane $ kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+mypod   1/1     Running   0          8m56s
+controlplane $ kubectl delete mypod
+error: the server doesn't have a resource type "mypod"
+controlplane $ kubectl delete pod mypod
+pod "mypod" deleted
+controlplane $ ls               
+filesystem  redis-pod.yml  snap
+controlplane $ kubectl apply -f redis-pod.yml 
+pod/mypod created
+controlplane $ kubectl exec -it mypod -- sh
+# cd /root/redis
+# ls
+-------------------------------------------------------------------------------------------------------------------------------
+- pv and pvc 
+- for the suppose the pv is around 100gb and pvc created with 10gb 
+- it checks with the modes that are used in the pvc 
+- access modes are 
+	- 1. ReadWriteOnce (RWO)
+	- 2. ReadOnlyMany (ROX)
+	- 3. ReadWriteMany (RWX)
+	- 4. ReadWriteOncePod (RWOP)
+- if the access modes mentioned in the pvc and pv are matched then only it will be binded
+------------------------
+pv.yml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pod-pv
+  label:
+    type:local
+spec:
+  capacity:
+    storage: 1Gi # if the pvc is created with 100mb, from 1Gi it will sliced 
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path:"/root/pv" 
+---------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pod-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+	  storage: 100Mi

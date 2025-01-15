@@ -1,0 +1,153 @@
+FROM node:14
+WORKDIR /app
+ADD . /app
+EXPOSE 80
+CMD ["node", "app.js"]
+
+
+docker tag us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0 \
+    us-central1-docker.pkg.dev/pro-variety-446316-c2/quickstart-docker-repo/quickstart-image:tag1
+
+docker tag us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0 us-central1-docker.pkg.dev/pro-variety-446316-c2/docker-repo/hello-app:1.1 
+
+-------------------------------------------------------------------
+Project setup
+
+Google Cloud organizes resources into projects. This allows you to collect all of the related resources for a single application in one place.
+
+Begin by creating a new project or selecting an existing project for this tutorial.
+to ensure that you have the permissions you need, or select an existing project in which you have the relevant permissions.
+
+Upgrade your Free Trial
+
+If you've used all of your credits or reached the end of your Free Trial, you must activate a full account to continue using Google Cloud. Activate to keep any remaining credits to spend during your trial and to avoid a disruption in service.
+
+For details, see Creating a project.
+Enable the Artifact Registry API:
+
+The necessary APIs are enabled:
+
+    Artifact Registry API 
+
+To set up Cloud Shell, click Next.
+
+Cloud Shell is the shell environment for managing resources hosted on Google Cloud. It comes pre-installed with Docker and the gcloud CLI, the primary command-line interface for Google Cloud.
+
+To launch Cloud Shell, click the Activate Cloud Shell
+
+button.
+
+A Cloud Shell session opens inside a frame lower on the console. Use this shell to run gcloud commands.
+
+To learn how to create a Docker repository using Cloud Console, click Next.
+
+Create a Docker repository using Cloud Console
+
+Create a Docker repository to store the sample image for this walkthrough. You can complete this step either in the Cloud Console or by using gcloud commands in Cloud Shell.
+
+If you want to create a Docker repository using Cloud Shell instead, view the Artifact Registry Quickstart for Docker.
+Cloud Console method
+
+    In the Cloud Console Navigation
+
+menu, click Artifact Registry > Repositories.
+
+Go to Artifact Registry Repositories
+
+    Click + Create Repository.
+
+    On the Create repository page, specify the following:
+
+        Name: quickstart-docker-repo
+
+        Format: Docker
+
+        Location Type: Region
+
+        Region: us-central1
+
+    Click Create to add your new Artifact Registry repository list.
+
+To learn how to configure authentication, click Next.
+
+Configure authentication
+
+Before you can push or pull images, configure Docker to use the Cloud Shell gcloud CLI and authenticate requests for Artifact Registry.
+
+To set up authentication to Docker repositories in the region us-central1, run the following command in Cloud Shell:
+gcloud auth configure-docker us-central1-docker.pkg.dev
+
+The command updates your Docker configuration. You can now connect with Artifact Registry in your Google Cloud project to push and pull images.
+
+To learn how to acquire an image to push to the Artifact Registry, click Next.
+
+Obtain an image to push
+
+For this walkthrough, you will push a Google sample image named hello-app.
+
+    Run the following command in Cloud Shell to pull version 1.0 of the hello-app image at the command prompt:
+
+    docker pull us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
+
+To learn how to add a tag name to your Docker image, click Next.
+
+Tag the image for the repository
+
+Before you push the Docker image to Artifact Registry, you must tag it with the Repository name.
+
+Tagging the Docker image with a repository name configures the docker push command to push the image to a specific location. For this walkthrough, the host location is us-central1-docker.pkg.dev.
+
+Run the following command to tag the image as quickstart-image:tag1:
+docker tag us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0 \
+    us-central1-docker.pkg.dev/pro-variety-446316-c2/quickstart-docker-repo/quickstart-image:tag1
+
+Where:
+
+    pro-variety-446316-c2 is your Cloud project ID.
+
+    us-central1 is the repository host location.
+
+    docker.pkg.dev is the hostname for Docker repositories.
+
+    quickstart-image is the image name you want to use in the repository.
+
+    tag1 is the tag you added to the Docker image. If unspecified, Docker will apply the default tag latest.
+
+To learn how to push the hello-app image to Artifact Registry, click Next.
+
+Push the image to Artifact Registry
+
+After you have configured authentication and tagged the local image, you can push the image to the repository that you created.
+
+To push the Docker image, run the following command:
+docker push us-central1-docker.pkg.dev/pro-variety-446316-c2/quickstart-docker-repo/quickstart-image:tag1
+
+To learn how to pull an image from Artifact Registry, click Next.
+
+
+Pull the image from Artifact Registry
+
+To pull the image from Artifact Registry onto your local machine, run the following command:
+docker pull us-central1-docker.pkg.dev/pro-variety-446316-c2/quickstart-docker-repo/quickstart-image:tag1
+
+You should see output similar to:
+latest: Pulling from pro-variety-446316-c2/quickstart-image:tag1
+Digest: sha256:70c42...
+Status: Image is up to date for us-central
+
+
+gcloud container clusters create my-first-cluster \
+    --zone=us-central1 \
+    --machine-type=n1-standard-2 \
+    --num-nodes=3 \
+    --network=default
+
+
+export my_zone=asia-south1-c
+export my_cluster=gke-standard-first-cluster
+gcloud container clusters create $my_cluster --num-nodes 3 --zone $my_zone
+
+
+git clone original 
+check out each branch
+check for the .git/config and change accordingly

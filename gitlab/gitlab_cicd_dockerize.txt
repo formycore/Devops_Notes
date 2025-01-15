@@ -1,0 +1,30 @@
+# taken this as the sample repo 
+# https://github.com/ravdy/hello-world
+stages:
+  - build
+  - build-img
+
+build_war:
+  image: maven:3.8.7-eclipse-temurin-8-alpine
+  stage: build
+  script:
+    - mvn clean install
+  artifacts:
+    paths:
+      - webapp/target/*.war
+
+build_img:
+  image: docker:latest
+  stage: build-img
+  services:
+    - docker:dind
+  dependencies:
+    - build_war # Fetch artifacts from the `build_war` job
+  script:
+    - cp webapp/target/*.war .
+    - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker build -t $CI_REGISTRY/hello-world:$CI_PIPELINE_ID .
+    - docker push $CI_REGISTRY/hello-world:$CI_PIPELINE_ID
+    - echo "hello"
+  # only:
+  #   - main # Only run on the main branch (optional)
