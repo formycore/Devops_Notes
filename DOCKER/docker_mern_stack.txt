@@ -1,0 +1,7 @@
+docker compose mern stack
+docker run node express
+docker mongodb
+docker run react
+
+
+https://www.youtube.com/watch?v=OLFPzDLRQz0

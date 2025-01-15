@@ -1,0 +1,136 @@
+RBAC
+
+- https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#enable-shell-autocompletion
+source <(kubectl completion bash) # set up autocomplete in bash into the current shell, bash-completion package should be installed first.
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+
+# Installing bash completion on Linux
+  ## If bash-completion is not installed on Linux, install the 'bash-completion' package
+  ## via your distribution's package manager.
+  ## Load the kubectl completion code for bash into the current shell
+  source <(kubectl completion bash)
+  ## Write bash completion code to a file and source it from .bash_profile
+  kubectl completion bash > ~/.kube/completion.bash.inc
+  printf "
+  # kubectl shell completion
+  source '$HOME/.kube/completion.bash.inc'
+  " >> $HOME/.bash_profile
+  source $HOME/.bash_profile
+  
+
+
+csr (certificate signing request)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kubernetes Core Concepts:
+
+Pods, Deployments, and Services: Understanding these basic components is crucial as RBAC deals with permissions around these resources.
+Namespaces: Since RBAC permissions are often namespace-specific, knowing how namespaces are structured and used in Kubernetes is essential.
+Kubernetes API Resources:
+
+ClusterRoles and Roles: These define a set of permissions. ClusterRoles are cluster-wide, while Roles are namespace-specific.
+RoleBindings and ClusterRoleBindings: These bind users, groups, or service accounts to Roles or ClusterRoles, defining who can perform what actions on resources.
+Kubernetes Authentication and Service Accounts:
+
+Authentication: Understanding how users and service accounts authenticate to the Kubernetes API server is necessary, as RBAC policies are enforced based on authentication.
+Service Accounts: Often used by applications or pods, service accounts need to be understood in the context of RBAC to grant permissions.
+Kubernetes Permissions Model:
+
+Verbs (GET, LIST, CREATE, UPDATE, DELETE, etc.): Knowing how to specify what actions are allowed is key to setting up effective RBAC policies.
+Resources and Namespaces: Knowing what resources (pods, services, configmaps, etc.) and namespaces (either cluster-wide or specific) the roles apply to.
+Kubernetes Auditing and Logging:
+
+Audit Logs: Familiarity with how to review logs of RBAC activity is helpful for troubleshooting and understanding permission issues.
+Once you're comfortable with these concepts, you can dive deeper into defining specific roles, managing user access, and troubleshooting RBAC-related issues in your Kubernetes cluster.
+
+https://www.youtube.com/watch?v=FRKTTTBwl9c
+
+
+- create a new rbacserver
+- check we can ping to master server
+- ping master server ip
+- install kubectl on the rbacserver
+-  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+- chmod +x kubectl
+- sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+- OR
+- snap install kubectl --classic
+- mkdir .kube
+- copy the file from the master to ./kube/<here>
+- rename the admin.conf to config
+- kubectl get nodes 
+- we will get all the information we can create the pods and everything
+
+
+- ON MASTER
+- check for the admin.conf file (/etc/kubernetes/admin.conf)
+--------------------------------------------------RBAC----------------------------------------------------------------------
+- ON MASTER
+- create a new namespace testing
+- $ kubectl create namespace testing
+
+
+- on rbacserver
+- we can create a new user rbaccheck
+- create ssl keys with normal user 
+- openssl genrsa -out <username>.key 2048 <size>
+- $ openssl genrsa -out msandeep.key 2048
+# convert this key to a csr file
+- openssl req -new -key <username>.key -out <username>.csr -subj "/CN=<username>"
+- in the rbaccheck user has key and csr files
+- on the master we have a self signed certificate is already available
+- rbaccheck will send the key and csr file to master self signed certificate to the master
+- on the master self signed certificate will take this csr file and convert it into the crt file send back to the rbaccheck user
+- we use key,csr,crt for authentication
+
+
+- on MASTER
+- the key, csr files are copied from the rbacserver
+- openssl -x509(standard) -req(requesting new certificate) -in(input) .csr(file) -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.crt -CAcreateserial -out username.crt -days <no of days>
+
+- openssl -x509 -req -in rbaccheck.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out rbaccheck.crt -days 365
+- openssl x509 -req -in rbaccheck.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out rbaccheck.crt -days 365
+
+- try with sudo if got error
+- create a rbaccheck user on the master also 
+
+- on rbacserver
+- with rbaccheck user
+- copy the file crt file from the master to here 
+- and copy the /etc/kubernetes/admin.conf to here 
+- mkdir .kube
+- copy the admin.conf to ./kube with rename config
+- cd .kube/
+- cp ~/admin.conf config
+- 
+
+-----------------------------------
+create a user dev 
+- create ssl keys with normal user 
+- openssl genrsa -out <username>.key 2048 <size>
+- $ openssl genrsa -out msandeep.key 2048
+# convert this key to a csr file
+- openssl req -new -key <username>.key -out <username>.csr -subj "/CN=<username>"
+- $ openssl req -new -key dev.key -out dev.csr -sub "/CN=dev"
+- openssl -x509(standard) -req(requesting new certificate) -in(input) .csr(file) -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.crt -CAcreateserial -out username.crt -days <no of days>
+- openssl -x509 -req -in dev.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out dev.crt -days 365
+- cat ~/.kube/config | grep https
+- # generate the kube config file for dev user 
+- kubectl --kubeconfig <user>.kubeconfig config set-cluster kubernetes --server <from the cat ~/.kube/config | grep https > --certificate-authority=<fetch from the command to create the crt file> 
+- kubectl --kubeconfig dev.kubeconfig config set-cluster kubernetes --server https://10.128.0.4:6443 --certificate-authority=/etc/kubernetes/pki/ca.crt
+
+- cat dev.kubeconfig
+- context, current-context: "", users: null we need to update these fields
+- kubectl --kubeconfig <user>.kubeconfig config set-credentials <user> --client-certificate <user.crt> --client-key <user.key>

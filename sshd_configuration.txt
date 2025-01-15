@@ -1,0 +1,77 @@
+In most cases, **passwordless SSH authentication** should work out of the box if the public key is copied correctly to the `authorized_keys` file. However, in certain cases, you might need to adjust settings in the **`sshd_config`** file to ensure that key-based authentication is allowed.
+
+### Here are the key SSH server configurations you might want to check in **`/etc/ssh/sshd_config`** on both **Server 1** and **Server 2**:
+
+1. **Ensure Public Key Authentication is Enabled:**
+   
+   Open the **`/etc/ssh/sshd_config`** file in a text editor like `nano` or `vi`:
+
+   ```bash
+   sudo nano /etc/ssh/sshd_config
+   ```
+
+   Ensure the following lines are either set or uncommented (without a `#` at the start of the line):
+
+   ```bash
+   PubkeyAuthentication yes
+   ```
+
+   This enables public key authentication.
+
+2. **Check the `AuthorizedKeysFile` Setting:**
+
+   The `AuthorizedKeysFile` specifies the file where SSH keys are stored. By default, it is usually set to:
+
+   ```bash
+   AuthorizedKeysFile     .ssh/authorized_keys
+   ```
+
+   This is typically correct, but if you have customized the location or name of the `authorized_keys` file, ensure the correct path is set.
+
+3. **Allow Password Authentication (Optional):**
+
+   If you want to disable password authentication (so that only key-based authentication is allowed), you can set:
+
+   ```bash
+   PasswordAuthentication no
+   ```
+
+   **Note:** If you disable password authentication, ensure that your SSH keys are correctly set up and working first. Otherwise, you might lock yourself out of the server.
+
+4. **Check for `PermitEmptyPasswords` Setting:**
+
+   Ensure that **empty passwords** are not allowed, which is a security risk. If you have it set to `yes`, change it to `no`:
+
+   ```bash
+   PermitEmptyPasswords no
+   ```
+
+5. **Ensure Correct Permissions on SSH Directories and Files:**
+
+   After modifying the `sshd_config` file, SSH might refuse to work if the permissions on the `.ssh` directory or `authorized_keys` file are too loose.
+
+   - Ensure **`~/.ssh`** has `700` permissions (i.e., only the user can read, write, and execute):
+     ```bash
+     chmod 700 ~/.ssh
+     ```
+   - Ensure **`~/.ssh/authorized_keys`** has `600` permissions (i.e., only the user can read and write):
+     ```bash
+     chmod 600 ~/.ssh/authorized_keys
+     ```
+
+6. **Restart SSH Service:**
+
+   After making any changes to the **`sshd_config`** file, you must restart the SSH service for the changes to take effect:
+
+   ```bash
+   sudo systemctl restart sshd
+   ```
+
+### Summary of Important `sshd_config` Settings:
+- **PubkeyAuthentication yes**: Allows public key authentication.
+- **AuthorizedKeysFile .ssh/authorized_keys**: Specifies the file where authorized keys are stored.
+- **PasswordAuthentication no**: (Optional) Disables password-based login.
+- **PermitEmptyPasswords no**: Ensures empty passwords are not allowed.
+
+### Conclusion:
+While passwordless authentication should work with default settings, it is a good idea to double-check these configurations, especially if you encounter issues. After verifying and adjusting the `sshd_config` file, remember to restart the SSH service to apply the changes.

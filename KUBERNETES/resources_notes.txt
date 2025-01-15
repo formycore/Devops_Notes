@@ -1,0 +1,41 @@
+- in gcp e2 will have 2vcpu and 4gb ram 
+- resources topics
+-------------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resource-demo
+spec:
+  containers:
+  - name: resource-demo
+    image: polinux/stress
+    command: ["stress"]
+    args: ["--cpu","1","--vm","1","--vm-bytes" ,"1G","--vm-hang","1"]
+    resources:
+      requests:
+        cpu: "1"
+        memory: "10Gi" # change it to "2Gi" to run 
+-------------------------------------------
+it will be in pending state beacause it dont have 10Gi memory
+
+# now add the limits to the files
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resource-demo
+spec:
+  containers:
+  - name: resource-demo
+    image: polinux/stress
+    command: ["stress"]
+    args: ["--cpu","1","--vm","1","--vm-bytes" ,"4G","--vm-hang","1"]
+    resources:
+      requests:
+        cpu: "1"
+        memory: "10Gi" # change it to "2Gi" to run
+      limits:
+        cpu: "2"
+        memory: "3Gi" 
+# it will go into the OOM killed or crashloopback off
+# limit memory is 3 and args memory is 4gb it will restart

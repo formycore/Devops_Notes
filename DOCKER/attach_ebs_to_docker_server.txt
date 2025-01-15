@@ -1,0 +1,44 @@
+EBS volume to docker server
+- all the data is stored in the /var/lib/docker 
+- so basically all the data is storing in the root directory only 
+- this is not good
+
+----------------------
+- create a volume in aws 
+- no snapshot
+- attach the volume to instance 
+- $ lsblk
+- $ fdisk /var/<we will get the different name> (xvdf)
+- $ n > p > w
+- $ mkfs.ext4 /dev/xvdf1
+- copy the UUID 
+- mkdir /dockerdata (to attach it to the volume )
+- vim /etc/fstab
+- UUDID=(not colon)  (double space)<path of the dir to connect with volume> (double space)<file extention type>
+- UUID=asdfad;fja;sdfj  /dockerdata ext4 
+
+
+-  go inside the directory(/dockerdata) try to create a file just to check it accessable
+- stop the docker service and socket
+- sudo sysetemctl stop docker.service
+- sudo systemctl stop docker.socket
+
+- we need to edit the file of docker.service (/lib/systemd/system/docker.service)
+- cp /lib/systemd/system/docker.service /lib/systemd/sysetem/docker.service_bkp
+- vim /etc/systemd/system/docker.service 
+
+
+- we need to modify the ExecStart line
+- copy the line and comment it 
+- paste the line and add 
+- ExecStart=/usr/bin/dockerd --data-root <directory_name with path> and the rest are same
+- sudo rsync -aqxp /var/lib/docker/ <directory_name>
+- $ sudo rysnc -aqxp /var/lib/docker/ /dockerdata
+- $ sudo systemctl deamon-reload && sudo systemctl start docker 
+- check the process for the docker 
+- $ ps aux | grep -i docker | grep -v grep
+- check the disk space 
+- df -h 
+- pull the node image it will around 1gb 
+- it will be added to the newly creted <directory_name>
+

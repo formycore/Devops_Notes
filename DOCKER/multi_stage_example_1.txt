@@ -1,0 +1,35 @@
+# the code part is not important inside the container
+# only important part is 
+# running the application
+# Exposing the port
+# Copying the Environment
+# THIS IS MULTISTAGE BUILD
+# in the .env.sample only we need to provide the public ip
+# in the stage 1 only compiling the code, installing the dependencies are all done
+# -------------------------------------- Stage 1 ----------------------------------------------------
+FROM node:21 AS backend-builder
+# Setup the working Directory
+# this will become compressed layer if we are using this in the stage 2
+WORKDIR /app
+# Code Copy
+COPY . .
+# Installing the dependencies
+RUN npm i
+# ----------------------------------------State 2----------------------------------------------------
+# this slimmer version of the node:21 which is under 1.19 GB
+# if we use the node:21-slim in the first stage we might get the issue with (npm i) 
+FROM node:21-slim
+# Setup the working Directory
+# this is the new stage we need this working directory too 
+WORKDIR /app
+# copy the above stage as compressed
+# COPY from=<stage 1 name (backend-builder)>
+# from the stage 1 we have all the modules and dependencies are under /app here (.)
+COPY --from=backend-builder /app .
+COPY .env.sample .env
+# Port Expose
+EXPOSE 5000
+# Run the application 
+CMD ["npm", "start"]
+    
+    

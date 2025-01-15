@@ -1,0 +1,15 @@
+- now create the docker file 
+- push that to gitlab container registry
+- pull that container for kubernetes deployment 
+
+kubectl run login-app --image=registry.gitlab.com/awssandeepchary1/gitlab-kube-inte-sample-repo/demo:v1 --dry-run=client -o yaml >> login-app.yml
+
+kubectl create secret docker-registry my-secret --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
+
+
+kubectl create secret docker-registry app-secret --docker-server=registry.gitlab.com --docker-username=cicd --docker-password=<>
+
+ kubectl create secret docker-registry app-secret --dokcer-server=registry.gitlab.com --docker-username='cicd' --docker-password='' --dry-run=client -o yaml >> app-secret.yml
+ 
+ 
+ kubectl create secret docker-registry app-secret --docker-server=registry.gitlab.com --docker-username=cicd --docker-password=glpat- --dry-run=client -o yaml >> apps-secret.yml
