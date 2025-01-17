@@ -1,0 +1,155 @@
+
+
+```markdown
+# Velero Installation and Configuration with AWS S3
+
+This document outlines the steps to install Velero, configure it with AWS S3, and perform backup and restore operations in a Kubernetes cluster.
+
+## Prerequisites
+
+- A running Kubernetes cluster
+- AWS CLI installed and configured with appropriate permissions
+
+## Step 1: Download and Install Velero
+
+Download the Velero binary for Linux:
+
+```bash
+wget https://github.com/vmware-tanzu/velero/releases/download/v1.15.2/velero-v1.15.2-linux-amd64.tar.gz
+```
+
+Extract the downloaded file:
+
+```bash
+tar -xvf velero-v1.15.2-linux-amd64.tar.gz
+```
+
+Move the Velero binary to your local bin directory:
+
+```bash
+sudo mv velero-v1.15.2-linux-amd64/velero /usr/local/bin/
+```
+
+Verify the installation:
+
+```bash
+velero version
+```
+
+## Step 2: Verify AWS CLI Configuration
+
+Check your AWS identity to ensure that the AWS CLI is configured correctly:
+
+```bash
+aws sts get-caller-identity
+```
+
+## Step 3: Create an S3 Bucket
+
+Create an S3 bucket for Velero backups:
+
+create a bucket:
+
+```bash
+aws s3api create-bucket --bucket k8s-backup-9704 --region ap-south-1 --create-bucket-configuration LocationConstraint=ap-south-1
+```
+
+## Step 4: Configure Velero with AWS S3 Bucket
+
+Install Velero with the AWS provider and specify the S3 bucket:
+
+
+```bash
+velero install --provider aws --plugins velero/velero-plugin-for-aws:v1.0.0 --bucket k8s-backup-9704 --secret-file ~/.aws/credentials --backup-location-config region=ap-south-1 --snapshot-location-config region=ap-south-1
+```
+
+## Step 5: Check Velero Pods
+
+Verify that Velero pods are running:
+
+```bash
+kubectl get all -n velero
+```
+
+## Step 6: Deploy a Test Application
+
+Create a namespace and deploy a test application:
+
+```bash
+kubectl create ns k8sbackup
+kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0 -n k8sbackup
+```
+
+## Step 7: Create a Backup
+
+Create a backup of the deployed application:
+
+```bash
+velero backup create <backup-name> --include-namespaces k8sbackup
+```
+
+For example:
+
+```bash
+velero backup create backup-b
+```
+
+## Step 8: Delete the Deployment
+
+Delete the namespace or the deployment:
+
+```bash
+kubectl delete ns k8sbackup
+```
+
+## Step 9: Restore from Backup
+
+Restore the application from the backup:
+
+```bash
+velero restore create --from-backup <backup-name>
+```
+
+For example:
+
+```bash
+velero restore create --from-backup backup-a
+velero restore create --from-backup backup-b
+```
+
+## Step 10: Check the Namespace
+
+Verify that the namespace has been restored:
+
+```bash
+kubectl get ns | grep k8sbackup
+```
+
+## Step 11: Configure Velero on a Second Cluster
+
+To configure Velero on a second cluster, repeat the installation steps:
+
+### Download and Install Velero
+
+```bash
+wget https://github.com/vmware-tanzu/velero/releases/download/v1.15.2/velero-v1.15.2-linux-amd64.tar.gz
+tar -xvf velero-v1.15.2-linux-amd64.tar.gz
+sudo mv velero-v1.15.2-linux-amd64/velero /usr/local/bin/
+velero version
+```
+
+### Configure Velero
+
+Install the aws plugings with correct bucket :
+
+```bash
+velero install --provider aws --plugins velero/velero-plugin-for-aws:v1.0.0 --bucket k8s-backup-9704 --secret-file ~/.aws/credentials --backup-location-config region=ap-south-1 --snapshot-location-config region=ap-south-1
+```
+
+### Check the Namespace
+
+Verify the Velero namespace:
+
+```bash
+kubectl get ns | grep k8sbackup
+```
