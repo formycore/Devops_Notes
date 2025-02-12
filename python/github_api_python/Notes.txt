@@ -1,0 +1,29 @@
+- go to docs.github.com/en/rest/references
+1: Create a repo
+2: Delete a repo
+3: List Repo
+
+
+- base url https://api.github.com
+
+- export token="token- here"
+--------------------------------------------------------------------------------------------------
+
+
+
+- go to https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#create-a-repository-for-the-authenticated-user
+- to crate a create-a-repository-for-the-authenticated-user
+- post /user/repos
+- end point /user/repos
+
+-------------------------------------------------------------------------
+2 delete a repo
+
+https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#delete-a-repository
+
+DELETE /repos/{owner}/{repo}
+
+-----------------------------------------------------------------------
+3 list a repo
+
+GET /users/{username}/repos
