@@ -67,7 +67,8 @@ sudo apt-get update
 ```sudo apt-get install containerd.io```
 - Configure C - group
 - to load the default container configuations 
-- **Now we need to start with root**
+
+**_Now we need to start with root_**
 
 ```containerd config default > /etc/containerd/config.toml```
 - we have to enable systemdCgroup
