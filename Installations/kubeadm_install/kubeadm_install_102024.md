@@ -45,6 +45,7 @@ sudo swapoff -a
 - https://v1-29.docs.kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd
 ``` getting started with containerd ```
 - https://github.com/containerd/containerd/blob/main/docs/getting-started.md
+
 - select option 2 ( select according to operating system)
 - Set up Docker's apt repository.
 ```
@@ -65,7 +66,9 @@ sudo apt-get update
 - install the containerd packages
 ```sudo apt-get install containerd.io```
 - Configure C - group
-- to load the default container configuations
+- to load the default container configuations 
+- **start with root**
+
 ```containerd config default > /etc/containerd/config.toml```
 - we have to enable systemdCgroup
 ```
