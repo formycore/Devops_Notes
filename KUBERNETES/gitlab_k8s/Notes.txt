@@ -1,0 +1,13 @@
+step 1:
+1) create a repo A on gitlab
+2) create agent on gitlab
+3) Install gitlab agent on k8s cluster
+4) Register connection between k8s and gitlab
+
+step 2:
+- create repo B on gitlab
+- create k8s manifest for our project
+- push project data on repo B
+- create image and push it to gitlab container Registery
+- final cicd
+
