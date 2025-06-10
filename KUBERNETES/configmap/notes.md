@@ -1,7 +1,40 @@
 # config map
 - if we want to change the values of the env values inside the container it is not possible
 - so we use config map for first then we can use config with volume mount
-
+```
+## create config map
+- kubectl create configmap <configmap-name> --from-literal=<key>=<value>
+- kubectl create configmap test-cm --from-literal=db-port=3306
+- kubectl get configmap
+```
+### without volume mount
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+        app: myapp
+    template:
+        metadata:
+        labels:
+            app: myapp
+        spec:
+        containers:
+        - name: myapp
+            image: abhishekf5/python-sample-app-demo:v1
+            ports:
+            - containerPort: 8000
+            env:
+            - name: DB_PORT
+                valueFrom:
+                configMapKeyRef:
+                    name: test-cm
+                    key: db-port
+```
 ## config map with env 
 - kubectl create configmap <configmap-name> --from-literal=<key>=<value> --dry-run=client -o yaml > demo-cm.yml
 - kubectl create configmap test-cm --from-literal=db-port=3306 --dry-run=client -o yaml > demo-cm.yml

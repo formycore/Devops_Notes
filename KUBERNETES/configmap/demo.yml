@@ -1,0 +1,33 @@
+# demo config without volume mounts
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: myapp
+  name: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - image: abhishekf5/python-sample-app-demo:v1
+        name: python-sample-app-demo
+        env:
+          - name: DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: test-cm # This is the name of the ConfigMap
+                key: db-port
+        ports:
+        - containerPort: 800
+      resources: {}
+status: {}
