@@ -1,100 +1,130 @@
-# config map
-- if we want to change the values of the env values inside the container it is not possible
-- so we use config map for first then we can use config with volume mount
+# Kubernetes ConfigMap Usage
+
+## 1. Create the ConfigMap
+
+You can create a ConfigMap using the following command:
+
 ```
-## create config map
-- kubectl create configmap <configmap-name> --from-literal=<key>=<value>
-- kubectl create configmap test-cm --from-literal=db-port=3306
-- kubectl get configmap
+kubectl create configmap test-cm --from-literal=db-port=3306 --dry-run=client -o yaml > demo-cm.yml
+kubectl apply -f demo-cm.yml
+kubectl get configmap
+kubectl describe configmap test-cm
 ```
-### without volume mount
-```
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: myapp
-spec:
-    replicas: 1
-    selector:
-        matchLabels:
-        app: myapp
-    template:
-        metadata:
-        labels:
-            app: myapp
-        spec:
-        containers:
-        - name: myapp
-            image: abhishekf5/python-sample-app-demo:v1
-            ports:
-            - containerPort: 8000
-            env:
-            - name: DB_PORT
-                valueFrom:
-                configMapKeyRef:
-                    name: test-cm
-                    key: db-port
-```
-## config map with env 
-- kubectl create configmap <configmap-name> --from-literal=<key>=<value> --dry-run=client -o yaml > demo-cm.yml
-- kubectl create configmap test-cm --from-literal=db-port=3306 --dry-run=client -o yaml > demo-cm.yml
-- kubectl apply -f demo-cm.yml
-- kubectl get configmap
-- kubectl describe configmap <configmap-name>
----------------------
-- now create a pod with config map
-- kubectl create deployment myapp --image=abhishekf5/python-sample-app-demo:v1 --dry-run=client -o yaml > demo-deployment.yml
-- kubectl apply -f demo-deployment.yml
-- kubectl get pods
-- if we change the value of config map we need to delete the pod and recreate it
-- but if we go with volume mount then we can change the value of config map without deleting the pod
-## config map with volume mount
-- kubectl create configmap test-cm --from-literal=db-port=3306 --dry-run=client -o yaml > demo-cm.yml
-- kubectl apply -f demo-cm.yml
-- kubectl create deployment myapp --image=abhishekf5/python-sample-app-demo:v1 --port=3306 --dry-run=client -o yaml > demo-deployment.yml
-```
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: myapp
-spec:
-    replicas: 1
-    selector:
-        matchLabels:
-        app: myapp
-    template:
-        metadata:
-        labels:
-            app: myapp
-        spec:
-        containers:
-        - name: myapp
-            image: abhishekf5/python-sample-app-demo:v1
-            ports:
-            - containerPort: 8000
-            volumeMounts:
-            - name: config-volume
-            mountPath: /etc/config
-        volumes:
-        - name: config-volume
-            configMap:
-            name: test-cm
-```     
-- kubectl apply -f demo-deployment.yml
-- kubectl get pods
-- kubectl exec -it <pod-name> -- /bin/sh
-- cat /etc/config/db-por
-- now change the value of config map
-- vim demo-cm.yml
+
+Example `demo-cm.yml`:
 ```
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: test-cm
 data:
-  db-port: "3307"
-``` 
-- kubectl apply -f demo-cm.yml
-- kubectl exec -it <pod-name> -- /bin/sh
-- cat /etc/config/db-port
-- now we can see the value is changed without deleting the pod
+  db-port: "3306"
+```
+
+---
+
+## 2. Create Deployment **without** Volume Mount
+
+This method injects the ConfigMap value as an environment variable.
+
+Example deployment YAML:
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: abhishekf5/python-sample-app-demo:v1
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: test-cm
+              key: db-port
+```
+
+Apply the deployment:
+```
+kubectl apply -f demo-deployment.yml
+kubectl get pods
+```
+
+---
+
+## 3. Create Deployment **with** Volume Mount
+
+This method mounts the ConfigMap as a file inside the container.
+
+Example deployment YAML:
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: abhishekf5/python-sample-app-demo:v1
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: test-cm
+```
+
+Apply the deployment:
+```
+kubectl apply -f demo-deployment.yml
+kubectl get pods
+kubectl exec -it <pod-name> -- /bin/sh
+cat /etc/config/db-port
+```
+
+To update the ConfigMap and see changes reflected in the pod (when using volume mount):
+
+1. Edit `demo-cm.yml` and change the value:
+    ```
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: test-cm
+    data:
+      db-port: "3307"
+    ```
+2. Apply the changes:
+    ```
+    kubectl apply -f demo-cm.yml
+    ```
+3. Check the updated value inside the pod:
+    ```
+    kubectl exec -it <pod-name> -- /bin/sh
+    cat /etc/config/db-port
+    ```
+
+With volume mount, the value updates without needing to delete or recreate the pod.
