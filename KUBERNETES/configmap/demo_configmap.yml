@@ -1,0 +1,8 @@
+# configmap with db-port
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cm # This is the name of the ConfigMap
+data:
+  db-port: "5432"  # This is the port number for the database connection
+  
