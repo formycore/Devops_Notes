@@ -1,0 +1,22 @@
+    sudo apt update && sudo apt upgrade -y
+	    sudo apt install git make -y
+		    sudo apt install docker.io -y
+    sudo systemctl enable --now docker
+    sudo usermod -aG docker $USER
+    newgrp docker # You might need to log out and back in for changes to take effect
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    sudo install minikube-linux-amd64 /usr/local/bin/minikube
+	    minikube start --vm-driver=docker --addons=ingress
+		
+		
+git clone https://github.com/ansible/awx-operator.git
+cd awx-operator/
+git checkout 2.19.1
+export NAMESPACE=ansible-awx
+make deploy
+kubectl create -f awx-demo.yml -n ansible-awx
+kubectl get pods -n ansible-awx
+kubectl get svc awx-demo-service -n ansible-awx
+kubectl get secret -n ansible-awx | grep -i password
+kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" -n ansible-awx | base64 --decode; echo
+	
