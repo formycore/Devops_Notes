@@ -1,0 +1,14 @@
+ ~/Downloads/demo_sed                                                                                                                              ─╮
+❯ cat file1                                                                                                                                          ─╯
+demo:apple
+ ~/Downloads/demo_sed                                                                                                                              ─╮
+❯ sed -i 's|demo:.*|demo:samsung|' file1                                                                                                             ─╯
+ ~/Downloads/demo_sed                                                                                                                              ─╮
+❯ cat file1                                                                                                                                          ─╯
+demo:samsung
+ ~/Downloads/demo_sed                                                                                                                              ─╮
+❯ sed -i "s|demo:.*|demo:apple|" file1                                                                                                               ─╯
+ ~/Downloads/demo_sed                                                                                                                              ─╮
+❯ cat file1                                                                                                                                          ─╯
+demo:apple
+ ~/Downloads/demo_sed   
