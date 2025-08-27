@@ -1,0 +1,16 @@
+# set local connection
+  - name: start stop shell
+    connection: local
+    hosts: localhost
+    tasks:
+      - name: Start shell script
+        command: /home/maanya/Downloads/devops_projs/ansible/stop_start_sh_ansible/hp.sh start
+        when: action == "start"
+        register: start_result
+      - name: Stop shell script
+        command: /home/maanya/Downloads/devops_projs/ansible/stop_start_sh_ansible/hp.sh stop
+        when: action == "stop"
+        register: stop_result
+      - name: Print results
+        debug:
+          msg: "Start result: {{ start_result.stdout | default('N/A') }}, Stop result: {{ stop_result.stdout | default('N/A') }}"

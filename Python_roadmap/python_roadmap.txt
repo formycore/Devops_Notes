@@ -1,0 +1,170 @@
+🐍 Python Roadmap for Machine Learning (Prerequisites Only)
+1. Python Basics
+
+Install Python 3.x, set up virtual environments (venv or conda).
+
+Learn:
+
+Variables, data types (int, float, str, bool)
+
+Input/output, operators, type conversion
+
+Strings (slicing, formatting, f-strings)
+
+Conditionals (if/elif/else)
+
+Loops (for, while, break, continue)
+
+Mini-projects:
+
+Calculator program
+
+Number guessing game
+
+2. Data Structures
+
+Lists: indexing, slicing, methods (append, extend, pop)
+
+Tuples: immutability, unpacking
+
+Sets: uniqueness, set operations
+
+Dictionaries: keys, values, nested dicts
+
+Comprehensions (list/set/dict)
+
+Mini-projects:
+
+Contact book with dictionary
+
+Word frequency counter
+
+3. Functions & Modules
+
+Defining functions, return values
+
+Default & keyword arguments
+
+*args and **kwargs
+
+Lambda functions
+
+Scope & namespaces
+
+Importing modules (math, random, os, sys)
+
+Writing your own modules
+
+Mini-projects:
+
+Function-based calculator
+
+Script to rename files in a folder
+
+4. File Handling
+
+Open, read, write, append files
+
+Context manager (with open(...))
+
+CSV & JSON files (via csv, json modules)
+
+Mini-projects:
+
+Read a CSV and calculate summary stats
+
+Store user data into JSON file
+
+5. Error Handling
+
+try/except/finally
+
+Common exceptions (ValueError, TypeError, FileNotFoundError)
+
+Raising exceptions (raise)
+
+Mini-projects:
+
+Safe file reader (handles missing files)
+
+6. Object-Oriented Programming (OOP)
+
+Classes & objects
+
+Attributes vs. methods
+
+__init__, __str__, __repr__
+
+Inheritance, polymorphism, encapsulation
+
+Static & class methods
+
+Mini-projects:
+
+Bank account class
+
+Student management system
+
+7. Advanced Python (useful for ML)
+
+Iterators & Generators (yield)
+
+Decorators
+
+Context managers
+
+map, filter, reduce
+
+enumerate, zip
+
+List vs. generator expressions
+
+Mini-projects:
+
+Custom iterator
+
+Decorator to log function execution time
+
+8. Working with Libraries (ML-focused prerequisites)
+
+NumPy: arrays, indexing, broadcasting, math ops
+
+pandas: DataFrame, Series, indexing, groupby, missing values
+
+Matplotlib/Seaborn: basic plots, scatter, hist, boxplot
+
+scipy.stats: distributions, statistical functions (just intro)
+
+Mini-projects:
+
+Data cleaning with pandas
+
+Exploratory Data Analysis (EDA) on a dataset
+
+Visualization of trends
+
+9. Useful Extras
+
+Virtual environments (venv or conda)
+
+pip & requirements.txt
+
+Jupyter Notebook basics
+
+Git/GitHub basics (for versioning projects)
+
+✅ Final Milestone Before ML:
+
+You should be able to:
+
+Load a CSV with pandas
+
+Clean the data (handle missing values, convert types)
+
+Do exploratory data analysis (summary stats + plots)
+
+Write clean, modular Python code with functions/classes
+
+At this point → you’re ready to learn Machine Learning algorithms with scikit-learn, TensorFlow, or PyTorch.
+
+👉 Do you want me to also make a timeline checklist (like Week 1, Week 2, …) for this Python roadmap, so you can follow it step by step?
