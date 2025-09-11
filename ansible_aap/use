@@ -1,0 +1,6 @@
+{% if inventory_hostname == "local" %}
+Hello {{ sentence }}!
+{% elif inventory_hostname == "node" %}
+# Hello {{ sentence }}!
+{% endif %}
+
