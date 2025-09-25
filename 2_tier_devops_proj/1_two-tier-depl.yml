@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: two-tier-dep
+  name: two-tier-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-dep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: two-tier-dep
+    spec:
+      containers:
+      - image: formycore/flaskapp_2509:v1
+        env:
+          - name: MYSQL_HOST
+            #value: "mysql"
+            value: "10.97.49.84" # we need to change mysql to mysql svc ip 
+          - name: MYSQL_USER
+            value: "admin"
+          - name: MYSQL_PASSWORD
+            value: "admin"
+          - name: MYSQL_DB
+            value: "mydb"
+        name: flaskapp-2509
+        resources: {}
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
