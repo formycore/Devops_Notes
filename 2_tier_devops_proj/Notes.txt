@@ -1,0 +1,1090 @@
+git clone https://github.com/formycore/2-tier_app_docker.git
+controlplane:~$ ls
+2-tier_app_docker  filesystem
+controlplane:~$ cd 2-tier_app_docker/
+controlplane:~/2-tier_app_docker$ ls
+Dockerfile  Jenkinsfile  README.md  app.py  docker-compose.yml  eks-manifests  k8s  message.sql  requirements.txt  templates
+controlplane:~/2-tier_app_docker$ docker build -t formycore/flaskapp_2509:v1 .
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  106.5kB
+Step 1/8 : FROM python:3.9-slim
+3.9-slim: Pulling from library/python
+ce1261c6d567: Pull complete 
+1d454ace0e38: Pull complete 
+41dc2499d8fe: Pull complete 
+7fcdf9369fa9: Pull complete 
+Digest: sha256:cf0704507972b63c9b20382dd6f05248572d6b25961410305f96479bf2e8a23c
+Status: Downloaded newer image for python:3.9-slim
+ ---> 56cea0119ab6
+Step 2/8 : WORKDIR /app
+ ---> Running in 05db619464ca
+ ---> Removed intermediate container 05db619464ca
+ ---> fa0309bd3fc0
+Step 3/8 : RUN apt-get update     && apt-get upgrade -y     && apt-get install -y gcc default-libmysqlclient-dev pkg-config     && rm -rf /var/lib/apt/lists/*
+ ---> Running in c1e74f0a3736
+Hit:1 http://deb.debian.org/debian trixie InRelease
+Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9669 kB]
+Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [5412 B]
+Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [45.7 kB]
+Fetched 9810 kB in 2s (4464 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages will be upgraded:
+  libsystemd0 libudev1
+2 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Need to get 606 kB of archives.
+After this operation, 0 B of additional disk space will be used.
+Get:1 http://deb.debian.org/debian trixie-updates/main amd64 libsystemd0 amd64 257.8-1~deb13u2 [454 kB]
+Get:2 http://deb.debian.org/debian trixie-updates/main amd64 libudev1 amd64 257.8-1~deb13u2 [152 kB]
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 2.)
+debconf: falling back to frontend: Teletype
+debconf: unable to initialize frontend: Teletype
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Noninteractive
+Fetched 606 kB in 1s (825 kB/s)
+(Reading database ... 5644 files and directories currently installed.)
+Preparing to unpack .../libsystemd0_257.8-1~deb13u2_amd64.deb ...
+Unpacking libsystemd0:amd64 (257.8-1~deb13u2) over (257.8-1~deb13u1) ...
+Setting up libsystemd0:amd64 (257.8-1~deb13u2) ...
+(Reading database ... 5644 files and directories currently installed.)
+Preparing to unpack .../libudev1_257.8-1~deb13u2_amd64.deb ...
+Unpacking libudev1:amd64 (257.8-1~deb13u2) over (257.8-1~deb13u1) ...
+Setting up libudev1:amd64 (257.8-1~deb13u2) ...
+Processing triggers for libc-bin (2.41-12) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu cpp cpp-14
+  cpp-14-x86-64-linux-gnu cpp-x86-64-linux-gnu gcc-14 gcc-14-x86-64-linux-gnu
+  gcc-x86-64-linux-gnu libasan8 libatomic1 libbinutils libc-dev-bin libc6-dev
+  libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libgcc-14-dev libgomp1
+  libgprofng0 libhwasan0 libisl23 libitm1 libjansson4 liblsan0 libmariadb-dev
+  libmariadb-dev-compat libmariadb3 libmpc3 libmpfr6 libpkgconf3 libquadmath0
+  libsframe1 libssl-dev libtsan2 libubsan1 linux-libc-dev manpages
+  manpages-dev mariadb-common mysql-common pkgconf pkgconf-bin rpcsvc-proto
+  zlib1g-dev
+Suggested packages:
+  binutils-doc gprofng-gui binutils-gold cpp-doc gcc-14-locales cpp-14-doc
+  gcc-multilib make autoconf automake libtool flex bison gdb gcc-doc
+  gcc-14-multilib gcc-14-doc gdb-x86-64-linux-gnu libc-devtools glibc-doc
+  libssl-doc man-browser
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu cpp cpp-14
+  cpp-14-x86-64-linux-gnu cpp-x86-64-linux-gnu default-libmysqlclient-dev gcc
+  gcc-14 gcc-14-x86-64-linux-gnu gcc-x86-64-linux-gnu libasan8 libatomic1
+  libbinutils libc-dev-bin libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0
+  libctf0 libgcc-14-dev libgomp1 libgprofng0 libhwasan0 libisl23 libitm1
+  libjansson4 liblsan0 libmariadb-dev libmariadb-dev-compat libmariadb3
+  libmpc3 libmpfr6 libpkgconf3 libquadmath0 libsframe1 libssl-dev libtsan2
+  libubsan1 linux-libc-dev manpages manpages-dev mariadb-common mysql-common
+  pkg-config pkgconf pkgconf-bin rpcsvc-proto zlib1g-dev
+0 upgraded, 50 newly installed, 0 to remove and 0 not upgraded.
+Need to get 64.8 MB of archives.
+After this operation, 242 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian trixie/main amd64 manpages all 6.9.1-1 [1393 kB]
+Get:2 http://deb.debian.org/debian trixie/main amd64 libsframe1 amd64 2.44-3 [78.4 kB]
+Get:3 http://deb.debian.org/debian trixie/main amd64 binutils-common amd64 2.44-3 [2509 kB]
+Get:4 http://deb.debian.org/debian trixie/main amd64 libbinutils amd64 2.44-3 [534 kB]
+Get:5 http://deb.debian.org/debian trixie/main amd64 libgprofng0 amd64 2.44-3 [808 kB]
+Get:6 http://deb.debian.org/debian trixie/main amd64 libctf-nobfd0 amd64 2.44-3 [156 kB]
+Get:7 http://deb.debian.org/debian trixie/main amd64 libctf0 amd64 2.44-3 [88.6 kB]
+Get:8 http://deb.debian.org/debian trixie/main amd64 libjansson4 amd64 2.14-2+b3 [39.8 kB]
+Get:9 http://deb.debian.org/debian trixie/main amd64 binutils-x86-64-linux-gnu amd64 2.44-3 [1014 kB]
+Get:10 http://deb.debian.org/debian trixie/main amd64 binutils amd64 2.44-3 [265 kB]
+Get:11 http://deb.debian.org/debian trixie/main amd64 libisl23 amd64 0.27-1 [659 kB]
+Get:12 http://deb.debian.org/debian trixie/main amd64 libmpfr6 amd64 4.2.2-1 [729 kB]
+Get:13 http://deb.debian.org/debian trixie/main amd64 libmpc3 amd64 1.3.1-1+b3 [52.2 kB]
+Get:14 http://deb.debian.org/debian trixie/main amd64 cpp-14-x86-64-linux-gnu amd64 14.2.0-19 [11.0 MB]
+Get:15 http://deb.debian.org/debian trixie/main amd64 cpp-14 amd64 14.2.0-19 [1280 B]
+Get:16 http://deb.debian.org/debian trixie/main amd64 cpp-x86-64-linux-gnu amd64 4:14.2.0-1 [4840 B]
+Get:17 http://deb.debian.org/debian trixie/main amd64 cpp amd64 4:14.2.0-1 [1568 B]
+Get:18 http://deb.debian.org/debian trixie/main amd64 mysql-common all 5.8+1.1.1 [6784 B]
+Get:19 http://deb.debian.org/debian trixie/main amd64 mariadb-common all 1:11.8.3-0+deb13u1 [28.8 kB]
+Get:20 http://deb.debian.org/debian trixie/main amd64 libmariadb3 amd64 1:11.8.3-0+deb13u1 [187 kB]
+Get:21 http://deb.debian.org/debian trixie/main amd64 libssl-dev amd64 3.5.1-1 [2954 kB]
+Get:22 http://deb.debian.org/debian trixie/main amd64 libc-dev-bin amd64 2.41-12 [58.2 kB]
+Get:23 http://deb.debian.org/debian-security trixie-security/main amd64 linux-libc-dev all 6.12.48-1 [2671 kB]
+Get:24 http://deb.debian.org/debian trixie/main amd64 libcrypt-dev amd64 1:4.4.38-1 [119 kB]
+Get:25 http://deb.debian.org/debian trixie/main amd64 rpcsvc-proto amd64 1.4.3-1 [63.3 kB]
+Get:26 http://deb.debian.org/debian trixie/main amd64 libc6-dev amd64 2.41-12 [1991 kB]
+Get:27 http://deb.debian.org/debian trixie/main amd64 zlib1g-dev amd64 1:1.3.dfsg+really1.3.1-1+b1 [920 kB]
+Get:28 http://deb.debian.org/debian trixie/main amd64 libmariadb-dev amd64 1:11.8.3-0+deb13u1 [277 kB]
+Get:29 http://deb.debian.org/debian trixie/main amd64 libmariadb-dev-compat amd64 1:11.8.3-0+deb13u1 [27.5 kB]
+Get:30 http://deb.debian.org/debian trixie/main amd64 default-libmysqlclient-dev amd64 1.1.1 [3252 B]
+Get:31 http://deb.debian.org/debian trixie/main amd64 libcc1-0 amd64 14.2.0-19 [42.8 kB]
+Get:32 http://deb.debian.org/debian trixie/main amd64 libgomp1 amd64 14.2.0-19 [137 kB]
+Get:33 http://deb.debian.org/debian trixie/main amd64 libitm1 amd64 14.2.0-19 [26.0 kB]
+Get:34 http://deb.debian.org/debian trixie/main amd64 libatomic1 amd64 14.2.0-19 [9308 B]
+Get:35 http://deb.debian.org/debian trixie/main amd64 libasan8 amd64 14.2.0-19 [2725 kB]
+Get:36 http://deb.debian.org/debian trixie/main amd64 liblsan0 amd64 14.2.0-19 [1204 kB]
+Get:37 http://deb.debian.org/debian trixie/main amd64 libtsan2 amd64 14.2.0-19 [2460 kB]
+Get:38 http://deb.debian.org/debian trixie/main amd64 libubsan1 amd64 14.2.0-19 [1074 kB]
+Get:39 http://deb.debian.org/debian trixie/main amd64 libhwasan0 amd64 14.2.0-19 [1488 kB]
+Get:40 http://deb.debian.org/debian trixie/main amd64 libquadmath0 amd64 14.2.0-19 [145 kB]
+Get:41 http://deb.debian.org/debian trixie/main amd64 libgcc-14-dev amd64 14.2.0-19 [2672 kB]
+Get:42 http://deb.debian.org/debian trixie/main amd64 gcc-14-x86-64-linux-gnu amd64 14.2.0-19 [21.4 MB]
+Get:43 http://deb.debian.org/debian trixie/main amd64 gcc-14 amd64 14.2.0-19 [540 kB]
+Get:44 http://deb.debian.org/debian trixie/main amd64 gcc-x86-64-linux-gnu amd64 4:14.2.0-1 [1436 B]
+Get:45 http://deb.debian.org/debian trixie/main amd64 gcc amd64 4:14.2.0-1 [5136 B]
+Get:46 http://deb.debian.org/debian trixie/main amd64 libpkgconf3 amd64 1.8.1-4 [36.4 kB]
+Get:47 http://deb.debian.org/debian trixie/main amd64 manpages-dev all 6.9.1-1 [2122 kB]
+Get:48 http://deb.debian.org/debian trixie/main amd64 pkgconf-bin amd64 1.8.1-4 [30.2 kB]
+Get:49 http://deb.debian.org/debian trixie/main amd64 pkgconf amd64 1.8.1-4 [26.2 kB]
+Get:50 http://deb.debian.org/debian trixie/main amd64 pkg-config amd64 1.8.1-4 [14.0 kB]
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 50.)
+debconf: falling back to frontend: Teletype
+debconf: unable to initialize frontend: Teletype
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Noninteractive
+Fetched 64.8 MB in 3s (24.5 MB/s)
+Selecting previously unselected package manpages.
+(Reading database ... 5644 files and directories currently installed.)
+Preparing to unpack .../00-manpages_6.9.1-1_all.deb ...
+Unpacking manpages (6.9.1-1) ...
+Selecting previously unselected package libsframe1:amd64.
+Preparing to unpack .../01-libsframe1_2.44-3_amd64.deb ...
+Unpacking libsframe1:amd64 (2.44-3) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../02-binutils-common_2.44-3_amd64.deb ...
+Unpacking binutils-common:amd64 (2.44-3) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../03-libbinutils_2.44-3_amd64.deb ...
+Unpacking libbinutils:amd64 (2.44-3) ...
+Selecting previously unselected package libgprofng0:amd64.
+Preparing to unpack .../04-libgprofng0_2.44-3_amd64.deb ...
+Unpacking libgprofng0:amd64 (2.44-3) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../05-libctf-nobfd0_2.44-3_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.44-3) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../06-libctf0_2.44-3_amd64.deb ...
+Unpacking libctf0:amd64 (2.44-3) ...
+Selecting previously unselected package libjansson4:amd64.
+Preparing to unpack .../07-libjansson4_2.14-2+b3_amd64.deb ...
+Unpacking libjansson4:amd64 (2.14-2+b3) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../08-binutils-x86-64-linux-gnu_2.44-3_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.44-3) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../09-binutils_2.44-3_amd64.deb ...
+Unpacking binutils (2.44-3) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../10-libisl23_0.27-1_amd64.deb ...
+Unpacking libisl23:amd64 (0.27-1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../11-libmpfr6_4.2.2-1_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.2.2-1) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../12-libmpc3_1.3.1-1+b3_amd64.deb ...
+Unpacking libmpc3:amd64 (1.3.1-1+b3) ...
+Selecting previously unselected package cpp-14-x86-64-linux-gnu.
+Preparing to unpack .../13-cpp-14-x86-64-linux-gnu_14.2.0-19_amd64.deb ...
+Unpacking cpp-14-x86-64-linux-gnu (14.2.0-19) ...
+Selecting previously unselected package cpp-14.
+Preparing to unpack .../14-cpp-14_14.2.0-19_amd64.deb ...
+Unpacking cpp-14 (14.2.0-19) ...
+Selecting previously unselected package cpp-x86-64-linux-gnu.
+Preparing to unpack .../15-cpp-x86-64-linux-gnu_4%3a14.2.0-1_amd64.deb ...
+Unpacking cpp-x86-64-linux-gnu (4:14.2.0-1) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../16-cpp_4%3a14.2.0-1_amd64.deb ...
+Unpacking cpp (4:14.2.0-1) ...
+Selecting previously unselected package mysql-common.
+Preparing to unpack .../17-mysql-common_5.8+1.1.1_all.deb ...
+Unpacking mysql-common (5.8+1.1.1) ...
+Selecting previously unselected package mariadb-common.
+Preparing to unpack .../18-mariadb-common_1%3a11.8.3-0+deb13u1_all.deb ...
+Unpacking mariadb-common (1:11.8.3-0+deb13u1) ...
+Selecting previously unselected package libmariadb3:amd64.
+Preparing to unpack .../19-libmariadb3_1%3a11.8.3-0+deb13u1_amd64.deb ...
+Unpacking libmariadb3:amd64 (1:11.8.3-0+deb13u1) ...
+Selecting previously unselected package libssl-dev:amd64.
+Preparing to unpack .../20-libssl-dev_3.5.1-1_amd64.deb ...
+Unpacking libssl-dev:amd64 (3.5.1-1) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../21-libc-dev-bin_2.41-12_amd64.deb ...
+Unpacking libc-dev-bin (2.41-12) ...
+Selecting previously unselected package linux-libc-dev.
+Preparing to unpack .../22-linux-libc-dev_6.12.48-1_all.deb ...
+Unpacking linux-libc-dev (6.12.48-1) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../23-libcrypt-dev_1%3a4.4.38-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.38-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../24-rpcsvc-proto_1.4.3-1_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.3-1) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../25-libc6-dev_2.41-12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.41-12) ...
+Selecting previously unselected package zlib1g-dev:amd64.
+Preparing to unpack .../26-zlib1g-dev_1%3a1.3.dfsg+really1.3.1-1+b1_amd64.deb ...
+Unpacking zlib1g-dev:amd64 (1:1.3.dfsg+really1.3.1-1+b1) ...
+Selecting previously unselected package libmariadb-dev.
+Preparing to unpack .../27-libmariadb-dev_1%3a11.8.3-0+deb13u1_amd64.deb ...
+Unpacking libmariadb-dev (1:11.8.3-0+deb13u1) ...
+Selecting previously unselected package libmariadb-dev-compat.
+Preparing to unpack .../28-libmariadb-dev-compat_1%3a11.8.3-0+deb13u1_amd64.deb ...
+Unpacking libmariadb-dev-compat (1:11.8.3-0+deb13u1) ...
+Selecting previously unselected package default-libmysqlclient-dev:amd64.
+Preparing to unpack .../29-default-libmysqlclient-dev_1.1.1_amd64.deb ...
+Unpacking default-libmysqlclient-dev:amd64 (1.1.1) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../30-libcc1-0_14.2.0-19_amd64.deb ...
+Unpacking libcc1-0:amd64 (14.2.0-19) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../31-libgomp1_14.2.0-19_amd64.deb ...
+Unpacking libgomp1:amd64 (14.2.0-19) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../32-libitm1_14.2.0-19_amd64.deb ...
+Unpacking libitm1:amd64 (14.2.0-19) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../33-libatomic1_14.2.0-19_amd64.deb ...
+Unpacking libatomic1:amd64 (14.2.0-19) ...
+Selecting previously unselected package libasan8:amd64.
+Preparing to unpack .../34-libasan8_14.2.0-19_amd64.deb ...
+Unpacking libasan8:amd64 (14.2.0-19) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../35-liblsan0_14.2.0-19_amd64.deb ...
+Unpacking liblsan0:amd64 (14.2.0-19) ...
+Selecting previously unselected package libtsan2:amd64.
+Preparing to unpack .../36-libtsan2_14.2.0-19_amd64.deb ...
+Unpacking libtsan2:amd64 (14.2.0-19) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../37-libubsan1_14.2.0-19_amd64.deb ...
+Unpacking libubsan1:amd64 (14.2.0-19) ...
+Selecting previously unselected package libhwasan0:amd64.
+Preparing to unpack .../38-libhwasan0_14.2.0-19_amd64.deb ...
+Unpacking libhwasan0:amd64 (14.2.0-19) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../39-libquadmath0_14.2.0-19_amd64.deb ...
+Unpacking libquadmath0:amd64 (14.2.0-19) ...
+Selecting previously unselected package libgcc-14-dev:amd64.
+Preparing to unpack .../40-libgcc-14-dev_14.2.0-19_amd64.deb ...
+Unpacking libgcc-14-dev:amd64 (14.2.0-19) ...
+Selecting previously unselected package gcc-14-x86-64-linux-gnu.
+Preparing to unpack .../41-gcc-14-x86-64-linux-gnu_14.2.0-19_amd64.deb ...
+Unpacking gcc-14-x86-64-linux-gnu (14.2.0-19) ...
+Selecting previously unselected package gcc-14.
+Preparing to unpack .../42-gcc-14_14.2.0-19_amd64.deb ...
+Unpacking gcc-14 (14.2.0-19) ...
+Selecting previously unselected package gcc-x86-64-linux-gnu.
+Preparing to unpack .../43-gcc-x86-64-linux-gnu_4%3a14.2.0-1_amd64.deb ...
+Unpacking gcc-x86-64-linux-gnu (4:14.2.0-1) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../44-gcc_4%3a14.2.0-1_amd64.deb ...
+Unpacking gcc (4:14.2.0-1) ...
+Selecting previously unselected package libpkgconf3:amd64.
+Preparing to unpack .../45-libpkgconf3_1.8.1-4_amd64.deb ...
+Unpacking libpkgconf3:amd64 (1.8.1-4) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../46-manpages-dev_6.9.1-1_all.deb ...
+Unpacking manpages-dev (6.9.1-1) ...
+Selecting previously unselected package pkgconf-bin.
+Preparing to unpack .../47-pkgconf-bin_1.8.1-4_amd64.deb ...
+Unpacking pkgconf-bin (1.8.1-4) ...
+Selecting previously unselected package pkgconf:amd64.
+Preparing to unpack .../48-pkgconf_1.8.1-4_amd64.deb ...
+Unpacking pkgconf:amd64 (1.8.1-4) ...
+Selecting previously unselected package pkg-config:amd64.
+Preparing to unpack .../49-pkg-config_1.8.1-4_amd64.deb ...
+Unpacking pkg-config:amd64 (1.8.1-4) ...
+Setting up mysql-common (5.8+1.1.1) ...
+update-alternatives: using /etc/mysql/my.cnf.fallback to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Setting up manpages (6.9.1-1) ...
+Setting up binutils-common:amd64 (2.44-3) ...
+Setting up linux-libc-dev (6.12.48-1) ...
+Setting up libctf-nobfd0:amd64 (2.44-3) ...
+Setting up libgomp1:amd64 (14.2.0-19) ...
+Setting up libsframe1:amd64 (2.44-3) ...
+Setting up libjansson4:amd64 (2.14-2+b3) ...
+Setting up mariadb-common (1:11.8.3-0+deb13u1) ...
+update-alternatives: using /etc/mysql/mariadb.cnf to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Setting up libpkgconf3:amd64 (1.8.1-4) ...
+Setting up rpcsvc-proto (1.4.3-1) ...
+Setting up libmpfr6:amd64 (4.2.2-1) ...
+Setting up libquadmath0:amd64 (14.2.0-19) ...
+Setting up libssl-dev:amd64 (3.5.1-1) ...
+Setting up libmpc3:amd64 (1.3.1-1+b3) ...
+Setting up libatomic1:amd64 (14.2.0-19) ...
+Setting up libmariadb3:amd64 (1:11.8.3-0+deb13u1) ...
+Setting up pkgconf-bin (1.8.1-4) ...
+Setting up libubsan1:amd64 (14.2.0-19) ...
+Setting up libhwasan0:amd64 (14.2.0-19) ...
+Setting up libcrypt-dev:amd64 (1:4.4.38-1) ...
+Setting up libasan8:amd64 (14.2.0-19) ...
+Setting up libtsan2:amd64 (14.2.0-19) ...
+Setting up libbinutils:amd64 (2.44-3) ...
+Setting up libisl23:amd64 (0.27-1) ...
+Setting up libc-dev-bin (2.41-12) ...
+Setting up libcc1-0:amd64 (14.2.0-19) ...
+Setting up liblsan0:amd64 (14.2.0-19) ...
+Setting up libitm1:amd64 (14.2.0-19) ...
+Setting up libctf0:amd64 (2.44-3) ...
+Setting up manpages-dev (6.9.1-1) ...
+Setting up pkgconf:amd64 (1.8.1-4) ...
+Setting up libgprofng0:amd64 (2.44-3) ...
+Setting up pkg-config:amd64 (1.8.1-4) ...
+Setting up cpp-14-x86-64-linux-gnu (14.2.0-19) ...
+Setting up cpp-14 (14.2.0-19) ...
+Setting up libc6-dev:amd64 (2.41-12) ...
+Setting up libgcc-14-dev:amd64 (14.2.0-19) ...
+Setting up binutils-x86-64-linux-gnu (2.44-3) ...
+Setting up cpp-x86-64-linux-gnu (4:14.2.0-1) ...
+Setting up binutils (2.44-3) ...
+Setting up zlib1g-dev:amd64 (1:1.3.dfsg+really1.3.1-1+b1) ...
+Setting up cpp (4:14.2.0-1) ...
+Setting up gcc-14-x86-64-linux-gnu (14.2.0-19) ...
+Setting up gcc-x86-64-linux-gnu (4:14.2.0-1) ...
+Setting up gcc-14 (14.2.0-19) ...
+Setting up libmariadb-dev (1:11.8.3-0+deb13u1) ...
+Setting up libmariadb-dev-compat (1:11.8.3-0+deb13u1) ...
+Setting up gcc (4:14.2.0-1) ...
+Setting up default-libmysqlclient-dev:amd64 (1.1.1) ...
+Processing triggers for libc-bin (2.41-12) ...
+ ---> Removed intermediate container c1e74f0a3736
+ ---> 5d62dd68f950
+Step 4/8 : COPY requirements.txt .
+ ---> d4c4973dd9ac
+Step 5/8 : RUN pip install mysqlclient
+ ---> Running in 6b77c19ccc0e
+Collecting mysqlclient
+  Downloading mysqlclient-2.2.7.tar.gz (91 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.4/91.4 kB 856.3 kB/s eta 0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: mysqlclient
+  Building wheel for mysqlclient (pyproject.toml): started
+  Building wheel for mysqlclient (pyproject.toml): finished with status 'done'
+  Created wheel for mysqlclient: filename=mysqlclient-2.2.7-cp39-cp39-linux_x86_64.whl size=133780 sha256=484de5583bf4c06f01d31d401f64288ef044fe8a1534d113ac4ba00342afd198
+  Stored in directory: /root/.cache/pip/wheels/ed/03/da/e61775175405d4b30c644467a6d377a98fd5a5da1bf5364614
+Successfully built mysqlclient
+Installing collected packages: mysqlclient
+Successfully installed mysqlclient-2.2.7
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 25.2
+[notice] To update, run: pip install --upgrade pip
+ ---> Removed intermediate container 6b77c19ccc0e
+ ---> c70b902e4c06
+Step 6/8 : RUN pip install --no-cache-dir -r requirements.txt
+ ---> Running in 07637e23c010
+Collecting Flask==2.0.1
+  Downloading Flask-2.0.1-py3-none-any.whl (94 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.8/94.8 kB 987.7 kB/s eta 0:00:00
+Collecting Flask-MySQLdb==0.2.0
+  Downloading Flask-MySQLdb-0.2.0.tar.gz (2.1 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting requests==2.26.0
+  Downloading requests-2.26.0-py2.py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.3/62.3 kB 4.5 MB/s eta 0:00:00
+Collecting Werkzeug==2.2.2
+  Downloading Werkzeug-2.2.2-py3-none-any.whl (232 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 232.7/232.7 kB 2.8 MB/s eta 0:00:00
+Collecting Jinja2>=3.0
+  Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 16.5 MB/s eta 0:00:00
+Collecting click>=7.1.2
+  Downloading click-8.1.8-py3-none-any.whl (98 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.2/98.2 kB 14.6 MB/s eta 0:00:00
+Collecting itsdangerous>=2.0
+  Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Requirement already satisfied: mysqlclient in /usr/local/lib/python3.9/site-packages (from Flask-MySQLdb==0.2.0->-r requirements.txt (line 2)) (2.2.7)
+Collecting idna<4,>=2.5
+  Downloading idna-3.10-py3-none-any.whl (70 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.4/70.4 kB 17.9 MB/s eta 0:00:00
+Collecting charset-normalizer~=2.0.0
+  Downloading charset_normalizer-2.0.12-py3-none-any.whl (39 kB)
+Collecting certifi>=2017.4.17
+  Downloading certifi-2025.8.3-py3-none-any.whl (161 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 161.2/161.2 kB 13.1 MB/s eta 0:00:00
+Collecting urllib3<1.27,>=1.21.1
+  Downloading urllib3-1.26.20-py2.py3-none-any.whl (144 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 144.2/144.2 kB 14.3 MB/s eta 0:00:00
+Collecting MarkupSafe>=2.1.1
+  Downloading MarkupSafe-3.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (20 kB)
+Building wheels for collected packages: Flask-MySQLdb
+  Building wheel for Flask-MySQLdb (setup.py): started
+  Building wheel for Flask-MySQLdb (setup.py): finished with status 'done'
+  Created wheel for Flask-MySQLdb: filename=Flask_MySQLdb-0.2.0-py3-none-any.whl size=2664 sha256=f95670030744baaf79e36db77708b6b0abd78aef750dd2f013f0b17f56022fd3
+  Stored in directory: /tmp/pip-ephem-wheel-cache-m3va3utw/wheels/41/ab/e5/ac1bfe8e719b0c95880c23643ce001363e8240f615f260755e
+Successfully built Flask-MySQLdb
+Installing collected packages: urllib3, MarkupSafe, itsdangerous, idna, click, charset-normalizer, certifi, Werkzeug, requests, Jinja2, Flask, Flask-MySQLdb
+Successfully installed Flask-2.0.1 Flask-MySQLdb-0.2.0 Jinja2-3.1.6 MarkupSafe-3.0.2 Werkzeug-2.2.2 certifi-2025.8.3 charset-normalizer-2.0.12 click-8.1.8 idna-3.10 itsdangerous-2.2.0 requests-2.26.0 urllib3-1.26.20
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 25.2
+[notice] To update, run: pip install --upgrade pip
+ ---> Removed intermediate container 07637e23c010
+ ---> 4b7075be1c65
+Step 7/8 : COPY . .
+ ---> dc58afb66a31
+Step 8/8 : CMD ["python", "app.py"]
+ ---> Running in c54e2ac5efe0
+ ---> Removed intermediate container c54e2ac5efe0
+ ---> 8a5cc9ea957e
+Successfully built 8a5cc9ea957e
+Successfully tagged formycore/flaskapp_2509:v1
+controlplane:~/2-tier_app_docker$ docker run -d --name mysql -v mysql-data:/var/lib/mysql -v ./message.sql:/docker-entrypoint-initdb.d/message.sql --network=twotier -e MYSQL_DATABASE=mydb -e MYSQL_USER=root -e MYSQL_ROOT_PASSWORD="admin" -p 3360:3360 mysql:5.7
+Unable to find image 'mysql:5.7' locally
+5.7: Pulling from library/mysql
+20e4dcae4c69: Pull complete 
+1c56c3d4ce74: Pull complete 
+e9f03a1c24ce: Pull complete 
+68c3898c2015: Pull complete 
+6b95a940e7b6: Pull complete 
+90986bb8de6e: Pull complete 
+ae71319cb779: Pull complete 
+ffc89e9dfd88: Pull complete 
+43d05e938198: Pull complete 
+064b2d298fba: Pull complete 
+df9a4d85569b: Pull complete 
+Digest: sha256:4bc6bc963e6d8443453676cae56536f4b8156d78bae03c0145cbe47c2aad73bb
+Status: Downloaded newer image for mysql:5.7
+5cb3d428c05cecfe63e5c963a9f8d03d3752bba7a4a913e61c0d46f8fc2c6f35
+docker: Error response from daemon: network twotier not found.
+controlplane:~/2-tier_app_docker$ docker ps 
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+controlplane:~/2-tier_app_docker$ docker ps -a
+CONTAINER ID   IMAGE       COMMAND                  CREATED              STATUS    PORTS     NAMES
+5cb3d428c05c   mysql:5.7   "docker-entrypoint.s…"   About a minute ago   Created             mysql
+controlplane:~/2-tier_app_docker$ docker rm 5cb3d428c05c
+5cb3d428c05c
+controlplane:~/2-tier_app_docker$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+controlplane:~/2-tier_app_docker$ docker run -d --name mysql -v mysql-data:/var/lib/mysql -v ./message.sql:/docker-entrypoint-initdb.d/message.sql --network=twotier -e MYSQL_DATABASE=mydb -e MYSQL_USER=root -e MYSQL_ROOT_PASSWORD="admin" -p 3360:3360 mysql:5.7
+7637af18a30bbf81c41d67cc973bf8dacd77b501fc136cfe26b5e6d482fc2e85
+controlplane:~/2-tier_app_docker$ docker ps      
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+controlplane:~/2-tier_app_docker$ docker ps -a
+CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS                      PORTS     NAMES
+7637af18a30b   mysql:5.7   "docker-entrypoint.s…"   16 seconds ago   Exited (1) 14 seconds ago             mysql
+controlplane:~/2-tier_app_docker$ docker logs -f 7637af18a30b
+2025-09-25 13:50:09+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+2025-09-25 13:50:09+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2025-09-25 13:50:09+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+2025-09-25 13:50:09+00:00 [ERROR] [Entrypoint]: MYSQL_USER="root", MYSQL_USER and MYSQL_PASSWORD are for configuring a regular user and cannot be used for the root user
+    Remove MYSQL_USER="root" and use one of the following to control the root user password:
+    - MYSQL_ROOT_PASSWORD
+    - MYSQL_ALLOW_EMPTY_PASSWORD
+    - MYSQL_RANDOM_ROOT_PASSWORD
+controlplane:~/2-tier_app_docker$ docker rm 7637af18a30b
+7637af18a30b
+controlplane:~/2-tier_app_docker$ docker run -d --name mysql -v mysql-data:/var/lib/mysql -v ./message.sql:/docker-entrypoint-initdb.d/message.sql --network=twotier -e MYSQL_DATABASE=mydb -e MYSQL_USER=admin -e MYSQL_ROOT_PASSWORD="admin" -p 3360:3360 mysql:5.7
+39365bc4e6393381ab79dd808a4e77c77d99f3be1e8ead00feed15d3dd549da5
+controlplane:~/2-tier_app_docker$ docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS                                                            NAMES
+39365bc4e639   mysql:5.7   "docker-entrypoint.s…"   4 seconds ago   Up 3 seconds   3306/tcp, 33060/tcp, 0.0.0.0:3360->3360/tcp, :::3360->3360/tcp   mysql
+controlplane:~/2-tier_app_docker$ docker images
+REPOSITORY                TAG        IMAGE ID       CREATED         SIZE
+formycore/flaskapp_2509   v1         8a5cc9ea957e   5 minutes ago   352MB
+python                    3.9-slim   56cea0119ab6   6 weeks ago     120MB
+mysql                     5.7        5107333e08a8   21 months ago   501MB
+controlplane:~/2-tier_app_docker$ docker run -d --name flaskapp -v mysql-data:/var/lib/mysql -v ./message.sql:/docker-entrypoint-initdb.d/message.sql --network=twotier -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=admin -e MYSQL_DB=mydb -p 5000:5000 formycore/flaskapp2509:v1
+Unable to find image 'formycore/flaskapp2509:v1' locally
+^Cdocker: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.47/images/create?fromImage=formycore%2Fflaskapp2509&tag=v1": context canceled.
+See 'docker run --help'.
+controlplane:~/2-tier_app_docker$ docker run -d --name flaskapp -v mysql-data:/var/lib/mysql -v ./message.sql:/docker-entrypoint-initdb.d/message.sql --network=twotier -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=admin -e MYSQL_DB=mydb -p 5000:5000 formycore/flaskapp_2509:v1
+04935f2c9ba6da548eeec4d2c2cb13911d1a3eae830ecf36e55f0abf1e0a1d7a
+controlplane:~/2-tier_app_docker$ docker ps
+CONTAINER ID   IMAGE                        COMMAND                  CREATED              STATUS              PORTS                                                            NAMES
+04935f2c9ba6   formycore/flaskapp_2509:v1   "python app.py"          2 seconds ago        Up 2 seconds        0.0.0.0:5000->5000/tcp, :::5000->5000/tcp                        flaskapp
+39365bc4e639   mysql:5.7                    "docker-entrypoint.s…"   About a minute ago   Up About a minute   3306/tcp, 33060/tcp, 0.0.0.0:3360->3360/tcp, :::3360->3360/tcp   mysql
+controlplane:~/2-tier_app_docker$ docker login
+
+USING WEB-BASED LOGIN
+To sign in with credentials on the command line, use 'docker login -u <username>'
+
+Your one-time device confirmation code is: LWSW-JQMQ
+Press ENTER to open your browser or submit your device code here: https://login.docker.com/activate
+
+Waiting for authentication in the browser…
+^Clogin canceled
+controlplane:~/2-tier_app_docker$ docker login
+
+USING WEB-BASED LOGIN
+To sign in with credentials on the command line, use 'docker login -u <username>'
+
+Your one-time device confirmation code is: ZLFP-HRDJ
+Press ENTER to open your browser or submit your device code here: https://login.docker.com/activate
+
+Waiting for authentication in the browser…
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credential-stores
+
+Login Succeeded
+controlplane:~/2-tier_app_docker$ docker images
+REPOSITORY                TAG        IMAGE ID       CREATED         SIZE
+formycore/flaskapp_2509   v1         8a5cc9ea957e   7 minutes ago   352MB
+python                    3.9-slim   56cea0119ab6   6 weeks ago     120MB
+mysql                     5.7        5107333e08a8   21 months ago   501MB
+controlplane:~/2-tier_app_docker$ docker push formycore/flaskapp_2509:v1
+The push refers to repository [docker.io/formycore/flaskapp_2509]
+06234bd621af: Pushed 
+f9c4922d5236: Pushed 
+298070d01876: Pushed 
+85faec936525: Pushed 
+2c223acf2063: Pushed 
+4d262cb549aa: Pushed 
+dedcbc7d9253: Mounted from library/python 
+23bfc63bbf7d: Mounted from library/python 
+7f8ed22eec17: Mounted from library/python 
+daf557c4f08e: Mounted from library/python 
+v1: digest: sha256:70ec877ec8feaa9a95f7d693a22a10f2f7598bb4b41a92033061ceee8802c35a size: 2415
+controlplane:~/2-tier_app_docker$ kubectl create deployment --name two-tier --image=formycore/flaskapp_2509:v1 ^C
+controlplane:~/2-tier_app_docker$ kubectl create deployment --help
+Create a deployment with the specified name.
+
+Aliases:
+deployment, deploy
+
+Examples:
+  # Create a deployment named my-dep that runs the busybox image
+  kubectl create deployment my-dep --image=busybox
+  
+  # Create a deployment with a command
+  kubectl create deployment my-dep --image=busybox -- date
+  
+  # Create a deployment named my-dep that runs the nginx image with 3 replicas
+  kubectl create deployment my-dep --image=nginx --replicas=3
+  
+  # Create a deployment named my-dep that runs the busybox image and expose port 5701
+  kubectl create deployment my-dep --image=busybox --port=5701
+  
+  # Create a deployment named my-dep that runs multiple containers
+  kubectl create deployment my-dep --image=busybox:latest --image=ubuntu:latest --image=nginx
+
+Options:
+    --allow-missing-template-keys=true:
+        If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to
+        golang and jsonpath output formats.
+
+    --dry-run='none':
+        Must be "none", "server", or "client". If client strategy, only print the object that would be sent, without
+        sending it. If server strategy, submit server-side request without persisting the resource.
+
+    --field-manager='kubectl-create':
+        Name of the manager used to track field ownership.
+
+    --image=[]:
+        Image names to run. A deployment can have multiple images set for multi-container pod.
+
+    -o, --output='':
+        Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath,
+        jsonpath-as-json, jsonpath-file).
+
+    --port=-1:
+        The containerPort that this deployment exposes.
+
+    -r, --replicas=1:
+        Number of replicas to create. Default is 1.
+
+    --save-config=false:
+        If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will
+        be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
+
+    --show-managed-fields=false:
+        If true, keep the managedFields when printing objects in JSON or YAML format.
+
+    --template='':
+        Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format
+        is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
+
+    --validate='strict':
+        Must be one of: strict (or true), warn, ignore (or false). "true" or "strict" will use a schema to validate
+        the input and fail the request if invalid. It will perform server side validation if ServerSideFieldValidation
+        is enabled on the api-server, but will fall back to less reliable client-side validation if not. "warn" will
+        warn about unknown or duplicate fields without blocking the request if server-side field validation is enabled
+        on the API server, and behave as "ignore" otherwise. "false" or "ignore" will not perform any schema
+        validation, silently dropping any unknown or duplicate fields.
+
+Usage:
+  kubectl create deployment NAME --image=image -- [COMMAND] [args...] [options]
+
+Use "kubectl options" for a list of global command-line options (applies to all commands).
+controlplane:~/2-tier_app_docker$ kubectl create deployment two-tier-dep --image=^C
+controlplane:~/2-tier_app_docker$ docker images
+REPOSITORY                TAG        IMAGE ID       CREATED          SIZE
+formycore/flaskapp_2509   v1         8a5cc9ea957e   11 minutes ago   352MB
+python                    3.9-slim   56cea0119ab6   6 weeks ago      120MB
+mysql                     5.7        5107333e08a8   21 months ago    501MB
+controlplane:~/2-tier_app_docker$ kubectl create deployment two-tier-dep --image=formycore/flaskapp_2509:v1 --dry-run=client -o yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: two-tier-dep
+  name: two-tier-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-dep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: two-tier-dep
+    spec:
+      containers:
+      - image: formycore/flaskapp_2509:v1
+        name: flaskapp-2509-xqhmm
+        resources: {}
+status: {}
+controlplane:~/2-tier_app_docker$ kubectl create deployment two-tier-dep --image=formycore/flaskapp_2509:v1 --dry-run=client -o yaml > two-tier-dep.yml
+controlplane:~/2-tier_app_docker$ pwd
+/root/2-tier_app_docker
+controlplane:~/2-tier_app_docker$ cat two-tier-dep.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: two-tier-dep
+  name: two-tier-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-dep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: two-tier-dep
+    spec:
+      containers:
+      - image: formycore/flaskapp_2509:v1
+        env:
+          MYSQL_HOST="mysql"
+          MYSQL_USER="admin"
+          MYSQL_PASSWORD="admin"
+          MYSQL_DB="mydb"
+        name: flaskapp-2509
+        resources: {}
+        Ports:
+          - containerPort: 5000
+        imagePullPolicy: Always
+           
+status: {}
+controlplane:~/2-tier_app_docker$ # we have updated the env values
+controlplane:~/2-tier_app_docker$ 
+
+controlplane:~/2-tier_app_docker$ cat two-tier-dep.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: two-tier-dep
+  name: two-tier-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-dep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: two-tier-dep
+    spec:
+      containers:
+      - image: formycore/flaskapp_2509:v1
+        env:
+          MYSQL_HOST="mysql"
+          MYSQL_USER="admin"
+          MYSQL_PASSWORD="admin"
+          MYSQL_DB="mydb"
+        name: flaskapp-2509
+        resources: {}
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+           
+status: {}
+controlplane:~/2-tier_app_docker$ kubectl apply -f two-tier-dep.yml 
+Error from server (BadRequest): error when creating "two-tier-dep.yml": Deployment in version "v1" cannot be handled as a Deployment: json: cannot unmarshal string into Go struct field Container.spec.template.spec.containers.env of type []v1.EnvVar
+controlplane:~/2-tier_app_docker$ cat two-tier-dep.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: two-tier-dep
+  name: two-tier-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-dep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: two-tier-dep
+    spec:
+      containers:
+      - image: formycore/flaskapp_2509:v1
+        env:
+          - name: MYSQL_HOST
+            value: "mysql"
+          - name:MYSQL_USER
+            value: "admin"
+          - name: MYSQL_PASSWORD
+            value: "admin"
+          - name: MYSQL_DB
+            value: "mydb"
+        name: flaskapp-2509
+        resources: {}
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+           
+status: {}
+controlplane:~/2-tier_app_docker$ # updated the env values
+controlplane:~/2-tier_app_docker$ kubectl apply -f two-tier-dep.yml 
+error: error parsing two-tier-dep.yml: error converting YAML to JSON: yaml: line 26: mapping values are not allowed in this context
+controlplane:~/2-tier_app_docker$ cat two-tier-dep.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: two-tier-dep
+  name: two-tier-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-dep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: two-tier-dep
+    spec:
+      containers:
+      - image: formycore/flaskapp_2509:v1
+        env:
+          - name: MYSQL_HOST
+            value: "mysql"
+          - name: MYSQL_USER
+            value: "admin"
+          - name: MYSQL_PASSWORD
+            value: "admin"
+          - name: MYSQL_DB
+            value: "mydb"
+        name: flaskapp-2509
+        resources: {}
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+           
+status: {}
+controlplane:~/2-tier_app_docker$ # previously ^[[200~        ports:
+controlplane:~/2-tier_app_docker$         - containerPort: 5000
+-: command not found
+controlplane:~/2-tier_app_docker$ # previosly  name:MYSQL_USER changed to name: MYSQL_USER added some space
+controlplane:~/2-tier_app_docker$ kubectl apply -f two-tier-dep.yml 
+deployment.apps/two-tier-dep created
+controlplane:~/2-tier_app_docker$ kubect get pods
+Command 'kubect' not found, did you mean:
+  command 'kubectx' from deb kubectx (0.9.5-1ubuntu0.4)
+Try: apt install <deb name>
+controlplane:~/2-tier_app_docker$ kubectl get pods 
+NAME                            READY   STATUS              RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   0/1     ContainerCreating   0          13s
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS              RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   0/1     ContainerCreating   0          16s
+controlplane:~/2-tier_app_docker$ watch -n kubectl get pods
+watch: failed to parse argument: 'kubectl': Invalid argument
+controlplane:~/2-tier_app_docker$ watch -n 2 kubectl get pods
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          48s
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          64s
+controlplane:~/2-tier_app_docker$ # kubectl scale deployment <get the name of the under first metadata>two-tier-dep --replicas=<give the number>
+controlplane:~/2-tier_app_docker$ kubectl scale deployment two-tier-dep --replicas=2
+deployment.apps/two-tier-dep scaled
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-fkzxm   1/1     Running   0          4s
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          3m30s
+controlplane:~/2-tier_app_docker$ kubectl delete pod two-tier-dep-7df998674f-fkzxm
+pod "two-tier-dep-7df998674f-fkzxm" deleted
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-t4z74   1/1     Running   0          5s
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          3m51s
+controlplane:~/2-tier_app_docker$ # still we get two as the replicas are mentioned as 2 
+controlplane:~/2-tier_app_docker$ kubectl apply -f two-tier-dep.yml 
+deployment.apps/two-tier-dep configured
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          4m19s
+controlplane:~/2-tier_app_docker$ # here we ran from the file
+controlplane:~/2-tier_app_docker$ # we have the label for this deployment using that, service will connect with this deployment and give access to the outer world
+
+
+ontrolplane:~/2-tier_app_docker$ cat two-tier-dep.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: two-tier-dep
+  name: two-tier-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-dep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: two-tier-dep
+    spec:
+      containers:
+      - image: formycore/flaskapp_2509:v1
+        env:
+          MYSQL_HOST="mysql"
+          MYSQL_USER="admin"
+          MYSQL_PASSWORD="admin"
+          MYSQL_DB="mydb"
+        name: flaskapp-2509
+        resources: {}
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+           
+status: {}
+controlplane:~/2-tier_app_docker$ kubectl apply -f two-tier-dep.yml 
+Error from server (BadRequest): error when creating "two-tier-dep.yml": Deployment in version "v1" cannot be handled as a Deployment: json: cannot unmarshal string into Go struct field Container.spec.template.spec.containers.env of type []v1.EnvVar
+controlplane:~/2-tier_app_docker$ cat two-tier-dep.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: two-tier-dep
+  name: two-tier-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-dep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: two-tier-dep
+    spec:
+      containers:
+      - image: formycore/flaskapp_2509:v1
+        env:
+          - name: MYSQL_HOST
+            value: "mysql"
+          - name:MYSQL_USER
+            value: "admin"
+          - name: MYSQL_PASSWORD
+            value: "admin"
+          - name: MYSQL_DB
+            value: "mydb"
+        name: flaskapp-2509
+        resources: {}
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+           
+status: {}
+controlplane:~/2-tier_app_docker$ # updated the env values
+controlplane:~/2-tier_app_docker$ kubectl apply -f two-tier-dep.yml 
+error: error parsing two-tier-dep.yml: error converting YAML to JSON: yaml: line 26: mapping values are not allowed in this context
+controlplane:~/2-tier_app_docker$ cat two-tier-dep.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: two-tier-dep
+  name: two-tier-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-dep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: two-tier-dep
+    spec:
+      containers:
+      - image: formycore/flaskapp_2509:v1
+        env:
+          - name: MYSQL_HOST
+            value: "mysql"
+          - name: MYSQL_USER
+            value: "admin"
+          - name: MYSQL_PASSWORD
+            value: "admin"
+          - name: MYSQL_DB
+            value: "mydb"
+        name: flaskapp-2509
+        resources: {}
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+           
+status: {}
+controlplane:~/2-tier_app_docker$ # previously ^[[200~        ports:
+controlplane:~/2-tier_app_docker$         - containerPort: 5000
+-: command not found
+controlplane:~/2-tier_app_docker$ # previosly  name:MYSQL_USER changed to name: MYSQL_USER added some space
+controlplane:~/2-tier_app_docker$ kubectl apply -f two-tier-dep.yml 
+deployment.apps/two-tier-dep created
+controlplane:~/2-tier_app_docker$ kubect get pods
+Command 'kubect' not found, did you mean:
+  command 'kubectx' from deb kubectx (0.9.5-1ubuntu0.4)
+Try: apt install <deb name>
+controlplane:~/2-tier_app_docker$ kubectl get pods 
+NAME                            READY   STATUS              RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   0/1     ContainerCreating   0          13s
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS              RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   0/1     ContainerCreating   0          16s
+controlplane:~/2-tier_app_docker$ watch -n kubectl get pods
+watch: failed to parse argument: 'kubectl': Invalid argument
+controlplane:~/2-tier_app_docker$ watch -n 2 kubectl get pods
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          48s
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          64s
+controlplane:~/2-tier_app_docker$ # kubectl scale deployment <get the name of the under first metadata>two-tier-dep --replicas=<give the number>
+controlplane:~/2-tier_app_docker$ kubectl scale deployment two-tier-dep --replicas=2
+deployment.apps/two-tier-dep scaled
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-fkzxm   1/1     Running   0          4s
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          3m30s
+controlplane:~/2-tier_app_docker$ kubectl delete pod two-tier-dep-7df998674f-fkzxm
+pod "two-tier-dep-7df998674f-fkzxm" deleted
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-t4z74   1/1     Running   0          5s
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          3m51s
+controlplane:~/2-tier_app_docker$ # still we get two as the replicas are mentioned as 2 
+controlplane:~/2-tier_app_docker$ kubectl apply -f two-tier-dep.yml 
+deployment.apps/two-tier-dep configured
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          4m19s
+controlplane:~/2-tier_app_docker$ # here we ran from the file
+controlplane:~/2-tier_app_docker$ # we have the label for this deployment using that, service will connect with this deployment and give access to the outer world
+controlplane:~/2-tier_app_docker$ touch two-tier-service.yml
+controlplane:~/2-tier_app_docker$ vim two-tier-service.yml
+
+controlplane:~/2-tier_app_docker$ vim two-tier-service.yml 
+controlplane:~/2-tier_app_docker$ ls                 
+Dockerfile  Jenkinsfile  README.md  app.py  docker-compose.yml  eks-manifests  k8s  message.sql  requirements.txt  templates  two-tier-dep.yml  two-tier-service.yml
+controlplane:~/2-tier_app_docker$ kubectl apply -f two-tier-service.yml 
+service/two-tier-service created
+controlplane:~/2-tier_app_docker$ kubectl get svc
+NAME               TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+kubernetes         ClusterIP   10.96.0.1    <none>        443/TCP        5d19h
+two-tier-service   NodePort    10.96.48.0   <none>        80:30008/TCP   5s
+controlplane:~/2-tier_app_docker$ kubectl create deployment mysql --image=mysql:5.7 --port=3306 --dry-run=client -o yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mysql
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql
+        ports:
+        - containerPort: 3306
+        resources: {}
+status: {}
+controlplane:~/2-tier_app_docker$ kubectl create deployment mysql --image=mysql:5.7 --port=3306 --dry-run=client -o yaml > mysql-depl.yml
+controlplane:~/2-tier_app_docker$ vim mysql-depl.yml 
+controlplane:~/2-tier_app_docker$ kubectl apply -f mysql-depl.yml 
+deployment.apps/mysql created
+controlplane:~/2-tier_app_docker$ cat mysql-depl.yml                                                                    
+a 
+controlplane:~/2-tier_app_docker$ kubectl get svc
+NAME               TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+kubernetes         ClusterIP   10.96.0.1    <none>        443/TCP        5d19h
+two-tier-service   NodePort    10.96.48.0   <none>        80:30008/TCP   8m3s
+controlplane:~/2-tier_app_docker$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+mysql-5944c6df7-c6f9x           1/1     Running   0          51s # it will crashloop 
+two-tier-dep-7df998674f-z2dtp   1/1     Running   0          23m
+controlplane:~/2-tier_app_docker$ 
+----------------------------------------------------------------------
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  capacity:
+    storage: 256Mi
+  volumeMode: Filesystem # if we are using Filesystem then we need to use hostpath 
+  accessMode:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /root/two-tier/sqldata
+  --------------------------------------------------------------------------
