@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mysql-depl
+  name: mysql-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-depl
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mysql-depl
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql-cntr
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "admin"
+          - name: MYSQL_PASSWORD
+            value: "admin"
+          - name: MYSQL_USER
+            value: "admin"
+          - name: MYSQL_DATABASE
+            value: "mydb"
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+          - name: mysqldata
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: mysqldata
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+        
