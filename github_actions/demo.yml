@@ -1,0 +1,32 @@
+name: CICD with github actions # Name of the workflow shown in GitHub Actions UI
+on: # Events that trigger the workflow
+  push: # Trigger on push events
+    branches: [main] # Only when pushing to the main branch
+  #workflow_dispatch: # (Commented) Would allow manual trigger
+
+jobs:
+  build_and_deploy: # Name of the job
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout repository # Step to checkout code
+        uses: actions/checkout@v3 # Use the checkout action
+  
+      - name: Setup Node js # Step to set up Node.js
+        uses: actions/setup-node@v3 # Use the setup-node action
+        with:
+          node-version: 18 # Specify Node.js version 18
+      - name: Install Dependencies # Install npm dependencies
+        run: npm install # Run npm install
+
+      - name: Build project # Build the React app
+        run: npm run build # Run the build script
+
+      - name: Deploy to Github pages # Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4 # Use the deploy action
+        with:
+          branch: gh-pages # Target branch for deployment
+          folder: build # Folder to deploy (React build output)
+          clean: true # Remove existing files in the branch before deploying
+          force: true # Force push to the branch
+          # demo # (Commented) Placeholder or note

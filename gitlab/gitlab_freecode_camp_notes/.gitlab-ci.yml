@@ -1,0 +1,53 @@
+stages:
+    - .pre
+    - build
+    - test
+    - deploy
+    - deploy to production
+build website:
+    image: node:16-alpine
+    stage: build
+    script:
+        - yarn install
+        - yarn build
+    artifacts:
+        paths:
+            - build
+
+# linter:
+#     image: node:16-alpine
+#     stage: .pre
+#     script:
+#         - yarn install
+#         - yarn lint
+
+test website:
+    image: node:16-alpine
+    stage: test
+    script:
+        - yarn global add serve
+        - apk add curl # in node:16-alpine we dont get the curl 
+        - serve -s build & 
+        - sleep 10
+        - curl http://localhost:3000 | grep -i "react app"
+        #- curl http://localhost:3000 | grep -i "Learn gitlab ci"
+        # curl wont search for the content on the webpage 
+        # it checks only for the index.html
+.unit tests:
+    stage: .pre 
+    image: node:16-alpine
+    script:
+        - yarn install
+        - yarn test
+## this is checking that can i push the change to main branch or not 
+deploy to s3:
+    stage: deploy
+    image: 
+      name: amazon/aws-cli:2.28.22
+      entrypoint: [""] #overriding the default entry point of the image 
+      rules:
+        - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH' # only deploy when the commit is made to the main branch
+    script:
+      - aws --version
+      - echo "hello S3" > demo.txt
+      - aws s3 sync build/ s3://$AWS_S3_BUCKET/ --delete 
