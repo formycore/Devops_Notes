@@ -1,0 +1,1 @@
+gcloud compute --project=playground-s-11-1cc94bb6 firewall-rules create all --description=all --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=PROTOCOL:PORT,... --source-ranges=0.0.0.0/0
