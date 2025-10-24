@@ -1,0 +1,12 @@
+    - name: download the sonarqube binaries
+      unarchive:
+        src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-25.9.0.112764.zip
+        dest: /home/maanya/Downloads/devops_projs/ansible/
+        remote_src: yes
+        owner: maanya
+        group: maanya
+        mode: '0755'
+    - name: Install java 17 termius repo
+      package:
+        name: openjdk-17-jdk
+        state: present

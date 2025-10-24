@@ -1,0 +1,17 @@
+  - name: update the demofile
+    hosts: localhost
+    become: yes
+    tasks:
+      - name: check if port is 9000 is open
+        ansible.builtin.shell: ss -tuln | grep 9000
+        register: result
+        ignore_errors: yes
+      - name: print the result
+        ansible.builtin.debug:
+          msg: >
+            {% if result.stdout %}
+              Port 9000 is open
+            {% else %}
+              Port 9000 is closed
+            {% endif %}
+          

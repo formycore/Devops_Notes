@@ -1,0 +1,108 @@
+    - name: ping
+      ping:    
+    - name: Update the system
+      yum:
+        name: "*"
+        state: latest
+        when: ansible_os_family == "RedHat"
+    - name: Update the system for ubuntu
+      apt:
+        upgrade: dist
+        update_cache: yes
+        cache_valid_time: 3600
+        when: ansible_os_family == "Debian"
+    - name: Uninstall old versions
+      dnf:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - docker 
+        - docker-client 
+        - docker-client-latest 
+        - docker-common 
+        - docker-latest 
+        - docker-latest-logrotate 
+        - docker-logrotate 
+        - docker-engine 
+    - name: Intall dnf-plugins-core
+      dnf:
+        name: dnf-plugins-core
+        state: present
+    - name: ADD docker-ce repository
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        mode: '0644'
+    # cat docker-ce.repo 
+    # [docker-ce]
+    # baseurl = https://download.docker.com/linux/centos/docker-ce.repo
+    # enabled = 1
+    # gpgcheck = 1
+    # gpgkey = https://download.docker.com/linux/centos/gpg
+    # name = Docker-ce stable centos
+    # maanya@centos:/etc/yum.repos.d$ pwd
+    # /etc/yum.repos.d
+    - name: open the repos file
+      debug:
+        msg: "{{ lookup('file', '/etc/yum.repos.d/docker-ce.repo') }}"
+    # only works if the file exists on the ansible server     
+    - name: open the repos file
+      slurp: # reads any file from remote server encoded with base64
+        src: /etc/yum.repos.d/docker-ce.repo
+      register: repo_file
+    - name: Decode the repo file
+      debug:
+        msg: "{{ repo_file.content | b64decode }}"
+    # only works if the file exists on the ansible server     
+    - name: Install Docker packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
+    - name: start the docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: Check the docker information
+      command: docker info
+    - name: Ensure the docker group exists
+      group:
+        name: docker
+        state: present
+    - name: Add ansible_user to docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes        
+    - name: Make the directory
+      file:
+        path: /etc/containerd
+        state: directory
+    - name: Generate default containerd config into a temp file
+      command: containerd config default
+      register: containerd_config_default
+      changed_when: false
+    - name: Create or update /etc/containerd/config.toml only if content is changed
+      copy:
+        dest: /etc/containerd/config.toml
+        content: "{{ containerd_config_default.stdout }}"
+      notify: Restart containerd
+
+    - name: Ensure SystemdCgroup is true
+      replace:
+        path: /etc/containerd/config.toml
+        regexp: '^\s*SystemdCgroup\s*=.*'
+        replace: '            SystemdCgroup = true'
+        backup: yes
+      notify: Restart Containerd
+  handlers:
+  - name: Restart containerd
+    service:
+      name: containerd
+      state: restarted  

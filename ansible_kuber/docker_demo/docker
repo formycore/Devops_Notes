@@ -1,0 +1,108 @@
+sudo dnf -y install dnf-plugins-core
+
+package:
+  name: dnf-plugin-core
+  state: present
+  
+sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+
+
+
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo systemctl enable --now docker
+
+
+
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+---
+- name: Install Docker on Linux
+  hosts: all
+  become: yes
+  vars:
+    docker_packages_ubuntu:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    docker_packages_centos:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+
+  tasks:
+
+  ##############################
+  # Ubuntu / Debian Section
+  ##############################
+  - name: Ensure /etc/apt/keyrings directory exists
+    ansible.builtin.file:
+      path: /etc/apt/keyrings
+      state: directory
+      mode: '0755'
+    when: ansible_os_family == "Debian"
+
+  - name: Download Docker GPG key
+    ansible.builtin.get_url:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      dest: /etc/apt/keyrings/docker.asc
+      mode: '0644'
+    when: ansible_os_family == "Debian"
+
+  - name: Add Docker APT repository
+    ansible.builtin.apt_repository:
+      repo: "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
+      filename: docker
+      state: present
+    when: ansible_os_family == "Debian"
+
+  - name: Update apt cache
+    ansible.builtin.apt:
+      update_cache: yes
+    when: ansible_os_family == "Debian"
+
+  - name: Install Docker packages (Ubuntu/Debian)
+    ansible.builtin.apt:
+      name: "{{ docker_packages_ubuntu }}"
+      state: present
+    when: ansible_os_family == "Debian"
+
+
+  ##############################
+  # CentOS / RHEL Section
+  ##############################
+  - name: Add Docker CE repo (CentOS/RHEL)
+    ansible.builtin.get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docker-ce.repo
+      mode: '0644'
+    when: ansible_os_family == "RedHat"
+
+  - name: Install Docker packages (CentOS/RHEL)
+    ansible.builtin.yum:
+      name: "{{ docker_packages_centos }}"
+      state: present
+      update_cache: yes
+    when: ansible_os_family == "RedHat"
+
+  - name: Ensure Docker service is enabled and started
+    ansible.builtin.service:
+      name: docker
+      state: started
+      enabled: yes
+
