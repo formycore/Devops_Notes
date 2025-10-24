@@ -1,0 +1,15 @@
+---
+- name: copy files
+  hosts: local
+  tasks:
+    - name: create directory
+      file:
+        path: /home/maanya/Downloads/devops_proj/github_actions/freecodecamp_gitlab
+        state: directory
+        mode: '0755'  
+    - name: copy freecodecamp_gitlab
+      unarchive:
+        src: /home/maanya/Downloads/freecodecamp-gitlab-ci-main.zip
+        dest: /home/maanya/Downloads/devops_proj/github_actions/freecodecamp_gitlab
+        remote_src: yes
+

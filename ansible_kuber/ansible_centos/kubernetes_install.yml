@@ -1,0 +1,35 @@
+---
+- name: Installation steps on the centos
+  hosts: centos_clone
+  become: true
+  tasks:
+    - name: This overwrites any existing configuration 
+      blockinfile:
+        path: /etc/yum.repos.d/kubernetes.repo
+        create: yes
+        block: |
+          [kubernetes]
+          name=Kubernetes
+          baseurl=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
+          exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+    - name: Install kubelet, kubeadm and kubectl
+      yum:
+        name: "{{ item }}"
+        state: present
+        disable_excludes: kubernetes
+      loop:
+        - kubelet
+        - kubeadm
+        - kubectl
+        
+
+
+
+
+            
+
+
+

@@ -1,0 +1,8 @@
+# sample jinja template
+-- name: demo template
+  hosts: local, node
+  tasks:
+    - name: Template a file
+      template:
+        src: demo_jina.j2
+        dest: /tmp/demo_jina.txt
