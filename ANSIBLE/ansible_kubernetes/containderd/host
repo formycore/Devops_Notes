@@ -1,0 +1,4 @@
+#local ansible_user=maanya  ansible_connection=local ansible_become=false
+#centos ansible_user=maanya ansible_connection=ssh ansible_host=192.168.29.11
+#centos_clone ansible_user=maanya ansible_connection=ssh ansible_host=192.168.29.69
+ubuntu ansible_user=ubuntu ansible_connection=ssh ansible_host=3.91.31.253

@@ -1,0 +1,24 @@
+---
+- name: Install ubuntu kubernetes
+  hosts: ubuntu
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+    - name: Install the kubernetes packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - kubelet
+        - kubeadm 
+        - kubectl      
+    - name: Hold Kubernetes packages
+      package:
+        name: "{{ item }}"
+        state: hold
+      loop:
+        - kubelet
+        - kubeadm 
+        - kubectl  

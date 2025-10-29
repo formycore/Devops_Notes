@@ -1,0 +1,10 @@
+---
+- name: Installation steps on the centos
+  hosts: centos_clone
+  become: true
+  tasks:
+    - name: 
+
+
+
+

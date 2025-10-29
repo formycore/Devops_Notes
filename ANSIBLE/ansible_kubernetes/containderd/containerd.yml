@@ -1,0 +1,35 @@
+---
+- name: Install containerd
+  hosts: ubuntu
+  become: yes
+  tasks:
+    - name: Create the directory
+      file:
+        path: /etc/containerd
+        state: directory
+        mode: '0755'
+    - name: Generate default config
+      command: containerd config default
+      register: containerd_default
+    - name: Apply containerd config
+      copy:
+        dest: /etc/containerd/config.toml
+        content: "{{ containerd_default.stdout }}"
+        mode: '0644'
+    - name: Ensure containerd uses systemd cgroup driver
+      replace:
+        path: /etc/containerd/config.toml
+        regexp: 'SystemdCgroup = false'
+        replace: 'SystemdCgroup = true'
+      notify: Restart containerd
+    - name: Ensure the containerd services are enabled and running
+      service:
+        name: containerd
+        state: started
+        enabled: yes
+  handlers:
+    - name: Restart containerd
+      service:
+        name: containerd
+        state: restarted
+
