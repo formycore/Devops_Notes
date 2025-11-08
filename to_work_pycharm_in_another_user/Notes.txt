@@ -1,0 +1,7 @@
+- to work pycharm in another user
+- login as main user
+- xhost +SI:localuser:gitlabb <user_name_demo>                                                                                                                        ─╯
+localuser:gitlabb being added to access control list
+- from the another <user_name_demo>
+gitlabb@maanya:~/gitlab_hero/gitlab_zero_hero$ export DISPLAY=:0
+gitlabb@maanya:~/gitlab_hero/gitlab_zero_hero$ pycharm-community &
