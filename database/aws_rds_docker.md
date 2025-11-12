@@ -95,9 +95,3 @@ show tables;
 select * from contacts;
 ```
 
-docker run -it mysql:8.0 mysql -h database-1.12345666.us-east-1.rds.amazonaws.com -u admin -p
-show databases;
-use my_app_db;
-show tables;
-select * from contacts;
-```
