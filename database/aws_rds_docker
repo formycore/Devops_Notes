@@ -1,0 +1,55 @@
+- create a database
+- choose the version of any db
+- set the instance type and storage
+- set the vpc and subnet group
+- set the security group to allow inbound traffic on the db port
+- set the username and password
+- note the endpoint, port, username, and password for the db instance
+- public access is not required if the ec2 instance is in the same vpc
+- public access is required if the ec2 instance is in a different vpc
+- create db in a new security group
+- add the db port to the security group inbound rules
+- db subnet group create new
+- additional configuration set to default
+- here we have created the mysql db with new security group
+- go to that security group and add custom will the deafult change it **any where** 
+
+
+**AWS EC2**
+- create an ec2 instance in the same vpc as the db instance
+- assign different security group to ec2 instance
+- add inbound rule to ec2 security group to allow outbound traffic on the db port
+- ssh into your ec2 instance
+- install the db client if not already installed
+    ```bash
+    install mariadb105
+    ```
+```mysql -h endpoint -P 3306 -u admin -p```
+- endpoint is the rds endpoint
+
+
+**Docker**
+```
+- docker image philippaul/node-mysql-app:02
+- docker run -p 80:3000 \
+     --name node-mysql-app \
+    -e DB_HOST=<rds-endpoint> \
+    -e DB_PORT=<rds-port> \
+    -e DB_USER=<rds-username> \
+    -e DB_PASSWORD=<rds-password> \
+    -d philippaul/node-mysql-app:02
+```
+
+```
+- docker run -p 80:3000 \
+     --name node-mysql-app \
+    -e DB_HOST=database-1.12345666.us-east-1.rds.amazonaws.com \
+    -e DB_USER=admin \
+    -e DB_PASSWORD=password123 \
+    -d philippaul/node-mysql-app:02
+docker run -it mysql:8.0 mysql -h database-1.12345666.us-east-1.rds.amazonaws.com -u admin -p
+show databases;
+use my_app_db;
+show tables;
+select * from contacts;
+```
