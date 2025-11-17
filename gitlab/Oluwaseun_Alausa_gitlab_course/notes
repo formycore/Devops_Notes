@@ -1,0 +1,3 @@
+/etc/sudoers
+cloud_user_p_7e75c33b
+echo "cloud_user_p_7e75c33b ALL=(ALL) NOPASSWD:ALL " >> /etc/sudoers
