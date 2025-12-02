@@ -1,0 +1,2 @@
+POST https://compute.googleapis.com/compute/beta/projects/playground-s-11-2eba16e7/global/firewalls
+{"allowed":[{"IPProtocol":"all"}],"description":"allow","direction":"INGRESS","kind":"compute#firewall","name":"allow","network":"projects/playground-s-11-2eba16e7/global/networks/default","priority":1000,"selfLink":"projects/playground-s-11-2eba16e7/global/firewalls/allow","sourceRanges":["0.0.0.0/0"]}
