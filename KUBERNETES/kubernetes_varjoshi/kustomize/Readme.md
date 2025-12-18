@@ -1,3 +1,4 @@
+#### [text](https://youtu.be/AKr5tc4nN2w?list=PLmPit9IIdzwRjqD-l_sZBDdPlcSfKqpAt&t=1452)
 - kubectl kustomize -h 
 - if we have 3 environments (dev, staging, prod) with different configurations, we can create a base kustomization.yaml file and then create overlays for each environment.
 - overlays can be environment-specific directories that contain patches or additional resources specific patches
