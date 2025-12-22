@@ -1,0 +1,26 @@
+- helm (just type enter) it will give the help commnads 
+- helm env it will give the environment details
+- helm default environment variables list
+  helm env
+HELM_BIN="helm"
+HELM_BURST_LIMIT="100"
+HELM_CACHE_HOME="/root/.cache/helm"
+HELM_CONFIG_HOME="/root/.config/helm"
+HELM_DATA_HOME="/root/.local/share/helm"
+HELM_DEBUG="false"
+HELM_KUBEAPISERVER=""
+HELM_KUBEASGROUPS=""
+HELM_KUBEASUSER=""
+HELM_KUBECAFILE=""
+HELM_KUBECONTEXT=""
+HELM_KUBEINSECURE_SKIP_TLS_VERIFY="false"
+HELM_KUBETLS_SERVER_NAME=""
+HELM_KUBETOKEN=""
+HELM_MAX_HISTORY="10"
+HELM_NAMESPACE="default"
+HELM_PLUGINS="/root/.local/share/helm/plugins"
+HELM_QPS="0.00"
+HELM_REGISTRY_CONFIG="/root/.config/helm/registry/config.json"
+HELM_REPOSITORY_CACHE="/root/.cache/helm/repository"
+HELM_REPOSITORY_CONFIG="/root/.config/helm/repositories.yaml"
+----------------------------------------------------------

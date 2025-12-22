@@ -204,3 +204,4 @@ Cleanup
 helm uninstall nginx-test
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 - how to do this refer https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
+
