@@ -1,0 +1,2 @@
+#table for commands that are mostly used by azure admin in powershell and bash
+
