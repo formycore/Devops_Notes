@@ -1,3 +1,9 @@
+### youtube video url 
+```
+https://www.youtube.com/watch?v=jehqpSE6gBE
+```
+
+
 # 🚀 Kubernetes PHP Todo App Setup (MySQL + phpMyAdmin)
 
 This guide sets up a complete PHP Todo application with MySQL and phpMyAdmin in Kubernetes.
