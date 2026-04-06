@@ -1,0 +1,61 @@
+Requirements
+    - DB - MYSQL
+    - DB Management Tool - Php Admin Tool
+    - Php App
+
+step 1: MySQL Pod
+    - ConfigMaps
+    - Secret
+    - MySQL pod
+    - MySQL Service Expose
+Step 2: phpmyadmin pod
+    - ConfigMaps
+    - Secret
+    - phpMyadmin pod
+    - phpMyadmin Service Expose
+Step 3: PHP Todo-App-Pod
+    - phpapp pod
+    - phpapp Service Expose
+##################################################################################################################################
+step 1: MYSQL pod
+    kubectl create configmap db-cm --from-literal=MYSQL_DATABASE=mydb -n todo
+    kubectl create secret generic db-secret --from-literal=MYSQL_ROOT_PASSWORD=rootpassword -n todo
+    kubectl run mysqlpod --image=mysql:5.7 --dry-run=client -o yaml > mysqlpod.yaml
+-------------------
+cat mysqlpod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: mysqlpod
+  name: mysqlpod
+  namespace: todo
+spec:
+  containers:
+  - image: mysql:5.7
+    name: mysqlpod
+    ports:
+      - containerPort: 3306
+    envFrom:
+      - configMapRef:
+          name: db-cm
+      - secretMapRef:
+          name: db-secret
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+---------------------
+kubectl expose pod mysqlpod \
+--port=3306 \
+--targetPort=3306 \
+--name=mysql-svc \
+-n todo
+--------------------------------
+kubectl expose pod phpmyadmin-pod \
+  --type=NodePort \
+  --port=8080 \
+  --target-port=80 \
+  --name=phpmyadmin-svc \
+  -n todo
+--------------------------------

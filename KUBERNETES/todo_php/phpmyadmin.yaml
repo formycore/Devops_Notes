@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: phpmyadminpod
+  name: phpmyadminpod
+  namespace: todo
+spec:
+  containers:
+  - image: phpmyadmin
+    name: phpmyadminpod
+    envFrom:
+      - configMapRef:
+          name: phpadmin-cm
+      - secretRef:
+          name: phpadmin-secret
+    ports:
+    - containerPort: 80
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
