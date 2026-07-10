@@ -1,0 +1,22 @@
+- docker image
+docker pull sonarqube:26.7.0.124771-community
+- install postgresql on the ec2 instance
+
+host sonarqube sonar 172.31.8.100/32 md5
+
+
+
+
+
+docker server 
+
+docker run -d \
+  --name sonarqube \
+  -p 9000:9000 \
+  -v sonarqube_data:/opt/sonarqube/data \
+  -v sonarqube_extensions:/opt/sonarqube/extensions \
+  -v sonarqube_logs:/opt/sonarqube/logs \
+  -e SONAR_JDBC_URL=jdbc:postgresql://172.31.15.162:5432/sonarqube \
+  -e SONAR_JDBC_USERNAME=sonar \
+  -e SONAR_JDBC_PASSWORD='StrongPassword@123' \
+  sonarqube:26.7.0.124771-community
