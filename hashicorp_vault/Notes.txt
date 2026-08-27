@@ -1,0 +1,401 @@
+ubuntu@ip-172-31-2-45:~$ wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install vault
+--2026-08-24 14:32:07--  https://apt.releases.hashicorp.com/gpg
+Resolving apt.releases.hashicorp.com (apt.releases.hashicorp.com)... 13.225.5.117, 13.225.5.7, 13.225.5.32, ...
+Connecting to apt.releases.hashicorp.com (apt.releases.hashicorp.com)|13.225.5.117|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 3980 (3.9K) [binary/octet-stream]
+Saving to: ‘STDOUT’
+
+-                                             100%[================================================================================================>]   3.89K  --.-KB/s    in 0s
+
+2026-08-24 14:32:07 (143 MB/s) - written to stdout [3980/3980]
+
+deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com resolute main
+Hit:1 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu resolute InRelease
+Hit:2 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu resolute-updates InRelease
+Hit:3 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu resolute-backports InRelease
+Get:4 https://apt.releases.hashicorp.com resolute InRelease [12.9 kB]
+Hit:5 http://security.ubuntu.com/ubuntu resolute-security InRelease
+Get:6 https://apt.releases.hashicorp.com resolute/main amd64 Packages [250 kB]
+Fetched 263 kB in 0s (893 kB/s)
+115 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Installing:
+  vault
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 115
+  Download size: 178 MB
+  Space needed: 538 MB / 4668 MB available
+
+Get:1 https://apt.releases.hashicorp.com resolute/main amd64 vault amd64 2.0.4-1 [178 MB]
+Fetched 178 MB in 1s (146 MB/s)
+Selecting previously unselected package vault.
+(Reading database ... 85303 files and directories currently installed.)
+Preparing to unpack .../vault_2.0.4-1_amd64.deb ...
+Unpacking vault (2.0.4-1) ...
+Setting up vault (2.0.4-1) ...
+Generating Vault TLS key and self-signed certificate...
+..........+++++++++++++++++++++++++++++++++++++++++++++*.+......+......+......+............+......+.+......+............+..+....+++++++++++++++++++++++++++++++++++++++++++++*...............+..+...+.........+..........+...........+.........+++++
+..+......+.........+++++++++++++++++++++++++++++++++++++++++++++*..................+.........+.....+.........+..........+...+........+....+......+...........+....+......+++++++++++++++++++++++++++++++++++++++++++++*.+...+.......+...+............+...+...........+....+...+....................+...+.+...+...............+...+...+.....+............+...+......+.+............+...+............+............+........................+.....+.+........+...............+.+.....+...............+....+......+.....+......+...+.......+.........+......+......+..............+.+.........+.....+.+...+......+.....+.+..+...+.......+..+.............+.....+.......+.....+....+........................+............+........+.......+..............+.+....................+.+..+.+.........+.....+...+...............+....+...+.....+...............+......+....+..+......+....+...+...........+.......+...+..+....+...........+....+...+......+..............+......+...................+.....+......+......+......+.......+..+.+..+............+.........+....+...........+.+...+....................+...+...+....+.....+...+......................+......+.........+......+.........+...+........+......+..........+.....+..........+........+...+....+.........+..+...+......+..........+........+.+............+..+......+....+............+......+.................+......+......+..................+.+......+...+......+++++
+-----
+Vault TLS key and self-signed certificate have been generated in '/opt/vault/tls'.
+Scanning processes...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+ubuntu@ip-172-31-2-45:~$ vault -version
+Vault v2.0.4 (c9e9d1d4ddd4b55aae79a8949adffa9e96338720), built 2026-08-03T16:14:36Z
+ubuntu@ip-172-31-2-45:~$ vault server -dev
+==> Vault server configuration:
+
+Administrative Namespace:
+             Api Address: http://127.0.0.1:8200
+                     Cgo: disabled
+         Cluster Address: https://127.0.0.1:8201
+   Environment Variables: DBUS_SESSION_BUS_ADDRESS, DEBUGINFOD_URLS, GOTRACEBACK, HOME, LANG, LESSCLOSE, LESSOPEN, LOGNAME, LS_COLORS, PATH, PWD, SHELL, SHLVL, SSH_CLIENT, SSH_CONNECTION, SSH_TTY, TERM, USER, XDG_DATA_DIRS, XDG_RUNTIME_DIR, XDG_SESSION_CLASS, XDG_SESSION_ID, XDG_SESSION_TYPE, _
+              Go Version: go1.26.5
+              Listener 1: tcp (addr: "127.0.0.1:8200", cluster address: "127.0.0.1:8201", disable_request_limiter: "false", max_json_array_element_count: "10000", max_json_depth: "300", max_json_object_entry_count: "10000", max_json_string_value_length: "1048576", max_request_duration: "1m30s", max_request_size: "33554432", tls: "disabled")
+               Log Level:
+                   Mlock: supported: true, enabled: false
+           Recovery Mode: false
+                 Storage: inmem
+                 Version: Vault v2.0.4, built 2026-08-03T16:14:36Z
+             Version Sha: c9e9d1d4ddd4b55aae79a8949adffa9e96338720
+
+==> Vault server started! Log data will stream in below:
+
+2026-08-24T14:34:31.244Z [INFO]  proxy environment: http_proxy="" https_proxy="" no_proxy=""
+2026-08-24T14:34:31.247Z [INFO]  incrementing seal generation: generation=1
+2026-08-24T14:34:31.247Z [WARN]  no `api_addr` value specified in config or in VAULT_API_ADDR; falling back to detection if possible, but this value should be manually set
+2026-08-24T14:34:31.252Z [INFO]  core: Initializing version history cache for core
+2026-08-24T14:34:31.252Z [INFO]  events: Starting event system
+2026-08-24T14:34:31.260Z [INFO]  core: security barrier not initialized
+2026-08-24T14:34:31.261Z [INFO]  core: security barrier initialized: stored=1 shares=1 threshold=1
+2026-08-24T14:34:31.273Z [INFO]  core: post-unseal setup starting
+2026-08-24T14:34:31.288Z [INFO]  core: loaded wrapping token key
+2026-08-24T14:34:31.288Z [INFO]  core: successfully setup plugin runtime catalog
+2026-08-24T14:34:31.288Z [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-08-24T14:34:31.288Z [INFO]  core: no mounts; adding default mount table
+2026-08-24T14:34:31.293Z [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.4+builtin.vault" path=cubbyhole/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.299Z [INFO]  core: successfully mounted: type=system version="v2.0.4+builtin.vault" path=sys/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.303Z [INFO]  core: successfully mounted: type=identity version="v2.0.4+builtin.vault" path=identity/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.303Z [INFO]  core: successfully mounted: type=agent_registry version="v2.0.4+builtin.vault" path=agent-registry/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.305Z [INFO]  core: successfully mounted: type=token version="v2.0.4+builtin.vault" path=token/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.305Z [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-08-24T14:34:31.306Z [INFO]  rollback: starting rollback manager
+2026-08-24T14:34:31.308Z [INFO]  core: restoring leases
+2026-08-24T14:34:31.310Z [INFO]  identity: entities restored
+2026-08-24T14:34:31.310Z [INFO]  identity: groups restored
+2026-08-24T14:34:31.310Z [INFO]  core: Recorded vault version: vault version=2.0.4 upgrade time="2026-08-24 14:34:31.31094832 +0000 UTC" build date=2026-08-03T16:14:36Z
+2026-08-24T14:34:31.311Z [INFO]  expiration: lease restore complete
+2026-08-24T14:34:31.314Z [INFO]  core: post-unseal setup complete
+2026-08-24T14:34:31.314Z [INFO]  core: root token generated
+2026-08-24T14:34:31.314Z [INFO]  core: pre-seal teardown starting
+2026-08-24T14:34:31.315Z [INFO]  rollback: stopping rollback manager
+2026-08-24T14:34:31.315Z [INFO]  core: pre-seal teardown complete
+2026-08-24T14:34:31.315Z [INFO]  core.cluster-listener.tcp: starting listener: listener_address=127.0.0.1:8201
+2026-08-24T14:34:31.315Z [INFO]  core.cluster-listener: serving cluster requests: cluster_listen_address=127.0.0.1:8201
+2026-08-24T14:34:31.315Z [INFO]  core: post-unseal setup starting
+2026-08-24T14:34:31.316Z [INFO]  core: loaded wrapping token key
+2026-08-24T14:34:31.316Z [INFO]  core: successfully setup plugin runtime catalog
+2026-08-24T14:34:31.316Z [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-08-24T14:34:31.317Z [INFO]  core: successfully mounted: type=system version="v2.0.4+builtin.vault" path=sys/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.318Z [INFO]  core: successfully mounted: type=identity version="v2.0.4+builtin.vault" path=identity/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.318Z [INFO]  core: successfully mounted: type=agent_registry version="v2.0.4+builtin.vault" path=agent-registry/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.318Z [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.4+builtin.vault" path=cubbyhole/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.319Z [INFO]  core: successfully mounted: type=token version="v2.0.4+builtin.vault" path=token/ namespace="ID: root. Path: "
+2026-08-24T14:34:31.320Z [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-08-24T14:34:31.320Z [INFO]  core: restoring leases
+2026-08-24T14:34:31.322Z [INFO]  rollback: starting rollback manager
+2026-08-24T14:34:31.322Z [INFO]  identity: entities restored
+2026-08-24T14:34:31.324Z [INFO]  identity: groups restored
+2026-08-24T14:34:31.324Z [INFO]  expiration: lease restore complete
+2026-08-24T14:34:31.325Z [INFO]  core: post-unseal setup complete
+2026-08-24T14:34:31.325Z [INFO]  core: vault is unsealed
+2026-08-24T14:34:31.339Z [INFO]  core: successful mount: namespace="" path=secret/ type=kv version="v0.26.3-0.20260626165612-824fb96aa7a8+builtin"
+WARNING! dev mode is enabled! In this mode, Vault runs entirely in-memory
+and starts unsealed with a single unseal key. The root token is already
+authenticated to the CLI, so you can immediately begin using Vault.
+
+You may need to set the following environment variables:
+
+    $ export VAULT_ADDR='http://127.0.0.1:8200'
+
+The unseal key and root token are displayed below in case you want to
+seal/unseal the Vault or re-authenticate.
+
+Unseal Key: Htfw39gvpWIGeRJAblu54DarePQZeoIJrs0RHENjcCE=
+Root Token: xxxxx
+
+Development mode should NOT be used in production installations!
+
+
+^C==> Vault shutdown triggered
+2026-08-24T14:40:53.657Z [INFO]  core: marked as sealed
+2026-08-24T14:40:53.657Z [INFO]  core: pre-seal teardown starting
+2026-08-24T14:40:53.658Z [INFO]  rollback: stopping rollback manager
+2026-08-24T14:40:53.658Z [INFO]  core: pre-seal teardown complete
+2026-08-24T14:40:53.658Z [INFO]  core: stopping cluster listeners
+2026-08-24T14:40:53.658Z [INFO]  core.cluster-listener: forwarding rpc listeners stopped
+2026-08-24T14:40:53.811Z [INFO]  core.cluster-listener: rpc listeners successfully shut down
+2026-08-24T14:40:53.811Z [INFO]  core: cluster listeners successfully shut down
+2026-08-24T14:40:53.811Z [INFO]  core: vault is sealed
+ubuntu@ip-172-31-2-45:~$ vault server -dev
+==> Vault server configuration:
+
+Administrative Namespace:
+             Api Address: http://127.0.0.1:8200
+                     Cgo: disabled
+         Cluster Address: https://127.0.0.1:8201
+   Environment Variables: DBUS_SESSION_BUS_ADDRESS, DEBUGINFOD_URLS, GOTRACEBACK, HOME, LANG, LESSCLOSE, LESSOPEN, LOGNAME, LS_COLORS, PATH, PWD, SHELL, SHLVL, SSH_CLIENT, SSH_CONNECTION, SSH_TTY, TERM, USER, XDG_DATA_DIRS, XDG_RUNTIME_DIR, XDG_SESSION_CLASS, XDG_SESSION_ID, XDG_SESSION_TYPE, _
+              Go Version: go1.26.5
+              Listener 1: tcp (addr: "127.0.0.1:8200", cluster address: "127.0.0.1:8201", disable_request_limiter: "false", max_json_array_element_count: "10000", max_json_depth: "300", max_json_object_entry_count: "10000", max_json_string_value_length: "1048576", max_request_duration: "1m30s", max_request_size: "33554432", tls: "disabled")
+               Log Level:
+                   Mlock: supported: true, enabled: false
+           Recovery Mode: false
+                 Storage: inmem
+                 Version: Vault v2.0.4, built 2026-08-03T16:14:36Z
+             Version Sha: c9e9d1d4ddd4b55aae79a8949adffa9e96338720
+
+==> Vault server started! Log data will stream in below:
+
+2026-08-24T14:40:57.184Z [INFO]  proxy environment: http_proxy="" https_proxy="" no_proxy=""
+2026-08-24T14:40:57.184Z [INFO]  incrementing seal generation: generation=1
+2026-08-24T14:40:57.184Z [WARN]  no `api_addr` value specified in config or in VAULT_API_ADDR; falling back to detection if possible, but this value should be manually set
+2026-08-24T14:40:57.184Z [INFO]  core: Initializing version history cache for core
+2026-08-24T14:40:57.184Z [INFO]  events: Starting event system
+2026-08-24T14:40:57.185Z [INFO]  core: security barrier not initialized
+2026-08-24T14:40:57.185Z [INFO]  core: security barrier initialized: stored=1 shares=1 threshold=1
+2026-08-24T14:40:57.186Z [INFO]  core: post-unseal setup starting
+2026-08-24T14:40:57.200Z [INFO]  core: loaded wrapping token key
+2026-08-24T14:40:57.200Z [INFO]  core: successfully setup plugin runtime catalog
+2026-08-24T14:40:57.200Z [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-08-24T14:40:57.200Z [INFO]  core: no mounts; adding default mount table
+2026-08-24T14:40:57.202Z [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.4+builtin.vault" path=cubbyhole/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.202Z [INFO]  core: successfully mounted: type=system version="v2.0.4+builtin.vault" path=sys/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.203Z [INFO]  core: successfully mounted: type=identity version="v2.0.4+builtin.vault" path=identity/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.203Z [INFO]  core: successfully mounted: type=agent_registry version="v2.0.4+builtin.vault" path=agent-registry/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.205Z [INFO]  core: successfully mounted: type=token version="v2.0.4+builtin.vault" path=token/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.205Z [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-08-24T14:40:57.205Z [INFO]  rollback: starting rollback manager
+2026-08-24T14:40:57.205Z [INFO]  core: restoring leases
+2026-08-24T14:40:57.206Z [INFO]  expiration: lease restore complete
+2026-08-24T14:40:57.206Z [INFO]  identity: entities restored
+2026-08-24T14:40:57.206Z [INFO]  identity: groups restored
+2026-08-24T14:40:57.206Z [INFO]  core: Recorded vault version: vault version=2.0.4 upgrade time="2026-08-24 14:40:57.206460153 +0000 UTC" build date=2026-08-03T16:14:36Z
+2026-08-24T14:40:57.206Z [INFO]  core: post-unseal setup complete
+2026-08-24T14:40:57.207Z [INFO]  core: root token generated
+2026-08-24T14:40:57.207Z [INFO]  core: pre-seal teardown starting
+2026-08-24T14:40:57.207Z [INFO]  rollback: stopping rollback manager
+2026-08-24T14:40:57.207Z [INFO]  core: pre-seal teardown complete
+2026-08-24T14:40:57.207Z [INFO]  core.cluster-listener.tcp: starting listener: listener_address=127.0.0.1:8201
+2026-08-24T14:40:57.207Z [INFO]  core.cluster-listener: serving cluster requests: cluster_listen_address=127.0.0.1:8201
+2026-08-24T14:40:57.207Z [INFO]  core: post-unseal setup starting
+2026-08-24T14:40:57.207Z [INFO]  core: loaded wrapping token key
+2026-08-24T14:40:57.207Z [INFO]  core: successfully setup plugin runtime catalog
+2026-08-24T14:40:57.207Z [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-08-24T14:40:57.208Z [INFO]  core: successfully mounted: type=system version="v2.0.4+builtin.vault" path=sys/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.209Z [INFO]  core: successfully mounted: type=identity version="v2.0.4+builtin.vault" path=identity/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.209Z [INFO]  core: successfully mounted: type=agent_registry version="v2.0.4+builtin.vault" path=agent-registry/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.209Z [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.4+builtin.vault" path=cubbyhole/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.210Z [INFO]  core: successfully mounted: type=token version="v2.0.4+builtin.vault" path=token/ namespace="ID: root. Path: "
+2026-08-24T14:40:57.210Z [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-08-24T14:40:57.210Z [INFO]  rollback: starting rollback manager
+2026-08-24T14:40:57.210Z [INFO]  core: restoring leases
+2026-08-24T14:40:57.210Z [INFO]  expiration: lease restore complete
+2026-08-24T14:40:57.210Z [INFO]  identity: entities restored
+2026-08-24T14:40:57.210Z [INFO]  identity: groups restored
+2026-08-24T14:40:57.211Z [INFO]  core: post-unseal setup complete
+2026-08-24T14:40:57.211Z [INFO]  core: vault is unsealed
+2026-08-24T14:40:57.215Z [INFO]  core: successful mount: namespace="" path=secret/ type=kv version="v0.26.3-0.20260626165612-824fb96aa7a8+builtin"
+WARNING! dev mode is enabled! In this mode, Vault runs entirely in-memory
+and starts unsealed with a single unseal key. The root token is already
+authenticated to the CLI, so you can immediately begin using Vault.
+
+You may need to set the following environment variables:
+
+    $ export VAULT_ADDR='http://127.0.0.1:8200'
+
+The unseal key and root token are displayed below in case you want to
+seal/unseal the Vault or re-authenticate.
+
+Unseal Key: pWOxzQHJYiO+1bxFYjAQZdb7Yc/gMmqDUpUxw/7K1t0=
+Root Token: xxx
+
+Development mode should NOT be used in production installations!
+
+2026-08-24T14:50:57.208Z [INFO]  core: updated replicated hwm role and managed key counts: prefix=replicated/ currentMonth="2026-08-24 14:50:57.207514139 +0000 UTC"
+2026-08-24T14:50:57.209Z [INFO]  core: updated replicated max kv counts: prefix=replicated/ currentMonth="2026-08-24 14:50:57.207514139 +0000 UTC"
+2026-08-24T14:50:57.209Z [INFO]  core: updated local max role and managed key counts: prefix=local/ currentMonth="2026-08-24 14:50:57.207514139 +0000 UTC"
+2026-08-24T14:50:57.209Z [INFO]  core: updated local max kv counts: prefix=local/ currentMonth="2026-08-24 14:50:57.207514139 +0000 UTC"
+2026-08-24T14:50:57.209Z [INFO]  core: updated local max external plugin counts: prefix=local/ currentMonth="2026-08-24 14:50:57.207514139 +0000 UTC"
+2026-08-24T14:50:57.210Z [INFO]  core: updated local kmip enabled: prefix=local/ currentMonth="2026-08-24 14:50:57.207514139 +0000 UTC"
+2026-08-24T14:50:57.210Z [INFO]  core: updated cluster data protection call counts: prefix=local/ currentMonth="2026-08-24 14:50:57.207514139 +0000 UTC"
+2026-08-24T14:50:57.211Z [INFO]  core: updated replicated hwm role and managed key counts: prefix=replicated/ currentMonth="2026-08-24 14:50:57.211037773 +0000 UTC"
+2026-08-24T14:50:57.211Z [INFO]  core: updated replicated max kv counts: prefix=replicated/ currentMonth="2026-08-24 14:50:57.211037773 +0000 UTC"
+2026-08-24T14:50:57.211Z [INFO]  core: updated local max role and managed key counts: prefix=local/ currentMonth="2026-08-24 14:50:57.211037773 +0000 UTC"
+2026-08-24T14:50:57.211Z [INFO]  core: updated local max kv counts: prefix=local/ currentMonth="2026-08-24 14:50:57.211037773 +0000 UTC"
+2026-08-24T14:50:57.211Z [INFO]  core: updated local max external plugin counts: prefix=local/ currentMonth="2026-08-24 14:50:57.211037773 +0000 UTC"
+2026-08-24T14:50:57.211Z [INFO]  core: updated local kmip enabled: prefix=local/ currentMonth="2026-08-24 14:50:57.211037773 +0000 UTC"
+2026-08-24T14:50:57.211Z [INFO]  core: updated cluster data protection call counts: prefix=local/ currentMonth="2026-08-24 14:50:57.211037773 +0000 UTC"
+2026-08-24T14:52:49.946Z [ERROR] secrets.system.system_abac7f9f: error occurred during enable mount: path=secret/ error="path is already in use at secret/"
+2026-08-24T14:53:11.823Z [INFO]  core: successful mount: namespace="" path=my/ type=kv version="v0.26.3-0.20260626165612-824fb96aa7a8+builtin"
+2026-08-24T15:00:57.207Z [INFO]  core: updated replicated hwm role and managed key counts: prefix=replicated/ currentMonth="2026-08-24 15:00:57.207276882 +0000 UTC"
+2026-08-24T15:00:57.207Z [INFO]  core: updated replicated max kv counts: prefix=replicated/ currentMonth="2026-08-24 15:00:57.207276882 +0000 UTC"
+2026-08-24T15:00:57.208Z [INFO]  core: updated local max role and managed key counts: prefix=local/ currentMonth="2026-08-24 15:00:57.207276882 +0000 UTC"
+2026-08-24T15:00:57.208Z [INFO]  core: updated local max kv counts: prefix=local/ currentMonth="2026-08-24 15:00:57.207276882 +0000 UTC"
+2026-08-24T15:00:57.208Z [INFO]  core: updated local max external plugin counts: prefix=local/ currentMonth="2026-08-24 15:00:57.207276882 +0000 UTC"
+2026-08-24T15:00:57.208Z [INFO]  core: updated local kmip enabled: prefix=local/ currentMonth="2026-08-24 15:00:57.207276882 +0000 UTC"
+2026-08-24T15:00:57.208Z [INFO]  core: updated cluster data protection call counts: prefix=local/ currentMonth="2026-08-24 15:00:57.207276882 +0000 UTC"
+2026-08-24T15:00:57.212Z [INFO]  core: updated replicated hwm role and managed key counts: prefix=replicated/ currentMonth="2026-08-24 15:00:57.21176233 +0000 UTC"
+2026-08-24T15:00:57.212Z [INFO]  core: updated replicated max kv counts: prefix=replicated/ currentMonth="2026-08-24 15:00:57.21176233 +0000 UTC"
+2026-08-24T15:00:57.212Z [INFO]  core: updated local max role and managed key counts: prefix=local/ currentMonth="2026-08-24 15:00:57.21176233 +0000 UTC"
+2026-08-24T15:00:57.212Z [INFO]  core: updated local max kv counts: prefix=local/ currentMonth="2026-08-24 15:00:57.21176233 +0000 UTC"
+2026-08-24T15:00:57.212Z [INFO]  core: updated local max external plugin counts: prefix=local/ currentMonth="2026-08-24 15:00:57.21176233 +0000 UTC"
+2026-08-24T15:00:57.212Z [INFO]  core: updated local kmip enabled: prefix=local/ currentMonth="2026-08-24 15:00:57.21176233 +0000 UTC"
+2026-08-24T15:00:57.212Z [INFO]  core: updated cluster data protection call counts: prefix=local/ currentMonth="2026-08-24 15:00:57.21176233 +0000 UTC"
+2026-08-24T15:10:57.207Z [INFO]  core: updated replicated hwm role and managed key counts: prefix=replicated/ currentMonth="2026-08-24 15:10:57.206713479 +0000 UTC"
+2026-08-24T15:10:57.207Z [INFO]  core: updated replicated max kv counts: prefix=replicated/ currentMonth="2026-08-24 15:10:57.206713479 +0000 UTC"
+2026-08-24T15:10:57.207Z [INFO]  core: updated local max role and managed key counts: prefix=local/ currentMonth="2026-08-24 15:10:57.206713479 +0000 UTC"
+2026-08-24T15:10:57.207Z [INFO]  core: updated local max kv counts: prefix=local/ currentMonth="2026-08-24 15:10:57.206713479 +0000 UTC"
+2026-08-24T15:10:57.207Z [INFO]  core: updated local max external plugin counts: prefix=local/ currentMonth="2026-08-24 15:10:57.206713479 +0000 UTC"
+2026-08-24T15:10:57.207Z [INFO]  core: updated local kmip enabled: prefix=local/ currentMonth="2026-08-24 15:10:57.206713479 +0000 UTC"
+2026-08-24T15:10:57.207Z [INFO]  core: updated cluster data protection call counts: prefix=local/ currentMonth="2026-08-24 15:10:57.206713479 +0000 UTC"
+2026-08-24T15:10:57.211Z [INFO]  core: updated replicated hwm role and managed key counts: prefix=replicated/ currentMonth="2026-08-24 15:10:57.211058824 +0000 UTC"
+2026-08-24T15:10:57.211Z [INFO]  core: updated replicated max kv counts: prefix=replicated/ currentMonth="2026-08-24 15:10:57.211058824 +0000 UTC"
+2026-08-24T15:10:57.211Z [INFO]  core: updated local max role and managed key counts: prefix=local/ currentMonth="2026-08-24 15:10:57.211058824 +0000 UTC"
+2026-08-24T15:10:57.211Z [INFO]  core: updated local max kv counts: prefix=local/ currentMonth="2026-08-24 15:10:57.211058824 +0000 UTC"
+2026-08-24T15:10:57.212Z [INFO]  core: updated local max external plugin counts: prefix=local/ currentMonth="2026-08-24 15:10:57.211058824 +0000 UTC"
+2026-08-24T15:10:57.212Z [INFO]  core: updated local kmip enabled: prefix=local/ currentMonth="2026-08-24 15:10:57.211058824 +0000 UTC"
+2026-08-24T15:10:57.212Z [INFO]  core: updated cluster data protection call counts: prefix=local/ currentMonth="2026-08-24 15:10:57.211058824 +0000 UTC"
+Connection to 65.2.79.6 closed by remote host.
+Connection to 65.2.79.6 closed.
+
+ubuntu@ip-172-31-2-45:~$ export VAULT_ADDR='http://127.0.0.1:8200'
+ubuntu@ip-172-31-2-45:~$ export VAULT_TOKEN="root_token"
+ubuntu@ip-172-31-2-45:~$ vault status
+Key             Value
+---             -----
+Seal Type       shamir
+Initialized     true
+Sealed          false
+Total Shares    1
+Threshold       1
+Version         2.0.4
+Build Date      2026-08-03T16:14:36Z
+Storage Type    inmem
+Cluster Name    vault-cluster-c97ed8de
+Cluster ID      d40de6a9-3d6f-2cef-fd60-698db3ca1c14
+HA Enabled      false
+ubuntu@ip-172-31-2-45:~$ vault secrets enable -path=secret kv
+Error enabling: Error making API request.
+
+URL: POST http://127.0.0.1:8200/v1/sys/mounts/secret
+Code: 400. Errors:
+
+* path is already in use at secret/
+ubuntu@ip-172-31-2-45:~$ vault secrets enable -path=my kv
+Success! Enabled the kv secrets engine at: my/
+ubuntu@ip-172-31-2-45:~$ vault kv put my/path my-key-1=value-1
+Success! Data written to: my/path
+ubuntu@ip-172-31-2-45:~$ vault kv get my/path
+====== Data ======
+Key         Value
+---         -----
+my-key-1    value-1
+ubuntu@ip-172-31-2-45:~$ vault kv get --format=json my/path
+{
+  "request_id": "b186230b-5436-00e0-d0ac-ae2a89cc8740",
+  "lease_id": "",
+  "lease_duration": 2764800,
+  "renewable": false,
+  "data": {
+    "my-key-1": "value-1"
+  },
+  "warnings": null,
+  "mount_type": "kv"
+}
+ubuntu@ip-172-31-2-45:~$ vault secret list
+Usage: vault <command> [args]
+
+Common commands:
+    read        Read data and retrieves secrets
+    write       Write data, configuration, and secrets
+    delete      Delete secrets and configuration
+    list        List data or secrets
+    login       Authenticate locally
+    agent       Start a Vault agent
+    server      Start a Vault server
+    status      Print seal and HA status
+    unwrap      Unwrap a wrapped secret
+
+Other commands:
+    audit                Interact with audit devices
+    auth                 Interact with auth methods
+    debug                Runs the debug command
+    events
+    hcp
+    kv                   Interact with Vault's Key-Value storage
+    lease                Interact with leases
+    monitor              Stream log messages from a Vault server
+    namespace            Interact with namespaces
+    operator             Perform operator-specific tasks
+    patch                Patch data, configuration, and secrets
+    path-help            Retrieve API help for paths
+    pki                  Interact with Vault's PKI Secrets Engine
+    plugin               Interact with Vault plugins and catalog
+    policy               Interact with policies
+    print                Prints runtime configurations
+    proxy                Start a Vault Proxy
+    secrets              Interact with secrets engines
+    ssh                  Initiate an SSH session
+    token                Interact with tokens
+    transform            Interact with Vault's Transform Secrets Engine
+    transit              Interact with Vault's Transit Secrets Engine
+    version-history      Prints the version history of the target Vault server
+ubuntu@ip-172-31-2-45:~$ vault secrets list
+Path               Type              Accessor                   Description
+----               ----              --------                   -----------
+agent-registry/    agent_registry    agent-registry_091201be    agent registry
+cubbyhole/         cubbyhole         cubbyhole_dc1813ec         per-token private secret storage
+identity/          identity          identity_a1cbf3e3          identity store
+my/                kv                kv_68031425                n/a
+secret/            kv                kv_6d089c7c                key/value secret storage
+sys/               system            system_abac7f9f            system endpoints used for control, policy and debugging
+ubuntu@ip-172-31-2-45:~$ vault kv delete my/path
+Success! Data deleted (if it existed) at: my/path
+ubuntu@ip-172-31-2-45:~$ vault kv get --format=json my/path
+No value found at my/path
+ubuntu@ip-172-31-2-45:~$ vault kv put secret/myapp username="admin" password="admin" database="mydb"
+== Secret Path ==
+secret/data/myapp
+
+======= Metadata =======
+Key                Value
+---                -----
+created_time       2026-08-24T15:01:35.487005214Z
+custom_metadata    <nil>
+deletion_time      n/a
+destroyed          false
+version            1
+ubuntu@ip-172-31-2-45:~$ vault secrets list
+Path               Type              Accessor                   Description
+----               ----              --------                   -----------
+agent-registry/    agent_registry    agent-registry_091201be    agent registry
+cubbyhole/         cubbyhole         cubbyhole_dc1813ec         per-token private secret storage
+identity/          identity          identity_a1cbf3e3          identity store
+my/                kv                kv_68031425                n/a
+secret/            kv                kv_6d089c7c                key/value secret storage
+sys/               system            system_abac7f9f            system endpoints used for control, policy and debugging
+ubuntu@ip-172-31-2-45:~$ Connection to 65.2.79.6 closed by remote host.
+Connection to 65.2.79.6 closed.

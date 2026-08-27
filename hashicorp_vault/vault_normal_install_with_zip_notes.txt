@@ -1,0 +1,315 @@
+ubuntu@ip-172-31-2-45:~$ wget https://releases.hashicorp.com/vault/2.0.4/vault_2.0.4_linux_amd64.zip
+--2026-08-27 17:35:56--  https://releases.hashicorp.com/vault/2.0.4/vault_2.0.4_linux_amd64.zip
+Resolving releases.hashicorp.com (releases.hashicorp.com)... 18.172.64.38, 18.172.64.101, 18.172.64.46, ...
+Connecting to releases.hashicorp.com (releases.hashicorp.com)|18.172.64.38|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 176591344 (168M) [application/zip]
+Saving to: ‘vault_2.0.4_linux_amd64.zip’
+
+vault_2.0.4_linux_amd64.zip                   100%[================================================================================================>] 168.41M   281MB/s    in 0.6s
+
+2026-08-27 17:35:57 (281 MB/s) - ‘vault_2.0.4_linux_amd64.zip’ saved [176591344/176591344]
+
+ubuntu@ip-172-31-2-45:~$ ls
+vault_2.0.4_linux_amd64.zip
+ubuntu@ip-172-31-2-45:~$ unzip vault_2.0.4_linux_amd64.zip
+Command 'unzip' not found, but can be installed with:
+sudo apt install unzip
+ubuntu@ip-172-31-2-45:~$ sudo apt install unzip -y
+Installing:
+  unzip
+
+Suggested packages:
+  zip
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 115
+  Download size: 181 kB
+  Space needed: 430 kB / 3819 MB available
+
+Get:1 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu resolute/main amd64v3 unzip amd64 6.0-29ubuntu1 [181 kB]
+Fetched 181 kB in 0s (11.2 MB/s)
+Selecting previously unselected package unzip.
+(Reading database ... 85310 files and directories currently installed.)
+Preparing to unpack .../unzip_6.0-29ubuntu1_amd64v3.deb ...
+Unpacking unzip (6.0-29ubuntu1) ...
+Setting up unzip (6.0-29ubuntu1) ...
+Processing triggers for man-db (2.13.1-1build1) ...
+Scanning processes...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+ubuntu@ip-172-31-2-45:~$ unzip vault_2.0.4_linux_amd64.zip
+Archive:  vault_2.0.4_linux_amd64.zip
+  inflating: LICENSE.txt
+  inflating: vault
+
+ubuntu@ip-172-31-2-45:~$
+ubuntu@ip-172-31-2-45:~$ ls
+LICENSE.txt  vault  vault_2.0.4_linux_amd64.zip
+ubuntu@ip-172-31-2-45:~$ cd vau
+-bash: cd: vau: No such file or directory
+ubuntu@ip-172-31-2-45:~$ cd vault
+-bash: cd: vault: Not a directory
+ubuntu@ip-172-31-2-45:~$ sudo mv vault /usr/local/bin/
+ubuntu@ip-172-31-2-45:~$ vault --version
+Vault v2.0.4 (c9e9d1d4ddd4b55aae79a8949adffa9e96338720), built 2026-08-03T16:14:36Z
+ubuntu@ip-172-31-2-45:~$ sudo useradd --system --home /etc/vault.d --shell /bin/false vault
+useradd: user 'vault' already exists
+ubuntu@ip-172-31-2-45:~$ sudo mkdir -p /etc/vault.d
+ubuntu@ip-172-31-2-45:~$ sudo mkdir -p /opt/vault/data
+ubuntu@ip-172-31-2-45:~$ sudo chown -R vault:vault /etc/vault.d /opt/vault
+ubuntu@ip-172-31-2-45:~$ sudo nano /etc/vault.d/vault.hcl
+ubuntu@ip-172-31-2-45:~$ sudo nano /etc/systemd/system/vault.service
+ubuntu@ip-172-31-2-45:~$ sudo systemctl daemon-reload
+ubuntu@ip-172-31-2-45:~$ sudo systemctl enable vault
+Created symlink '/etc/systemd/system/multi-user.target.wants/vault.service' → '/etc/systemd/system/vault.service'.
+ubuntu@ip-172-31-2-45:~$ sudo systemctl start vault
+ubuntu@ip-172-31-2-45:~$ sudo systemctl status vault
+× vault.service - HashiCorp Vault
+     Loaded: loaded (/etc/systemd/system/vault.service; enabled; preset: enabled)
+     Active: failed (Result: exit-code) since Thu 2026-08-27 17:41:19 UTC; 5s ago
+   Duration: 125ms
+ Invocation: 4baefc3364eb48c49c805e235203e266
+       Docs: https://www.vaultproject.io/docs/
+    Process: 1812 ExecStart=/usr/local/bin/vault server -config=/etc/vault.d/vault.hcl (code=exited, status=1/FAILURE)
+   Main PID: 1812 (code=exited, status=1/FAILURE)
+   Mem peak: 22.3M
+        CPU: 107ms
+
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Main process exited, code=exited, status=1/FAILURE
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Scheduled restart job, restart counter is at 5.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Start request repeated too quickly.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: Failed to start vault.service - HashiCorp Vault.
+ubuntu@ip-172-31-2-45:~$ sudo journalctl -u vault.service -n 50 --no-pager
+Aug 27 17:41:17 ip-172-31-2-45 systemd[1]: Started vault.service - HashiCorp Vault.
+Aug 27 17:41:17 ip-172-31-2-45 vault[1771]: error loading configuration from /etc/vault.d/vault.hcl: The argument "ui" at 32:1 was already set. Each argument can only be defined once
+Aug 27 17:41:17 ip-172-31-2-45 systemd[1]: vault.service: Main process exited, code=exited, status=1/FAILURE
+Aug 27 17:41:17 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:18 ip-172-31-2-45 systemd[1]: vault.service: Scheduled restart job, restart counter is at 1.
+Aug 27 17:41:18 ip-172-31-2-45 systemd[1]: Started vault.service - HashiCorp Vault.
+Aug 27 17:41:18 ip-172-31-2-45 vault[1784]: error loading configuration from /etc/vault.d/vault.hcl: The argument "ui" at 32:1 was already set. Each argument can only be defined once
+Aug 27 17:41:18 ip-172-31-2-45 systemd[1]: vault.service: Main process exited, code=exited, status=1/FAILURE
+Aug 27 17:41:18 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:18 ip-172-31-2-45 systemd[1]: vault.service: Scheduled restart job, restart counter is at 2.
+Aug 27 17:41:18 ip-172-31-2-45 systemd[1]: Started vault.service - HashiCorp Vault.
+Aug 27 17:41:18 ip-172-31-2-45 vault[1795]: error loading configuration from /etc/vault.d/vault.hcl: The argument "ui" at 32:1 was already set. Each argument can only be defined once
+Aug 27 17:41:18 ip-172-31-2-45 systemd[1]: vault.service: Main process exited, code=exited, status=1/FAILURE
+Aug 27 17:41:18 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Scheduled restart job, restart counter is at 3.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: Started vault.service - HashiCorp Vault.
+Aug 27 17:41:19 ip-172-31-2-45 vault[1803]: error loading configuration from /etc/vault.d/vault.hcl: The argument "ui" at 32:1 was already set. Each argument can only be defined once
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Main process exited, code=exited, status=1/FAILURE
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Scheduled restart job, restart counter is at 4.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: Started vault.service - HashiCorp Vault.
+Aug 27 17:41:19 ip-172-31-2-45 vault[1812]: error loading configuration from /etc/vault.d/vault.hcl: The argument "ui" at 32:1 was already set. Each argument can only be defined once
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Main process exited, code=exited, status=1/FAILURE
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Scheduled restart job, restart counter is at 5.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Start request repeated too quickly.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: Failed to start vault.service - HashiCorp Vault.
+ubuntu@ip-172-31-2-45:~$ cat /etc/vault.d/vault.hcl
+# Copyright IBM Corp. 2016, 2025
+# SPDX-License-Identifier: BUSL-1.1
+
+# Full configuration options can be found at https://developer.hashicorp.com/vault/docs/configuration
+
+ui = true
+
+#mlock = true
+#disable_mlock = true
+
+storage "file" {
+  path = "/opt/vault/data"
+}
+
+#storage "consul" {
+#  address = "127.0.0.1:8500"
+#  path    = "vault"
+#}
+
+# HTTP listener
+#listener "tcp" {
+#  address = "127.0.0.1:8200"
+#  tls_disable = 1
+#}
+
+# HTTPS listener
+listener "tcp" {
+  address       = "0.0.0.0:8200"
+  tls_disable = 1
+}
+api_addr = "http://15.252.72.180:8200"
+ui = true
+disable_mlock = true
+# Enterprise license_path
+# This will be required for enterprise as of v1.8
+#license_path = "/etc/vault.d/vault.hclic"
+
+# Example AWS KMS auto unseal
+#seal "awskms" {
+#  region = "us-east-1"
+#  kms_key_id = "REPLACE-ME"
+#}
+
+# Example HSM auto unseal
+#seal "pkcs11" {
+#  lib            = "/usr/vault/lib/libCryptoki2_64.so"
+#  slot           = "0"
+#  pin            = "AAAA-BBBB-CCCC-DDDD"
+#  key_label      = "vault-hsm-key"
+#  hmac_key_label = "vault-hsm-hmac-key"
+#}
+ubuntu@ip-172-31-2-45:~$ vi /etc/vault.d/vault.hcl
+ubuntu@ip-172-31-2-45:~$ sudo vi /etc/vault.d/vault.hcl
+ubuntu@ip-172-31-2-45:~$ sudo systemctl daemon-reload
+ubuntu@ip-172-31-2-45:~$ systemctl status vault
+× vault.service - HashiCorp Vault
+     Loaded: loaded (/etc/systemd/system/vault.service; enabled; preset: enabled)
+     Active: failed (Result: exit-code) since Thu 2026-08-27 17:41:19 UTC; 2min 59s ago
+   Duration: 125ms
+ Invocation: 4baefc3364eb48c49c805e235203e266
+       Docs: https://www.vaultproject.io/docs/
+   Main PID: 1812 (code=exited, status=1/FAILURE)
+   Mem peak: 22.3M
+        CPU: 107ms
+
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Main process exited, code=exited, status=1/FAILURE
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Scheduled restart job, restart counter is at 5.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Start request repeated too quickly.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: vault.service: Failed with result 'exit-code'.
+Aug 27 17:41:19 ip-172-31-2-45 systemd[1]: Failed to start vault.service - HashiCorp Vault.
+ubuntu@ip-172-31-2-45:~$ sudo systemctl vault start
+Unknown command verb 'vault', did you mean 'halt'?
+ubuntu@ip-172-31-2-45:~$ sudo systemctl start vault
+ubuntu@ip-172-31-2-45:~$ sudo systemctl vault start
+Unknown command verb 'vault', did you mean 'halt'?
+ubuntu@ip-172-31-2-45:~$ systemctl status vault
+● vault.service - HashiCorp Vault
+     Loaded: loaded (/etc/systemd/system/vault.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-08-27 17:44:37 UTC; 4s ago
+ Invocation: 731fa706eb4246879d58974aa8f4af12
+       Docs: https://www.vaultproject.io/docs/
+   Main PID: 2010 (vault)
+      Tasks: 8 (limit: 627)
+     Memory: 28.8M (peak: 28.8M)
+        CPU: 103ms
+     CGroup: /system.slice/vault.service
+             └─2010 /usr/local/bin/vault server -config=/etc/vault.d/vault.hcl
+
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]:                    Mlock: supported: true, enabled: false
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]:            Recovery Mode: false
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]:                  Storage: file
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]:                  Version: Vault v2.0.4, built 2026-08-03T16:14:>
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]:              Version Sha: c9e9d1d4ddd4b55aae79a8949adffa9e96338>
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]: ==> Vault server started! Log data will stream in below:
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]: 2026-08-27T17:44:37.909Z [INFO]  proxy environment: http_proxy=>
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]: 2026-08-27T17:44:37.911Z [INFO]  incrementing seal generation: >
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]: 2026-08-27T17:44:37.916Z [INFO]  core: Initializing version his>
+Aug 27 17:44:37 ip-172-31-2-45 vault[2010]: 2026-08-27T17:44:37.916Z [INFO]  events: Starting event system
+ubuntu@ip-172-31-2-45:~$ export VAULT_ADDR="http://15.252.72.180:8200"
+ubuntu@ip-172-31-2-45:~$ vault server -dev -dev-listen-address="0.0.0.0:8200"
+Error parsing listener configuration.
+Error initializing listener of type tcp: listen tcp4 0.0.0.0:8200: bind: address already in use
+2026-08-27T17:45:38.464Z [INFO]  proxy environment: http_proxy="" https_proxy="" no_proxy=""
+2026-08-27T17:45:38.467Z [INFO]  incrementing seal generation: generation=1
+2026-08-27T17:45:38.467Z [WARN]  no `api_addr` value specified in config or in VAULT_API_ADDR; falling back to detection if possible, but this value should be manually set
+2026-08-27T17:45:38.468Z [INFO]  core: Initializing version history cache for core
+2026-08-27T17:45:38.468Z [INFO]  events: Starting event system
+ubuntu@ip-172-31-2-45:~$ vault server -dev -dev-listen-address="0.0.0.0:8300"
+==> Vault server configuration:
+
+Administrative Namespace:
+             Api Address: http://0.0.0.0:8300
+                     Cgo: disabled
+         Cluster Address: https://0.0.0.0:8301
+   Environment Variables: DBUS_SESSION_BUS_ADDRESS, DEBUGINFOD_URLS, HOME, LANG, LESSCLOSE, LESSOPEN, LOGNAME, LS_COLORS, PATH, PWD, SHELL, SHLVL, SSH_CLIENT, SSH_CONNECTION, SSH_TTY, TERM, USER, VAULT_ADDR, XDG_DATA_DIRS, XDG_RUNTIME_DIR, XDG_SESSION_CLASS, XDG_SESSION_ID, XDG_SESSION_TYPE, _
+              Go Version: go1.26.5
+              Listener 1: tcp (addr: "0.0.0.0:8300", cluster address: "0.0.0.0:8301", disable_request_limiter: "false", max_json_array_element_count: "10000", max_json_depth: "300", max_json_object_entry_count: "10000", max_json_string_value_length: "1048576", max_request_duration: "1m30s", max_request_size: "33554432", tls: "disabled")
+               Log Level:
+                   Mlock: supported: true, enabled: false
+           Recovery Mode: false
+                 Storage: inmem
+                 Version: Vault v2.0.4, built 2026-08-03T16:14:36Z
+             Version Sha: c9e9d1d4ddd4b55aae79a8949adffa9e96338720
+
+==> Vault server started! Log data will stream in below:
+
+2026-08-27T17:47:10.862Z [INFO]  proxy environment: http_proxy="" https_proxy="" no_proxy=""
+2026-08-27T17:47:10.862Z [INFO]  incrementing seal generation: generation=1
+2026-08-27T17:47:10.862Z [WARN]  no `api_addr` value specified in config or in VAULT_API_ADDR; falling back to detection if possible, but this value should be manually set
+2026-08-27T17:47:10.863Z [INFO]  core: Initializing version history cache for core
+2026-08-27T17:47:10.863Z [INFO]  events: Starting event system
+2026-08-27T17:47:10.863Z [INFO]  core: security barrier not initialized
+2026-08-27T17:47:10.864Z [INFO]  core: security barrier initialized: stored=1 shares=1 threshold=1
+2026-08-27T17:47:10.872Z [INFO]  core: post-unseal setup starting
+2026-08-27T17:47:10.890Z [INFO]  core: loaded wrapping token key
+2026-08-27T17:47:10.890Z [INFO]  core: successfully setup plugin runtime catalog
+2026-08-27T17:47:10.891Z [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-08-27T17:47:10.891Z [INFO]  core: no mounts; adding default mount table
+2026-08-27T17:47:10.897Z [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.4+builtin.vault" path=cubbyhole/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.905Z [INFO]  core: successfully mounted: type=system version="v2.0.4+builtin.vault" path=sys/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.912Z [INFO]  core: successfully mounted: type=identity version="v2.0.4+builtin.vault" path=identity/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.912Z [INFO]  core: successfully mounted: type=agent_registry version="v2.0.4+builtin.vault" path=agent-registry/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.915Z [INFO]  core: successfully mounted: type=token version="v2.0.4+builtin.vault" path=token/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.915Z [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-08-27T17:47:10.915Z [INFO]  rollback: starting rollback manager
+2026-08-27T17:47:10.915Z [INFO]  core: restoring leases
+2026-08-27T17:47:10.916Z [INFO]  expiration: lease restore complete
+2026-08-27T17:47:10.918Z [INFO]  identity: entities restored
+2026-08-27T17:47:10.918Z [INFO]  identity: groups restored
+2026-08-27T17:47:10.919Z [INFO]  core: Recorded vault version: vault version=2.0.4 upgrade time="2026-08-27 17:47:10.919518402 +0000 UTC" build date=2026-08-03T16:14:36Z
+2026-08-27T17:47:10.922Z [INFO]  core: post-unseal setup complete
+2026-08-27T17:47:10.922Z [INFO]  core: root token generated
+2026-08-27T17:47:10.922Z [INFO]  core: pre-seal teardown starting
+2026-08-27T17:47:10.923Z [INFO]  rollback: stopping rollback manager
+2026-08-27T17:47:10.923Z [INFO]  core: pre-seal teardown complete
+2026-08-27T17:47:10.923Z [INFO]  core.cluster-listener.tcp: starting listener: listener_address=0.0.0.0:8301
+2026-08-27T17:47:10.924Z [INFO]  core.cluster-listener: serving cluster requests: cluster_listen_address=[::]:8301
+2026-08-27T17:47:10.924Z [INFO]  core: post-unseal setup starting
+2026-08-27T17:47:10.924Z [INFO]  core: loaded wrapping token key
+2026-08-27T17:47:10.924Z [INFO]  core: successfully setup plugin runtime catalog
+2026-08-27T17:47:10.924Z [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-08-27T17:47:10.925Z [INFO]  core: successfully mounted: type=system version="v2.0.4+builtin.vault" path=sys/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.925Z [INFO]  core: successfully mounted: type=identity version="v2.0.4+builtin.vault" path=identity/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.925Z [INFO]  core: successfully mounted: type=agent_registry version="v2.0.4+builtin.vault" path=agent-registry/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.925Z [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.4+builtin.vault" path=cubbyhole/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.926Z [INFO]  core: successfully mounted: type=token version="v2.0.4+builtin.vault" path=token/ namespace="ID: root. Path: "
+2026-08-27T17:47:10.926Z [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-08-27T17:47:10.927Z [INFO]  rollback: starting rollback manager
+2026-08-27T17:47:10.927Z [INFO]  core: restoring leases
+2026-08-27T17:47:10.927Z [INFO]  expiration: lease restore complete
+2026-08-27T17:47:10.927Z [INFO]  identity: entities restored
+2026-08-27T17:47:10.927Z [INFO]  identity: groups restored
+2026-08-27T17:47:10.927Z [INFO]  core: post-unseal setup complete
+2026-08-27T17:47:10.927Z [INFO]  core: vault is unsealed
+2026-08-27T17:47:10.937Z [INFO]  core: successful mount: namespace="" path=secret/ type=kv version="v0.26.3-0.20260626165612-824fb96aa7a8+builtin"
+WARNING! dev mode is enabled! In this mode, Vault runs entirely in-memory
+and starts unsealed with a single unseal key. The root token is already
+authenticated to the CLI, so you can immediately begin using Vault.
+
+You may need to set the following environment variables:
+
+    $ export VAULT_ADDR='http://0.0.0.0:8300'
+
+The unseal key and root token are displayed below in case you want to
+seal/unseal the Vault or re-authenticate.
+
+Unseal Key: 2bcMXPCInAIcvG2j6j3aucthuG8IA5OvWLuEVnCPb1A=
+Root Token: xxxx
+
+Development mode should NOT be used in production installations!
+```
