@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-test
+  labels:
+    app: python-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-test
+  template:
+    metadata:
+      labels:
+        app: python-test
+    spec:
+      containers:
+        - name: python-http
+          image: python:3.12-slim
+          command: ["python", "-m", "http.server", "8000", "--bind", "0.0.0.0"]
+          ports:
+            - name: http
+              containerPort: 8000

@@ -1,0 +1,12 @@
+gitlabUrl: https://gitlab.com
+
+runnerToken: ""
+
+runners:
+  secret: gitlab-runner-secret
+  config: |
+    [[runners]]
+      [runners.kubernetes]
+        namespace = "gitlab-runner"
+        image = "ubuntu:22.04"
+        privileged = true
